@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Apex Vector Studio — Private Executive Technology Coaching</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     APEX VECTOR BRAND TOKENS
+     ============================================ */
+  :root {
+    --black: #111111;
+    --charcoal: #2A2A2A;
+    --gold: #C9A84C;
+    --gold-light: #DDBF6B;
+    --gold-dark: #A8882E;
+    --text: #3D3D3D;
+    --gray-med: #6B6B6B;
+    --sand: #F8F7F5;
+    --border: #D6D2CA;
+    --white: #FFFFFF;
+
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Outfit', Arial, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--font-body);
+    color: var(--white);
+    background: var(--black);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ============================================
+     UTILITY — CENTERED LABEL WITH RULES ON BOTH SIDES
+     ============================================ */
+  .label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .label--centered {
+    justify-content: center;
+  }
+
+  .gold-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .gold-rule--grow {
+    flex: 1;
+    max-width: 48px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ============================================
+     NAVIGATION — OPTION A: BANNER IMAGE
+     ============================================ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(17, 17, 17, 0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+    transition: all 0.4s ease;
+  }
+
+  nav.scrolled {
+    padding: 0.8rem 3rem;
+    background: rgba(17, 17, 17, 0.97);
+  }
+
+  /* Option A: Banner image logo */
+  .nav-logo--image img {
+    height: 42px;
+    width: auto;
+    transition: height 0.4s ease;
+  }
+
+  nav.scrolled .nav-logo--image img {
+    height: 34px;
+  }
+
+  /* Option B: Styled HTML text logo */
+  .nav-logo--text {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .nav-logo--text .nav-icon {
+    height: 36px;
+    width: auto;
+    transition: height 0.4s ease;
+  }
+
+  nav.scrolled .nav-logo--text .nav-icon {
+    height: 28px;
+  }
+
+  .nav-logo-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .nav-logo-the {
+    font-family: var(--font-body);
+    font-size: 0.45rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-med);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .nav-logo-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .nav-logo-studio {
+    font-family: var(--font-body);
+    font-size: 0.5rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-med);
+    transition: color 0.3s ease;
+    font-weight: 400;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+
+  .nav-cta {
+    padding: 0.55rem 1.6rem;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--black) !important;
+  }
+
+  /* Logo version toggle — show Option A by default */
+  .nav-logo--option-b { display: none; }
+
+  /* Toggle class on body to switch versions */
+  body.logo-text .nav-logo--option-a { display: none; }
+  body.logo-text .nav-logo--option-b { display: flex; }
+
+  /* ============================================
+     HERO
+     ============================================ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -15%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+  }
+
+  .hero-inner {
+    max-width: 820px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-label {
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  .hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--gray-med);
+    max-width: 580px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.7s;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.9s;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 1px solid var(--gold);
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--gold);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: var(--gold-light);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ============================================
+     SECTION FRAMEWORK
+     ============================================ */
+  section {
+    padding: 7rem 3rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 4rem;
+  }
+
+  .section-header .label {
+    margin-bottom: 1rem;
+  }
+
+  .section-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  /* ============================================
+     DISTINCTION — "What the Practice Does"
+     ============================================ */
+  .distinction {
+    background: var(--charcoal);
+  }
+
+  .distinction-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .distinction-text p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Hybrid Human/AI Model Card */
+  .hybrid-card {
+    background: var(--black);
+    border: 1px solid rgba(201, 168, 76, 0.12);
+    padding: 2.5rem;
+    position: relative;
+  }
+
+  .hybrid-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .hybrid-card-label {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .hybrid-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+  }
+
+  .hybrid-card p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .hybrid-card p:last-child { margin-bottom: 0; }
+
+  .hybrid-emphasis {
+    color: var(--gold-light) !important;
+    font-weight: 400 !important;
+    border-left: 2px solid var(--gold-dark);
+    padding-left: 1rem;
+    margin-top: 1.2rem;
+  }
+
+  /* ============================================
+     FOUR PILLARS
+     ============================================ */
+  .pillars {
+    background: var(--black);
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.1);
+  }
+
+  .pillar {
+    background: var(--black);
+    padding: 2.5rem 2rem;
+    transition: all 0.4s ease;
+  }
+
+  .pillar:hover { background: var(--charcoal); }
+
+  .pillar-num {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: rgba(201, 168, 76, 0.15);
+    line-height: 1;
+    margin-bottom: 1.2rem;
+  }
+
+  .pillar h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .pillar-sub {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    margin-bottom: 1.2rem;
+  }
+
+  .pillar p {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.65;
+  }
+
+  /* ============================================
+     THE VIRTUAL STUDIO MODEL
+     ============================================ */
+  .model {
+    background: var(--charcoal);
+    overflow: hidden;
+  }
+
+  .model-intro {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 650px;
+    margin-bottom: 4rem;
+  }
+
+  .model-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .model-card {
+    background: var(--black);
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    padding: 3rem 2.2rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .model-card:hover {
+    border-color: rgba(201, 168, 76, 0.25);
+  }
+
+  .model-card-icon {
+    width: 40px; height: 40px;
+    border: 1px solid var(--gold-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+  }
+
+  .model-card-icon svg {
+    width: 18px; height: 18px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .model-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .model-card p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.7;
+  }
+
+  /* Async / 24-7 callout bar */
+  .async-bar {
+    background: var(--black);
+    border: 1px solid rgba(201, 168, 76, 0.12);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .async-bar-icon {
+    flex-shrink: 0;
+    width: 48px; height: 48px;
+    border: 1px solid var(--gold-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .async-bar-icon svg {
+    width: 20px; height: 20px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .async-bar-content h4 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .async-bar-content p {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+  }
+
+  /* ============================================
+     CREDENTIALS — "The Experience Behind the Practice"
+     ============================================ */
+  .credentials {
+    background: var(--black);
+  }
+
+  .cred-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(214, 210, 202, 0.08);
+  }
+
+  .cred-item {
+    background: var(--black);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cred-domain {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .cred-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1.35;
+  }
+
+  .cred-detail {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.5;
+  }
+
+  /* ============================================
+     ASSESSMENT CTA — "Measure Your Readiness"
+     ============================================ */
+  .assessment {
+    background: var(--charcoal);
+    text-align: center;
+    padding: 8rem 3rem;
+    position: relative;
+  }
+
+  .assessment::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .assessment .section-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+  }
+
+  .assessment h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .assessment p {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2.5rem;
+  }
+
+  .assessment-features {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .assessment-feature {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+  }
+
+  .assessment-feature span:first-child {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .assessment-feature span:last-child {
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray-med);
+    font-weight: 400;
+  }
+
+  /* ============================================
+     CONTACT / FOOTER
+     ============================================ */
+  .contact {
+    background: var(--black);
+    padding: 5rem 3rem;
+    border-top: 1px solid rgba(201, 168, 76, 0.1);
+  }
+
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .contact-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  .contact-title {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.6;
+  }
+
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.8rem;
+  }
+
+  .contact-right a {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    transition: color 0.3s ease;
+  }
+
+  .contact-right a:hover { color: var(--gold-light); }
+
+  footer {
+    background: var(--black);
+    padding: 2rem 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.25);
+    font-weight: 300;
+  }
+
+  .footer-tagline {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-style: italic;
+    color: rgba(201, 168, 76, 0.3);
+    font-weight: 400;
+  }
+
+  /* ============================================
+     LOGO VERSION TOGGLE (dev helper)
+     ============================================ */
+  .logo-toggle {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 200;
+    padding: 0.6rem 1.2rem;
+    background: var(--charcoal);
+    border: 1px solid var(--gold-dark);
+    color: var(--gold);
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .logo-toggle:hover {
+    background: var(--gold-dark);
+    color: var(--black);
+  }
+
+  /* ============================================
+     ANIMATIONS
+     ============================================ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 5rem; }
+    .distinction-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+    .model-cards { grid-template-columns: 1fr; }
+    .cred-grid { grid-template-columns: 1fr; }
+    .contact-inner { flex-direction: column; align-items: flex-start; gap: 2rem; }
+    .contact-right { align-items: flex-start; }
+    .assessment-features { flex-direction: column; gap: 1.5rem; }
+    .async-bar { flex-direction: column; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .footer-inner { flex-direction: column; gap: 0.8rem; align-items: center; }
+    .nav-logo--image img { height: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav id="nav">
+  <!-- Option A: Banner image -->
+  <a href="#" class="nav-logo--image nav-logo--option-a">
+    <img src="images/APEX_VECTOR_Banner__Transparent.png" alt="The Apex Vector Studio">
+  </a>
+
+  <!-- Option B: Styled HTML text with icon -->
+  <a href="#" class="nav-logo--text nav-logo--option-b">
+    <img src="images/APEX_VECTOR_Icon__Transparent.png" alt="" class="nav-icon">
+    <div class="nav-logo-text-block">
+      <span class="nav-logo-the">The</span>
+      <span class="nav-logo-name">Apex Vector</span>
+      <span class="nav-logo-studio">Studio</span>
+    </div>
+  </a>
+
+  <div class="nav-links">
+    <a href="#pillars">The 4 Pillars</a>
+    <a href="#model">The Virtual Studio</a>
+    <a href="#credentials">The Experience</a>
+    <a href="#contact" class="nav-cta">Schedule a Conversation</a>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label label">
+      <div class="gold-rule"></div>
+      <span>Private Executive Technology Coaching</span>
+      <div class="gold-rule"></div>
+    </div>
+    <h1>Lead the transformation<br>with <em>genuine confidence</em></h1>
+    <p class="hero-sub">
+      A private coaching practice for executives navigating AI, blockchain, cybersecurity, and data science — built on four decades of cross-domain technology leadership. Confidential. Personalized. On your terms.
+    </p>
+    <div class="hero-actions">
+      <a href="assessment.html" class="btn-primary">Measure Your Readiness</a>
+      <a href="#model" class="btn-ghost">How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHAT THE PRACTICE DOES ==================== -->
+<section class="distinction" id="distinction">
+  <div class="section-inner">
+    <div class="distinction-grid">
+      <div class="distinction-text reveal">
+        <div class="section-header">
+          <div class="label">
+            <div class="gold-rule"></div>
+            <span>What the Practice Does</span>
+            <div class="gold-rule"></div>
+          </div>
+          <h2>We develop the executive — then support them as they lead</h2>
+        </div>
+        <p>
+          This is not consulting, training, or a vendor advisory service. This is a private coaching relationship that builds your personal capability, confidence, and judgment across the technology domains transforming every industry.
+        </p>
+        <p>
+          Learning and advice are continuous and fluid — the weight shifts based on what you need. Individual development never stops, even as applied strategy deepens.
+        </p>
+      </div>
+
+      <!-- Hybrid Human/AI Model Card -->
+      <div class="hybrid-card reveal">
+        <div class="hybrid-card-label">Our Differentiator</div>
+        <h3>The Hybrid Human/AI Model</h3>
+        <p>
+          Your coach provides what AI cannot — strategic judgment, coaching presence, relationship depth, and the kind of pattern recognition that only comes from decades of cross-domain experience.
+        </p>
+        <p>
+          AI handles volume — research, intelligence scanning, first-draft briefings, analytical frameworks, and session preparation. The combination delivers depth, breadth, and responsiveness that would normally require a full team.
+        </p>
+        <p class="hybrid-emphasis">
+          We don't just use AI to serve you — we teach you to use it effectively. Every engagement builds your own capacity to leverage AI as a leadership tool, reinforcing the value you carry forward.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOUR PILLARS ==================== -->
+<section class="pillars" id="pillars">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="label">
+        <div class="gold-rule"></div>
+        <span>The 4 Pillars</span>
+        <div class="gold-rule"></div>
+      </div>
+      <h2>Every engagement draws from four interconnected domains</h2>
+    </div>
+    <div class="pillars-grid reveal">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h3>Artificial Intelligence</h3>
+        <div class="pillar-sub">Strategy & Governance</div>
+        <p>Adoption strategy, workforce impact, vendor evaluation, responsible AI governance, and competitive positioning.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h3>Blockchain</h3>
+        <div class="pillar-sub">Digital Trust</div>
+        <p>Smart contracts, digital identity, supply chain transparency, tokenization, and decentralized architectures.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h3>Cybersecurity</h3>
+        <div class="pillar-sub">Strategic Risk</div>
+        <p>Strategic risk posture, board-ready governance, crisis leadership, regulatory navigation, and cyber as competitive advantage.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <h3>Data Science</h3>
+        <div class="pillar-sub">Analytics & Culture</div>
+        <p>Data-driven decisions, analytics maturity, privacy and ethics, building data culture, and ROI measurement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== THE VIRTUAL STUDIO MODEL ==================== -->
+<section class="model" id="model">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="label">
+        <div class="gold-rule"></div>
+        <span>The Virtual Studio Model</span>
+        <div class="gold-rule"></div>
+      </div>
+      <h2>The Rooms. The Resources. The Relationships.</h2>
+    </div>
+    <p class="model-intro reveal">
+      Three interlocking elements define how the practice is structured, how you experience it, and how value compounds over time — all delivered through a secure, private virtual environment.
+    </p>
+    <div class="model-cards reveal">
+      <div class="model-card">
+        <div class="model-card-icon">
+          <!-- Door / entrance icon -->
+          <svg viewBox="0 0 24 24"><path d="M3 21V3h12v18"/><path d="M15 21H3"/><path d="M15 3h3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-3"/><circle cx="12" cy="12" r="1"/></svg>
+        </div>
+        <h3>Rooms</h3>
+        <p>Purpose-built virtual spaces within a secure environment. Each room serves a specific function — from your initial assessment through ongoing coaching, strategic advisory, team workshops, and peer exchange.</p>
+      </div>
+      <div class="model-card">
+        <div class="model-card-icon">
+          <!-- Books / library icon -->
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="14" y2="10"/></svg>
+        </div>
+        <h3>Resources</h3>
+        <p>Everything you access: personalized briefings, curated intelligence, coaching sessions, frameworks, decision tools, and the readiness assessment — all tailored to your situation, role, and stage of development.</p>
+      </div>
+      <div class="model-card">
+        <div class="model-card-icon">
+          <!-- People / relationships icon -->
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Relationships</h3>
+        <p>The human connections that make coaching transformative. The private 1:1 relationship with your coach. Facilitated team dynamics. Cross-organizational peer exchange with executives who share your challenges.</p>
+      </div>
+    </div>
+
+    <!-- 24/7 Async callout -->
+    <div class="async-bar reveal">
+      <div class="async-bar-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="async-bar-content">
+        <h4>Available When You Are — 24/7 Asynchronous Access</h4>
+        <p>Post questions, share vendor pitches, flag emerging situations, or request perspective between sessions — any time, from anywhere. Your virtual studio is always open. Coaching support and curated resources are available on your schedule, not just during scheduled sessions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CREDENTIALS ==================== -->
+<section class="credentials" id="credentials">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="label">
+        <div class="gold-rule"></div>
+        <span>The Experience Behind the Practice</span>
+        <div class="gold-rule"></div>
+      </div>
+      <h2>Four decades across every dimension of technology leadership</h2>
+    </div>
+    <div class="cred-grid reveal">
+      <div class="cred-item">
+        <span class="cred-domain">Cybersecurity</span>
+        <span class="cred-title">State of Nevada CISO</span>
+        <span class="cred-detail">Enterprise security across all state agencies. Chief Security Officer, MA Executive Office of Health & Human Services. Symantec Director of Security Strategy.</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-domain">AI & Decision Science</span>
+        <span class="cred-title">CEO & Founder, Cognitive Extension, Inc.</span>
+        <span class="cred-detail">Built the Decision Optimization Engine combining AI with collective intelligence for organizational decision-making.</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-domain">Enterprise Consulting</span>
+        <span class="cred-title">Ernst & Young · IBM Global Services</span>
+        <span class="cred-detail">Large-scale transformation across Fortune 500 environments. Deutsche Telekom, Standard Chartered Bank, and more.</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-domain">Blockchain & Digital Trust</span>
+        <span class="cred-title">NSTIC Steering Group, Privacy Committee Chair</span>
+        <span class="cred-detail">National policy on digital identity and trust frameworks. Board of Directors, Paycasso Verify (UK). Decentralized trust architectures.</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-domain">Education & Research</span>
+        <span class="cred-title">University of Nevada, Reno Lecturer</span>
+        <span class="cred-detail">Published researcher at the Hawaii International Conference on System Sciences (HICSS) and the International Conference on Information Systems Security and Privacy (ICISSP).</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-domain">Government & Policy</span>
+        <span class="cred-title">Author and Advocate — Cybersecurity Legislation</span>
+        <span class="cred-detail">Author of 10+ cybersecurity bills including NV SB227, national model legislation. Direct experience navigating regulatory landscapes from the inside.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ASSESSMENT CTA ==================== -->
+<section class="assessment" id="assessment">
+  <div class="section-inner reveal">
+    <div class="label label--centered" style="margin-bottom: 1.5rem;">
+      <div class="gold-rule"></div>
+      <span>Measure Your Readiness</span>
+      <div class="gold-rule"></div>
+    </div>
+    <h2>Technology Leadership Readiness Assessment</h2>
+    <p>
+      A confidential evaluation of your individual proficiency and organizational context across all four pillars. Fifteen minutes. Genuine insights. No sales pitch.
+    </p>
+    <div class="assessment-features">
+      <div class="assessment-feature">
+        <span>4</span>
+        <span>Technology Pillars</span>
+      </div>
+      <div class="assessment-feature">
+        <span>15</span>
+        <span>Minutes</span>
+      </div>
+      <div class="assessment-feature">
+        <span>∞</span>
+        <span>Confidential</span>
+      </div>
+    </div>
+    <a href="assessment.html" class="btn-primary">Start Your Assessment</a>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<div class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <span class="contact-name">James R. Elste</span>
+      <span class="contact-title">
+        Private Executive Technology Coach & Strategic Advisor<br>
+        Former State CISO · AI Company Founder · Published Researcher
+      </span>
+    </div>
+    <div class="contact-right">
+      <a href="#">Schedule a Conversation</a>
+      <a href="https://linkedin.com/in/james-elste-159a0b1" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">&copy; 2026 Apex Vector LLC. All rights reserved. Confidential.</span>
+    <span class="footer-tagline">Direction and magnitude, aligned.</span>
+  </div>
+</footer>
+
+<!-- ==================== LOGO VERSION TOGGLE ==================== -->
+<button class="logo-toggle" onclick="document.body.classList.toggle('logo-text')">
+  Toggle Logo Version
+</button>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
