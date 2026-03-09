@@ -998,10 +998,10 @@
   ];
 
   const COMPETENCE_LEVELS = [
-    { level: 1, name: 'Unconscious Incompetence', short: 'Foundational', desc: 'You may not yet recognize gaps in this area — which is more common than most executives realize.' },
-    { level: 2, name: 'Conscious Incompetence', short: 'Emerging Awareness', desc: 'You recognize the importance of this domain and are beginning to identify where your understanding needs depth.' },
-    { level: 3, name: 'Conscious Competence', short: 'Active Development', desc: 'You can engage effectively in this domain with deliberate attention and continue building your capabilities.' },
-    { level: 4, name: 'Unconscious Competence', short: 'Strategic Fluency', desc: 'You navigate this domain with natural confidence and integrate it into your leadership instinctively.' }
+    { level: 1, name: 'Foundational', short: 'Foundational', desc: 'You may not yet recognize gaps in this area — which is more common than most executives realize.' },
+    { level: 2, name: 'Emerging Awareness', short: 'Emerging Awareness', desc: 'You recognize the importance of this domain and are beginning to identify where your understanding needs depth.' },
+    { level: 3, name: 'Active Development', short: 'Active Development', desc: 'You can engage effectively in this domain with deliberate attention and continue building your capabilities.' },
+    { level: 4, name: 'Strategic Fluency', short: 'Strategic Fluency', desc: 'You navigate this domain with natural confidence and integrate it into your leadership instinctively.' }
   ];
 
   // ===== QUESTION BANK =====
@@ -1644,18 +1644,14 @@
       </div>
     `;
 
-    // Populate hidden scores field
-    const scoresData = {};
-    PILLAR_ORDER.forEach(key => {
+    // Populate hidden scores field — clean, readable format for email
+    const scoreLines = PILLAR_ORDER.map(key => {
       const s = state.pillarScores[key];
       const lvl = getCompetenceLevel(s.level);
-      scoresData[PILLARS[key].name] = {
-        level: lvl.short,
-        competence: lvl.name,
-        score: Math.round(s.pct) + '%'
-      };
+      return PILLARS[key].name + ': ' + lvl.short + ' (' + Math.round(s.pct) + '%)';
     });
-    document.getElementById('scoresField').value = JSON.stringify(scoresData, null, 2);
+    scoreLines.push('Overall: ' + overallPct + '%');
+    document.getElementById('scoresField').value = scoreLines.join('\n');
 
     // Animate score ring
     requestAnimationFrame(() => {
