@@ -60,13 +60,56 @@
     background: rgba(17, 17, 17, 0.97);
   }
 
-  .nav-logo--image img {
-    height: 42px;
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .nav-logo-icon {
+    height: 38px;
     width: auto;
     transition: height 0.4s ease;
   }
 
-  nav.scrolled .nav-logo--image img { height: 34px; }
+  nav.scrolled .nav-logo-icon { height: 30px; }
+
+  .nav-logo-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .nav-logo-the {
+    font-family: var(--font-body);
+    font-size: 0.45rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .nav-logo-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .nav-logo-studio {
+    font-family: var(--font-body);
+    font-size: 0.5rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1;
+    margin-top: 1px;
+  }
 
   .nav-links {
     display: flex;
@@ -838,7 +881,9 @@
 
   @media (max-width: 600px) {
     .nav-links a:not(.nav-cta) { display: none; }
-    .nav-logo--image img { height: 32px; }
+    .nav-logo-icon { height: 26px; }
+    .nav-logo-name { font-size: 1rem; letter-spacing: 2.5px; }
+    .nav-logo-the, .nav-logo-studio { font-size: 0.4rem; letter-spacing: 3px; }
     .role-grid { grid-template-columns: 1fr; }
     .progress-pillar-label { font-size: 0.5rem; letter-spacing: 1px; }
     .question-text { font-size: 1.25rem; }
@@ -852,8 +897,13 @@
 
 <!-- ==================== NAVIGATION ==================== -->
 <nav id="nav">
-  <a href="index.html" class="nav-logo--image">
-    <img src="images/APEX_VECTOR_Banner__Transparent.png" alt="The Apex Vector Studio">
+  <a href="index.html" class="nav-logo">
+    <img src="images/APEX_VECTOR_Icon__Transparent.png" alt="" class="nav-logo-icon">
+    <div class="nav-logo-text-block">
+      <span class="nav-logo-the">The</span>
+      <span class="nav-logo-name">Apex Vector</span>
+      <span class="nav-logo-studio">Studio</span>
+    </div>
   </a>
   <div class="nav-links">
     <a href="index.html">Home</a>
