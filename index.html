@@ -752,14 +752,30 @@
     align-items: center;
   }
 
-  .footer-logo {
-    height: 72px;
-    width: auto;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
   }
 
-  .footer-logo:hover { opacity: 1; }
+  .footer-icon {
+    height: 28px;
+    width: auto;
+    opacity: 0.8;
+  }
+
+  .footer-brand-text {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  .footer-brand-text strong {
+    font-weight: 600;
+  }
 
   .footer-right {
     display: flex;
@@ -1102,7 +1118,10 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-left">
-      <img src="images/APEX_VECTOR_Logo__Transparent.png" alt="The Apex Vector Studio" class="footer-logo">
+      <div class="footer-brand">
+        <img src="images/APEX_VECTOR_Icon__Transparent.png" alt="" class="footer-icon">
+        <span class="footer-brand-text">The <strong>Apex Vector</strong> Studio</span>
+      </div>
     </div>
     <div class="footer-right">
       <span class="footer-tagline">Direction and magnitude, aligned.</span>
