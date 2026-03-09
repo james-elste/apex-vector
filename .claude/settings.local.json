@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo view james-elste/apex-vector)",
+      "mcp__github__create_repository",
+      "Bash(gh auth status)",
+      "Bash(where gh.exe)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" auth status)",
+      "Bash(\"/c/Users/elste/AppData/Local/Programs/gh/gh.exe\" auth status)",
+      "Bash(git config user.name)",
+      "Bash(git config user.email)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -sI http://apex-vector.com)"
+    ]
+  }
+}
