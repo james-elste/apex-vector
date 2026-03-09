@@ -798,6 +798,23 @@
     font-weight: 400;
   }
 
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.3rem;
+  }
+
+  .footer-links a {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    transition: color 0.3s;
+    font-weight: 400;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
 
   /* ============================================
      ANIMATIONS
@@ -1126,6 +1143,9 @@
     <div class="footer-right">
       <span class="footer-tagline">Direction and magnitude, aligned.</span>
       <span class="footer-copy">&copy; 2026 Apex Vector LLC. All rights reserved. Confidential.</span>
+      <div class="footer-links">
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
     </div>
   </div>
 </footer>
