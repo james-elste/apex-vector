@@ -1747,25 +1747,54 @@
         </div>
         <div class="question-nav">
           <button class="btn-ghost${!canGoBack ? ' btn-disabled' : ''}" id="prevBtn">Previous</button>
-          <button class="btn-primary${!hasAnswer ? ' btn-disabled' : ''}" id="nextBtn">${isLast ? 'View Your Results' : 'Continue'}</button>
+          ${(isMulti || isLast) ? `<button class="btn-primary${!hasAnswer ? ' btn-disabled' : ''}" id="nextBtn">${isLast ? 'View Your Results' : 'Continue'}</button>` : ''}
         </div>
       </div>
     `;
+
+    // Helper: advance to next question
+    function advanceQuestion() {
+      processAnswer(q);
+      if (state.questionIndex < questions.length - 1) {
+        state.questionIndex++;
+      } else {
+        advancePhase();
+      }
+      render();
+    }
 
     // Option click handlers
     app.querySelectorAll('.option').forEach(el => {
       el.addEventListener('click', () => {
         const idx = parseInt(el.dataset.index);
         if (isMulti) {
+          // Multi-select: toggle and re-render (user clicks Continue when done)
           if (!state.answers[q.id]) state.answers[q.id] = [];
           const arr = state.answers[q.id];
           const pos = arr.indexOf(idx);
           if (pos === -1) arr.push(idx);
           else arr.splice(pos, 1);
+          render();
         } else {
+          // Single-select: store answer, show selection briefly, then auto-advance
           state.answers[q.id] = idx;
+          // Visually highlight the selected option immediately (no full re-render)
+          app.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          el.classList.add('selected');
+          el.querySelector('.option-marker').style.background = 'var(--gold)';
+          el.querySelector('.option-marker').style.color = 'var(--black)';
+          el.querySelector('.option-marker').style.borderColor = 'var(--gold)';
+          el.querySelector('.option-text').style.color = 'var(--white)';
+          el.querySelector('.option-text').style.fontWeight = '400';
+          if (isLast) {
+            // Last question: enable the View Results button instead of auto-advancing
+            const nb = document.getElementById('nextBtn');
+            if (nb) { nb.classList.remove('btn-disabled'); nb.addEventListener('click', advanceQuestion); }
+          } else {
+            // Brief pause so user sees their selection, then advance
+            setTimeout(advanceQuestion, 350);
+          }
         }
-        render();
       });
     });
 
@@ -1781,19 +1810,10 @@
       render();
     });
 
-    if (hasAnswer) {
-      document.getElementById('nextBtn').addEventListener('click', () => {
-        // Process answer tags before advancing
-        processAnswer(q);
-
-        if (state.questionIndex < questions.length - 1) {
-          state.questionIndex++;
-        } else {
-          // Advance to next phase
-          advancePhase();
-        }
-        render();
-      });
+    // Continue button only exists for multi-select
+    const nextBtn = document.getElementById('nextBtn');
+    if (nextBtn && hasAnswer) {
+      nextBtn.addEventListener('click', advanceQuestion);
     }
   }
 
