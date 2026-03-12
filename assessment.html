@@ -319,6 +319,15 @@
     margin-top: 1rem;
   }
 
+  .assessment-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-top: 1rem;
+  }
+
   .assessment-header p {
     font-size: 0.95rem;
     font-weight: 300;
@@ -331,19 +340,19 @@
   }
 
   /* ============================================
-     PROGRESS BAR
+     PROGRESS BAR — 4 PHASES
      ============================================ */
   .progress-wrapper {
     margin-bottom: 3rem;
   }
 
-  .progress-pillars {
+  .progress-phases {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 0.8rem;
   }
 
-  .progress-pillar {
+  .progress-phase {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -351,7 +360,7 @@
     gap: 0.4rem;
   }
 
-  .progress-pillar-label {
+  .progress-phase-label {
     font-size: 0.6rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -361,11 +370,11 @@
     text-align: center;
   }
 
-  .progress-pillar.active .progress-pillar-label {
+  .progress-phase.active .progress-phase-label {
     color: var(--gold);
   }
 
-  .progress-pillar.completed .progress-pillar-label {
+  .progress-phase.completed .progress-phase-label {
     color: rgba(201, 168, 76, 0.5);
   }
 
@@ -384,11 +393,11 @@
     width: 0%;
   }
 
-  .progress-pillar.active .progress-bar-track {
+  .progress-phase.active .progress-bar-track {
     background: rgba(201, 168, 76, 0.15);
   }
 
-  .progress-pillar.completed .progress-bar-fill {
+  .progress-phase.completed .progress-bar-fill {
     width: 100%;
     background: var(--gold-dark);
   }
@@ -417,7 +426,23 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .question-pillar-tag {
+  .question-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .question-card > p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .question-phase-tag {
     font-size: 0.6rem;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -451,7 +476,7 @@
   }
 
   /* ============================================
-     ANSWER OPTIONS
+     ANSWER OPTIONS (single select + multi select)
      ============================================ */
   .options {
     display: flex;
@@ -496,21 +521,36 @@
     transition: all 0.25s;
   }
 
+  /* Circular markers for multi-select (checkbox-style) */
+  .option.multi-select .option-marker {
+    border-radius: 3px;
+  }
+
   .option.selected .option-marker {
     background: var(--gold);
-    border-color: var(--gold);
     color: var(--black);
+    border-color: var(--gold);
   }
 
   .option-text {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 300;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.5;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    transition: color 0.25s;
   }
 
   .option.selected .option-text {
     color: var(--white);
+    font-weight: 400;
+  }
+
+  .multi-select-hint {
+    font-size: 0.72rem;
+    color: var(--gold-dark);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    font-style: italic;
   }
 
   /* ============================================
@@ -519,16 +559,8 @@
   .question-nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.04);
-  }
-
-  .question-nav .btn-ghost,
-  .question-nav .btn-primary {
-    font-size: 0.68rem;
-    padding: 0.7rem 2rem;
+    gap: 1rem;
   }
 
   .btn-disabled {
@@ -537,39 +569,19 @@
   }
 
   /* ============================================
-     ROLE SELECTION (INTRO SCREEN)
+     ROLE / CONTEXT GRID
      ============================================ */
-  .role-screen {
-    text-align: center;
-  }
-
-  .role-screen h2 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 0.8rem;
-  }
-
-  .role-screen p {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--gray-med);
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-  }
-
   .role-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .role-option {
-    background: var(--charcoal);
+    background: var(--black);
     border: 1px solid rgba(201, 168, 76, 0.08);
-    padding: 1.5rem 1rem;
+    padding: 1.2rem;
     cursor: pointer;
     transition: all 0.25s ease;
     text-align: center;
@@ -577,6 +589,7 @@
 
   .role-option:hover {
     border-color: rgba(201, 168, 76, 0.3);
+    background: rgba(42, 42, 42, 0.5);
   }
 
   .role-option.selected {
@@ -598,14 +611,30 @@
     color: var(--gray-med);
   }
 
-  .role-option.selected .role-option-title { color: var(--gold-light); }
+  .role-screen {
+    padding: 3rem;
+  }
+
+  .role-screen h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .role-screen > p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
 
   /* ============================================
-     RESULTS
+     RESULTS — LAYOUT
      ============================================ */
-  .results-screen {
-    animation: cardIn 0.5s ease;
-  }
+  .results-screen { animation: cardIn 0.5s ease; }
 
   .results-header {
     text-align: center;
@@ -614,35 +643,50 @@
 
   .results-header h2 {
     font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
     font-weight: 300;
     color: var(--white);
     margin-top: 1rem;
-    margin-bottom: 0.8rem;
   }
 
   .results-header p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 300;
     color: var(--gray-med);
     line-height: 1.7;
+    margin-top: 0.8rem;
   }
 
+  /* Radar chart */
+  .radar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    overflow: visible;
+  }
+
+  .radar-chart {
+    width: 400px;
+    height: 400px;
+    overflow: visible;
+  }
+
+  /* Pillar result cards */
   .results-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
   }
 
   .result-pillar-card {
     background: var(--charcoal);
     border: 1px solid rgba(201, 168, 76, 0.08);
-    padding: 2rem;
+    padding: 1.8rem;
   }
 
   .result-pillar-name {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--gold);
@@ -655,23 +699,34 @@
     font-size: 1.2rem;
     font-weight: 500;
     color: var(--white);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .result-cc-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: var(--gold-light);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
   }
 
   .result-bar-track {
     width: 100%;
-    height: 4px;
+    height: 3px;
     background: rgba(255,255,255,0.06);
     margin-bottom: 1rem;
-    position: relative;
     overflow: hidden;
   }
 
   .result-bar-fill {
     height: 100%;
     background: var(--gold);
-    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
     width: 0%;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .result-pillar-desc {
@@ -681,21 +736,66 @@
     line-height: 1.6;
   }
 
+  /* Org readiness card */
+  .org-readiness-card {
+    background: var(--charcoal);
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .org-readiness-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .org-readiness-level {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .org-readiness-desc {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+  }
+
+  .gap-indicator {
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .gap-indicator-label {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .gap-indicator-text {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+  }
+
   /* Insights */
   .results-insights {
     background: var(--charcoal);
-    border: 1px solid rgba(201, 168, 76, 0.12);
-    padding: 2.5rem;
-    margin-bottom: 3rem;
-    position: relative;
-  }
-
-  .results-insights::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 2px;
-    background: linear-gradient(90deg, var(--gold), transparent);
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    padding: 3rem;
+    margin-bottom: 2rem;
   }
 
   .results-insights h3 {
@@ -725,57 +825,55 @@
     font-weight: 500;
   }
 
-  /* Overall score ring */
-  .overall-score {
-    text-align: center;
-    margin-bottom: 3rem;
+  .key-insight {
+    background: rgba(201, 168, 76, 0.04);
+    border-left: 2px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
-  .score-ring {
-    width: 140px;
-    height: 140px;
-    margin: 0 auto 1.2rem;
-    position: relative;
-  }
-
-  .score-ring svg {
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg);
-  }
-
-  .score-ring-bg {
-    fill: none;
-    stroke: rgba(255,255,255,0.06);
-    stroke-width: 3;
-  }
-
-  .score-ring-fill {
-    fill: none;
-    stroke: var(--gold);
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-dasharray: 408;
-    stroke-dashoffset: 408;
-    transition: stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .score-ring-value {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-heading);
-    font-size: 2.2rem;
-    font-weight: 300;
-    color: var(--gold);
-  }
-
-  .score-ring-label {
-    font-size: 0.65rem;
+  .key-insight-label {
+    font-size: 0.6rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--gray-med);
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .key-insight p {
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+  }
+
+  /* Threshold CTA */
+  .threshold-cta {
+    background: var(--charcoal);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .threshold-cta blockquote {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
     font-weight: 400;
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .threshold-cta p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
   }
 
   /* ============================================
@@ -853,23 +951,11 @@
     border-color: var(--gold);
   }
 
-  .form-group select {
-    cursor: pointer;
-  }
+  .form-group select { cursor: pointer; }
+  .form-group select option { background: var(--charcoal); color: var(--white); }
 
-  .form-group select option {
-    background: var(--charcoal);
-    color: var(--white);
-  }
-
-  .form-submit-row {
-    margin-top: 1.5rem;
-  }
-
-  .form-submit-row .btn-primary {
-    width: 100%;
-    text-align: center;
-  }
+  .form-submit-row { margin-top: 1.5rem; }
+  .form-submit-row .btn-primary { width: 100%; text-align: center; }
 
   .form-note {
     font-size: 0.72rem;
@@ -912,6 +998,7 @@
     .form-grid { grid-template-columns: 1fr; }
     .results-form { padding: 2rem; }
     .results-insights { padding: 2rem; }
+    .role-screen { padding: 2rem; }
   }
 
   @media (max-width: 600px) {
@@ -920,9 +1007,10 @@
     .nav-logo-name { font-size: 1rem; letter-spacing: 2.5px; }
     .nav-logo-the, .nav-logo-studio { font-size: 0.4rem; letter-spacing: 3px; }
     .role-grid { grid-template-columns: 1fr; }
-    .progress-pillar-label { font-size: 0.5rem; letter-spacing: 1px; }
+    .progress-phase-label { font-size: 0.5rem; letter-spacing: 1px; }
     .question-text { font-size: 1.25rem; }
     .question-card { padding: 1.5rem; }
+    .radar-chart { width: 320px; height: 320px; }
     .footer-inner { flex-direction: column; gap: 1.2rem; align-items: center; }
     .footer-right { align-items: center; }
   }
@@ -974,7 +1062,7 @@
   </div>
 </footer>
 
-<!-- ==================== ASSESSMENT ENGINE ==================== -->
+<!-- ==================== ADAPTIVE ASSESSMENT ENGINE v2 ==================== -->
 <script>
 (function() {
   'use strict';
@@ -988,282 +1076,585 @@
   // ===== CONFIGURATION =====
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbdzdlkk';
 
-  const ROLES = [
-    { id: 'ceo', title: 'CEO', desc: 'Chief Executive Officer' },
-    { id: 'cfo', title: 'CFO', desc: 'Chief Financial Officer' },
-    { id: 'cio', title: 'CIO / CTO', desc: 'Chief Information or Technology Officer' },
-    { id: 'chro', title: 'CHRO', desc: 'Chief Human Resources Officer' },
-    { id: 'board', title: 'Board Member', desc: 'Board Director or Advisor' },
-    { id: 'other', title: 'Other', desc: 'Senior Executive or Leader' }
+  // ===== CONSCIOUS COMPETENCE FRAMEWORK =====
+  const CC_LEVELS = {
+    UC:  { code: 'UC',  name: 'Unconscious Incompetence', short: 'Foundational',        desc: 'You may not yet recognize gaps in this area \u2014 which is more common than most executives realize. This is where the highest-leverage coaching begins.' },
+    CI:  { code: 'CI',  name: 'Conscious Incompetence',   short: 'Emerging Awareness',   desc: 'You recognize the importance of this domain and are beginning to identify where your understanding needs depth. This self-awareness is a genuine strength.' },
+    CC:  { code: 'CC',  name: 'Conscious Competence',     short: 'Active Development',   desc: 'You can engage effectively in this domain with deliberate attention. The path to fluency is about building this into instinct rather than effort.' },
+    UCo: { code: 'UCo', name: 'Unconscious Competence',   short: 'Strategic Fluency',    desc: 'You navigate this domain with natural confidence and integrate it into your leadership instinctively. Your opportunity is to elevate others.' }
+  };
+
+  const ORG_LEVELS = {
+    reactive:    { name: 'Reactive',    desc: 'Your organization reacts to technology changes as they occur. There is no proactive strategy driving decisions.' },
+    stalled:     { name: 'Stalled',     desc: 'Your organization is aware of the need to transform but is struggling to move from awareness to action.' },
+    fragmented:  { name: 'Fragmented',  desc: 'Active transformation initiatives exist but lack coordination across the organization.' },
+    strategic:   { name: 'Strategic',   desc: 'A coordinated technology transformation strategy is in place with executive sponsorship and clear milestones.' }
+  };
+
+  // ===== PHASE 1: CONTEXT QUESTIONS =====
+  const CONTEXT_QUESTIONS = [
+    {
+      id: 'C1', phase: 1,
+      text: 'What best describes your current role?',
+      context: '',
+      type: 'single',
+      options: [
+        { text: 'Chief Executive Officer / President / Managing Director', tag: 'role:ceo' },
+        { text: 'Chief Financial Officer / VP Finance', tag: 'role:cfo' },
+        { text: 'Chief Information Officer / Chief Technology Officer / VP Technology', tag: 'role:cio' },
+        { text: 'Chief Human Resources Officer / VP People / VP Talent', tag: 'role:chro' },
+        { text: 'Chief Information Security Officer / VP Security', tag: 'role:ciso' },
+        { text: 'Board Member / Advisory Board', tag: 'role:board' },
+        { text: 'Other C-Suite or Senior Executive', tag: 'role:other_exec' }
+      ]
+    },
+    {
+      id: 'C2', phase: 1,
+      text: 'What industry does your organization primarily operate in?',
+      context: '',
+      type: 'single',
+      options: [
+        { text: 'Healthcare / Life Sciences', tag: 'ind:health' },
+        { text: 'Financial Services / Fintech / Insurance', tag: 'ind:finance' },
+        { text: 'Manufacturing / Supply Chain / Logistics', tag: 'ind:mfg' },
+        { text: 'Technology / SaaS / Startups', tag: 'ind:tech' },
+        { text: 'Government / Government Contracting / Defense', tag: 'ind:gov' },
+        { text: 'Energy / Utilities / Infrastructure', tag: 'ind:energy' },
+        { text: 'Professional Services / Legal / Consulting', tag: 'ind:proserv' },
+        { text: 'Gaming / Hospitality / Entertainment', tag: 'ind:gaming' },
+        { text: 'Other', tag: 'ind:other' }
+      ]
+    },
+    {
+      id: 'C3', phase: 1,
+      text: 'How many employees does your organization have?',
+      context: '',
+      type: 'single',
+      options: [
+        { text: 'Under 50', tag: 'size:small' },
+        { text: '50\u2013200', tag: 'size:mid_small' },
+        { text: '200\u2013500', tag: 'size:mid' },
+        { text: '500\u20132,000', tag: 'size:mid_large' },
+        { text: 'Over 2,000', tag: 'size:enterprise' }
+      ]
+    },
+    {
+      id: 'C4', phase: 1,
+      text: 'Which of these technology challenges feels most pressing in your world right now?',
+      context: 'There are no wrong answers \u2014 this helps us focus the assessment on what matters most to you.',
+      type: 'single',
+      options: [
+        { text: 'AI is changing my industry and I\u2019m not sure we\u2019re positioned correctly', tag: 'priority:ai' },
+        { text: 'Cybersecurity risk keeps me up at night \u2014 a breach could be existential', tag: 'priority:cyber' },
+        { text: 'We\u2019re drowning in data but not making better decisions from it', tag: 'priority:data' },
+        { text: 'Digital trust and transparency are becoming competitive requirements', tag: 'priority:blockchain' },
+        { text: 'Honestly, all of the above \u2014 I\u2019m not sure where to start', tag: 'priority:all' }
+      ]
+    }
   ];
 
-  const COMPETENCE_LEVELS = [
-    { level: 1, name: 'Foundational', short: 'Foundational', desc: 'You may not yet recognize gaps in this area — which is more common than most executives realize.' },
-    { level: 2, name: 'Emerging Awareness', short: 'Emerging Awareness', desc: 'You recognize the importance of this domain and are beginning to identify where your understanding needs depth.' },
-    { level: 3, name: 'Active Development', short: 'Active Development', desc: 'You can engage effectively in this domain with deliberate attention and continue building your capabilities.' },
-    { level: 4, name: 'Strategic Fluency', short: 'Strategic Fluency', desc: 'You navigate this domain with natural confidence and integrate it into your leadership instinctively.' }
+  // ===== PHASE 2: CROSS-PILLAR GATEWAY QUESTIONS =====
+  const GATEWAY_QUESTIONS = [
+    {
+      id: 'P_AI', phase: 2, pillar: 'ai',
+      text: 'Your CEO announces the company will integrate AI into three core business processes within the next 12 months. You\u2019re asked to weigh in on the approach. What\u2019s your instinct?',
+      context: '',
+      type: 'single',
+      options: [
+        { text: 'I\u2019d need to learn more about what AI can actually do before I could contribute meaningfully to that conversation.', level: 'UC' },
+        { text: 'I know enough to see both the opportunity and the risks, but I\u2019d want expert input before committing to a direction.', level: 'CI' },
+        { text: 'I\u2019d push for a structured evaluation \u2014 use cases, vendor landscape, governance framework \u2014 before committing resources.', level: 'CC' },
+        { text: 'I\u2019d help shape the strategy myself \u2014 I\u2019ve evaluated AI initiatives before and understand what separates success from expensive failure.', level: 'UCo' }
+      ]
+    },
+    {
+      id: 'P_BC', phase: 2, pillar: 'blockchain',
+      text: 'A board member asks whether the company should explore blockchain for supply chain transparency or customer identity verification. How do you respond?',
+      context: '',
+      type: 'single',
+      options: [
+        { text: 'I\u2019d honestly struggle to explain what blockchain does beyond cryptocurrency.', level: 'UC' },
+        { text: 'I understand the concept but couldn\u2019t evaluate whether it\u2019s the right solution for our specific situation.', level: 'CI' },
+        { text: 'I\u2019d ask the right questions \u2014 what problem does this solve, what alternatives exist, what are the implementation requirements?', level: 'CC' },
+        { text: 'I\u2019d frame the discussion around trust architecture, not technology hype \u2014 blockchain is one tool among several for digital trust.', level: 'UCo' }
+      ]
+    },
+    {
+      id: 'P_CY', phase: 2, pillar: 'cybersecurity',
+      text: 'You learn that a competitor in your industry suffered a significant data breach last week. Your board wants to discuss your company\u2019s exposure at the next meeting. What\u2019s your first move?',
+      context: '',
+      type: 'single',
+      options: [
+        { text: 'I\u2019d ask our IT team to prepare something \u2014 I\u2019m not sure what questions to ask or what \u2018good\u2019 looks like.', level: 'UC' },
+        { text: 'I know we need to assess our posture, but I\u2019m not confident I could evaluate whether what IT tells me is sufficient.', level: 'CI' },
+        { text: 'I\u2019d request a current risk assessment, review our incident response plan, and prepare specific questions about our controls relative to the competitor\u2019s failure.', level: 'CC' },
+        { text: 'I\u2019d lead the board conversation myself \u2014 framing our risk posture, the gaps we\u2019re addressing, and turning this into a competitive advantage narrative.', level: 'UCo' }
+      ]
+    },
+    {
+      id: 'P_DS', phase: 2, pillar: 'datascience',
+      text: 'Your team presents a data analytics initiative that promises to improve customer retention by 15%. They\u2019re asking for a $500K investment. How do you evaluate this?',
+      context: '',
+      type: 'single',
+      options: [
+        { text: 'I\u2019d rely on the team\u2019s recommendation \u2014 I don\u2019t feel equipped to evaluate the methodology or assumptions behind the 15% claim.', level: 'UC' },
+        { text: 'I\u2019d ask basic questions \u2014 where does the 15% come from, what data do we need \u2014 but I\u2019m not sure what I\u2019d do with the answers.', level: 'CI' },
+        { text: 'I\u2019d evaluate the data quality, methodology, assumptions, and build a business case framework before committing budget.', level: 'CC' },
+        { text: 'I\u2019d challenge the team on their model \u2014 sample size, bias, causal vs. correlative claims \u2014 and insist on a pilot before full investment.', level: 'UCo' }
+      ]
+    }
   ];
 
-  // ===== QUESTION BANK =====
-  // Each pillar has tiered questions. Based on answers, the engine branches.
-  // score: 1=UI, 2=CI, 3=CC, 4=UC per answer
-  const PILLARS = {
+  // ===== PHASE 3: DEEP DIVE QUESTION BANK =====
+  // Organized by pillar, then foundational vs strategic track
+  const DEEP_DIVE_BANK = {
     ai: {
-      name: 'Artificial Intelligence',
-      tag: 'AI — Strategy & Governance',
-      questions: [
+      foundational: [
         {
-          id: 'ai_1',
-          type: 'self-assessment',
-          text: 'When your leadership team discusses AI adoption, what best describes your private experience?',
-          context: 'There is no wrong answer. This is about your honest internal reality.',
+          id: 'AI_F1', pillar: 'ai', track: 'foundational', type: 'single',
+          roles: ['ceo','cfo','board','chro','other_exec'],
+          text: 'When vendors pitch AI solutions to your organization, how confident are you in evaluating whether their claims are realistic?',
           options: [
-            { text: 'I find it difficult to distinguish meaningful AI capabilities from marketing claims', score: 1 },
-            { text: 'I can follow the conversation but lack confidence making strategic AI decisions', score: 2 },
-            { text: 'I can evaluate AI opportunities and risks, though I sometimes seek validation', score: 3 },
-            { text: 'I confidently lead AI strategy conversations and challenge vendor assumptions', score: 4 }
+            { text: 'Not confident \u2014 I mostly rely on what the vendor tells me and what my team recommends.', tags: { ai: 'UC', vendor_eval: 'low' } },
+            { text: 'Somewhat confident \u2014 I can ask basic questions but wouldn\u2019t catch exaggerated claims about what AI can actually deliver.', tags: { ai: 'CI', vendor_eval: 'mid' } },
+            { text: 'Reasonably confident \u2014 I understand enough about AI capabilities and limitations to push back on oversold promises.', tags: { ai: 'CC', vendor_eval: 'high' } }
           ]
         },
         {
-          id: 'ai_2',
-          type: 'scenario',
-          text: 'A vendor proposes an AI solution that would automate a significant portion of your workforce\'s tasks. How do you approach this decision?',
-          context: 'Consider both the strategic and human dimensions.',
+          id: 'AI_F2', pillar: 'ai', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'Has your organization established clear policies about how AI tools should (and should not) be used by employees?',
           options: [
-            { text: 'I would rely primarily on the vendor\'s assessment and my IT team\'s recommendation', score: 1 },
-            { text: 'I recognize the need for independent evaluation but am unsure what questions to ask', score: 2 },
-            { text: 'I would commission a structured evaluation covering ROI, workforce impact, and ethical considerations', score: 3 },
-            { text: 'I would lead a cross-functional evaluation framework that includes workforce transition planning, competitive analysis, and governance requirements', score: 4 }
+            { text: 'No \u2014 employees are using AI tools on their own without formal guidance.', tags: { ai_governance: 'none' } },
+            { text: 'Informally \u2014 there\u2019s general awareness but no documented policy.', tags: { ai_governance: 'informal' } },
+            { text: 'Yes \u2014 we have clear usage guidelines that cover approved tools, data handling, and acceptable use cases.', tags: { ai_governance: 'formal' } }
           ]
         },
         {
-          id: 'ai_3',
-          type: 'knowledge',
-          text: 'How would you describe your organization\'s current AI governance framework?',
+          id: 'AI_F3', pillar: 'ai', track: 'foundational', type: 'single',
+          roles: ['board','ceo','cfo','chro','other_exec'],
+          text: 'If your board asked you to explain the difference between generative AI and traditional automation, how comfortable would you be?',
           options: [
-            { text: 'We don\'t have one, and I\'m not entirely sure what it would include', score: 1 },
-            { text: 'I know we need governance but haven\'t established formal policies yet', score: 2 },
-            { text: 'We have policies covering data use, bias monitoring, and accountability, though they need refinement', score: 3 },
-            { text: 'We maintain a comprehensive framework including ethical guidelines, audit processes, and board-level oversight', score: 4 }
+            { text: 'I\u2019d struggle to explain the distinction clearly.', tags: { ai: 'UC', literacy: 'low' } },
+            { text: 'I could give a general explanation but might oversimplify or get details wrong.', tags: { ai: 'CI', literacy: 'mid' } },
+            { text: 'I could explain it clearly and give relevant examples from our industry.', tags: { ai: 'CC', literacy: 'high' } }
           ]
         },
         {
-          id: 'ai_4',
-          type: 'scenario',
-          text: 'Your board asks you to present a 3-year AI roadmap. What is your first instinct?',
+          id: 'AI_F4', pillar: 'ai', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'How would you describe your organization\u2019s current relationship with AI?',
           options: [
-            { text: 'I would ask our IT leadership to prepare the presentation', score: 1 },
-            { text: 'I would research what other companies in our industry are doing and build from there', score: 2 },
-            { text: 'I would map AI capabilities to our strategic priorities and identify quick wins alongside longer-term transformations', score: 3 },
-            { text: 'I would frame it around competitive positioning, capability building, risk management, and measurable value creation with clear governance milestones', score: 4 }
+            { text: 'We\u2019re aware of AI but haven\u2019t meaningfully adopted it yet.', tags: { ai_org: 'early' } },
+            { text: 'Some teams are experimenting, but there\u2019s no coordinated strategy.', tags: { ai_org: 'fragmented' } },
+            { text: 'We have active AI initiatives with executive sponsorship and defined goals.', tags: { ai_org: 'active' } },
+            { text: 'AI is embedded in our core operations and we\u2019re scaling it.', tags: { ai_org: 'mature' } }
+          ]
+        }
+      ],
+      strategic: [
+        {
+          id: 'AI_S1', pillar: 'ai', track: 'strategic', type: 'single',
+          roles: ['cio','ceo','ciso','other_exec'],
+          text: 'Your organization is evaluating two competing AI platforms for a critical business function. The vendors present dramatically different approaches. How do you lead the evaluation?',
+          options: [
+            { text: 'I\u2019d build a structured evaluation framework: use-case fit, total cost of ownership, integration requirements, data governance implications, and exit strategy.', tags: { ai: 'CC', eval: 'structured' } },
+            { text: 'I\u2019d add to that framework: competitive intelligence on what peers have chosen, an assessment of each vendor\u2019s long-term viability, and a pilot-first approach with defined success metrics.', tags: { ai: 'UCo', eval: 'advanced' } }
           ]
         },
         {
-          id: 'ai_5',
-          type: 'self-assessment',
-          text: 'When reading about AI developments in the news, how do you typically process the information?',
+          id: 'AI_S2', pillar: 'ai', track: 'strategic', type: 'single',
+          roles: ['ceo','chro','board','other_exec'],
+          text: 'Your CHRO raises concerns that AI adoption will create significant workforce displacement within 18 months. How do you engage with this?',
           options: [
-            { text: 'I find it overwhelming and hard to separate signal from noise', score: 1 },
-            { text: 'I can identify relevant trends but struggle to translate them into organizational implications', score: 2 },
-            { text: 'I regularly assess how developments affect our strategy and discuss implications with my team', score: 3 },
-            { text: 'I proactively identify opportunities and threats, often before they become mainstream discussion', score: 4 }
+            { text: 'I\u2019d acknowledge the concern but focus primarily on the productivity and efficiency gains AI delivers.', tags: { ai: 'CC', workforce: 'efficiency_first' } },
+            { text: 'I\u2019d frame it as a transformation challenge \u2014 reskilling plan, role evolution mapping, and a communication strategy that addresses anxiety directly.', tags: { ai: 'UCo', workforce: 'transformation' } },
+            { text: 'I\u2019d push for a comprehensive workforce impact assessment before expanding AI adoption, balancing business value against talent retention and culture.', tags: { ai: 'UCo', workforce: 'balanced' } }
+          ]
+        },
+        {
+          id: 'AI_S3', pillar: 'ai', track: 'strategic', type: 'single',
+          roles: ['all'],
+          text: 'How would you evaluate whether your organization\u2019s AI initiatives are generating real business value versus creating expensive experiments?',
+          options: [
+            { text: 'I\u2019d look at basic ROI: are we saving money or making more than we spent?', tags: { ai: 'CC', roi: 'basic' } },
+            { text: 'I\u2019d evaluate across multiple dimensions: direct ROI, time-to-decision improvement, competitive positioning, risk reduction, and whether we\u2019re building organizational capability or just buying tools.', tags: { ai: 'UCo', roi: 'multi_dim' } }
+          ]
+        },
+        {
+          id: 'AI_S4', pillar: 'ai', track: 'strategic', type: 'multi',
+          roles: ['all'],
+          text: 'A department head wants to deploy a third-party AI tool that processes sensitive customer data. What governance questions do you ask before approving?',
+          context: 'Select all that apply.',
+          options: [
+            { text: 'Where does the data go and who has access to it?', tags: { governance: '+1' } },
+            { text: 'Does this comply with our industry\u2019s regulatory requirements?', tags: { governance: '+1' } },
+            { text: 'What happens to our data if we terminate the vendor relationship?', tags: { governance: '+1' } },
+            { text: 'Has the model been evaluated for bias that could affect our customers?', tags: { governance: '+1' } },
+            { text: 'Is there human oversight for decisions this AI makes about customers?', tags: { governance: '+1' } }
           ]
         }
       ]
     },
     blockchain: {
-      name: 'Blockchain',
-      tag: 'Blockchain — Digital Trust',
-      questions: [
+      foundational: [
         {
-          id: 'bc_1',
-          type: 'self-assessment',
-          text: 'When blockchain or distributed ledger technology comes up in a strategic conversation, what is your honest comfort level?',
+          id: 'BC_F1', pillar: 'blockchain', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'Beyond cryptocurrency, can you name a business application of blockchain technology that\u2019s relevant to your industry?',
           options: [
-            { text: 'I\'m not confident I understand how blockchain differs from a conventional database', score: 1 },
-            { text: 'I grasp the basic concept but can\'t evaluate specific business applications', score: 2 },
-            { text: 'I can assess blockchain use cases and distinguish genuine value from hype', score: 3 },
-            { text: 'I can lead strategic discussions on when blockchain creates real competitive advantage versus when simpler solutions suffice', score: 4 }
+            { text: 'Not really \u2014 I associate blockchain primarily with crypto and NFTs.', tags: { bc: 'UC', literacy: 'low' } },
+            { text: 'I\u2019ve heard of supply chain tracking or digital identity, but couldn\u2019t explain how it works.', tags: { bc: 'CI', literacy: 'mid' } },
+            { text: 'Yes \u2014 I can describe specific use cases like provenance tracking, smart contracts for procurement, or decentralized identity verification.', tags: { bc: 'CC', literacy: 'high' } }
           ]
         },
         {
-          id: 'bc_2',
-          type: 'scenario',
-          text: 'A supply chain partner proposes implementing blockchain for transparency and traceability. How would you evaluate this?',
+          id: 'BC_F2', pillar: 'blockchain', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'How would you describe your level of understanding of \u2018digital trust\u2019 as a business concept?',
           options: [
-            { text: 'I would defer to our technology team\'s judgment on whether this makes sense', score: 1 },
-            { text: 'I would ask questions about cost and timeline but lack a framework for evaluating the underlying technology choice', score: 2 },
-            { text: 'I would evaluate whether blockchain genuinely solves the trust problem here or if centralized alternatives would work equally well', score: 3 },
-            { text: 'I would lead an assessment covering trust architecture, data sovereignty, interoperability, regulatory implications, and ROI against alternative approaches', score: 4 }
+            { text: 'I\u2019m not sure what \u2018digital trust\u2019 means in a business context.', tags: { bc: 'UC', trust: 'low' } },
+            { text: 'I understand it generally \u2014 something about verifying identities and transactions online \u2014 but couldn\u2019t articulate a strategy around it.', tags: { bc: 'CI', trust: 'mid' } },
+            { text: 'I see digital trust as a strategic asset \u2014 how your organization establishes and maintains credibility in digital interactions with customers, partners, and regulators.', tags: { bc: 'CC', trust: 'high' } }
           ]
         },
         {
-          id: 'bc_3',
-          type: 'knowledge',
-          text: 'How familiar are you with the concept of digital identity and self-sovereign identity frameworks?',
+          id: 'BC_F3', pillar: 'blockchain', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'If a technology vendor proposed a blockchain solution for your organization, what would your primary concern be?',
           options: [
-            { text: 'I\'m not sure what digital identity frameworks are or why they matter to my organization', score: 1 },
-            { text: 'I\'ve heard the terms but can\'t explain how they would affect our operations or customers', score: 2 },
-            { text: 'I understand the implications for customer privacy, regulatory compliance, and operational efficiency', score: 3 },
-            { text: 'I can articulate how decentralized identity reshapes trust relationships and have explored strategic positioning', score: 4 }
+            { text: 'I\u2019d worry about the cost and complexity without understanding the benefit.', tags: { bc: 'CI', concern: 'confusion' } },
+            { text: 'I\u2019d want to understand whether blockchain is the right tool or whether a simpler solution could achieve the same result.', tags: { bc: 'CC', concern: 'appropriateness' } },
+            { text: 'I\u2019d question the vendor\u2019s claims \u2014 blockchain is often proposed where centralized solutions work perfectly well.', tags: { bc: 'UCo', concern: 'skeptical' } }
+          ]
+        }
+      ],
+      strategic: [
+        {
+          id: 'BC_S1', pillar: 'blockchain', track: 'strategic', type: 'single',
+          roles: ['all'],
+          text: 'Your industry is exploring decentralized identity standards. Your organization needs to decide whether to participate in the early consortium. How do you evaluate this?',
+          options: [
+            { text: 'I\u2019d evaluate the business case: what does participation cost, what competitive advantage does early adoption create, and what\u2019s the risk of waiting?', tags: { bc: 'CC', strategy: 'business_case' } },
+            { text: 'I\u2019d look beyond the business case to governance: who controls the standard, what are the interoperability requirements, and does our participation shape the rules or just comply with them?', tags: { bc: 'UCo', strategy: 'governance' } }
           ]
         },
         {
-          id: 'bc_4',
-          type: 'scenario',
-          text: 'Your CFO asks whether tokenization of company assets could unlock new value. How do you respond?',
+          id: 'BC_S2', pillar: 'blockchain', track: 'strategic', type: 'single',
+          roles: ['all'],
+          text: 'A competitor implements a blockchain-based supply chain transparency system and markets it heavily to customers. Your sales team wants a response. What\u2019s your approach?',
           options: [
-            { text: 'I\'m not sure what tokenization means in a business context', score: 1 },
-            { text: 'I know it involves representing assets digitally but can\'t assess the risks or regulatory landscape', score: 2 },
-            { text: 'I can discuss the potential benefits, regulatory requirements, and operational considerations at a strategic level', score: 3 },
-            { text: 'I can evaluate tokenization against our specific asset portfolio, regulatory environment, and strategic objectives with concrete next steps', score: 4 }
+            { text: 'I\u2019d fast-track our own blockchain initiative to match the competitor\u2019s offering.', tags: { bc: 'CC', strategy: 'reactive' } },
+            { text: 'I\u2019d evaluate whether blockchain is actually delivering value for the competitor or is primarily a marketing play, then decide whether to match, differentiate, or reframe.', tags: { bc: 'UCo', strategy: 'analytical' } }
+          ]
+        },
+        {
+          id: 'BC_S3', pillar: 'blockchain', track: 'strategic', type: 'single',
+          roles: ['all'],
+          text: 'How do you evaluate the difference between blockchain hype and genuine strategic value?',
+          options: [
+            { text: 'I look for proven use cases in my industry and wait for mainstream adoption before investing.', tags: { bc: 'CC', eval: 'cautious' } },
+            { text: 'I assess three things: does this solve a trust problem that existing technology can\u2019t, does it require multi-party coordination to create value, and is the ecosystem mature enough to deliver?', tags: { bc: 'UCo', eval: 'framework' } }
           ]
         }
       ]
     },
     cybersecurity: {
-      name: 'Cybersecurity',
-      tag: 'Cybersecurity — Strategic Risk',
-      questions: [
+      foundational: [
         {
-          id: 'cs_1',
-          type: 'self-assessment',
-          text: 'When your CISO or security team briefs the board on cyber risk, how would you describe your ability to engage?',
+          id: 'CY_F1', pillar: 'cybersecurity', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'How would you describe your personal understanding of your organization\u2019s cybersecurity risk posture?',
           options: [
-            { text: 'I rely on their expertise and accept their recommendations largely at face value', score: 1 },
-            { text: 'I ask questions but often feel I lack the context to challenge or prioritize effectively', score: 2 },
-            { text: 'I can engage meaningfully, ask strategic questions, and connect cyber risk to business risk', score: 3 },
-            { text: 'I drive the conversation, framing cybersecurity as a competitive and governance imperative — not just a technical issue', score: 4 }
+            { text: 'I trust that our IT team handles it, but I couldn\u2019t describe our specific risks or defenses.', tags: { cy: 'UC', posture: 'delegated' } },
+            { text: 'I know the basics \u2014 we have firewalls, we do training \u2014 but I couldn\u2019t tell you whether our posture is adequate for our actual risk level.', tags: { cy: 'CI', posture: 'surface' } },
+            { text: 'I can articulate our key risks, our defensive measures, and where our gaps are.', tags: { cy: 'CC', posture: 'informed' } }
           ]
         },
         {
-          id: 'cs_2',
-          type: 'scenario',
-          text: 'Your organization suffers a significant data breach on a Friday evening. Walk through your first response.',
+          id: 'CY_F2', pillar: 'cybersecurity', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'If a significant cyber incident happened at your organization tomorrow, how confident are you that you\u2019d know what to do in the first 60 minutes?',
           options: [
-            { text: 'I would wait for the security team to assess the situation and tell me what happened', score: 1 },
-            { text: 'I would contact the security team immediately but am unsure what decisions need to be made at the executive level', score: 2 },
-            { text: 'I would activate our incident response plan, ensure legal and communications are engaged, and begin stakeholder notification planning', score: 3 },
-            { text: 'I would lead the crisis response: activating the IR plan, making regulatory disclosure decisions, managing board communications, coordinating external counsel, and beginning root cause analysis — while ensuring business continuity', score: 4 }
+            { text: 'Not confident \u2014 I\u2019d be looking for someone to tell me what to do.', tags: { cy: 'UC', incident: 'unprepared' } },
+            { text: 'Somewhat confident \u2014 I know we have an incident response plan but I\u2019m not sure of my specific role in it.', tags: { cy: 'CI', incident: 'aware' } },
+            { text: 'Confident \u2014 I know the plan, my role, and the first three calls I need to make.', tags: { cy: 'CC', incident: 'prepared' } }
           ]
         },
         {
-          id: 'cs_3',
-          type: 'knowledge',
-          text: 'How would you describe your organization\'s cyber risk governance maturity?',
+          id: 'CY_F3', pillar: 'cybersecurity', track: 'foundational', type: 'single',
+          roles: ['ceo','cfo','board','other_exec'],
+          text: 'Can you explain to a board member why cybersecurity is a business risk, not just an IT problem?',
           options: [
-            { text: 'I\'m not sure we have formal cyber risk governance beyond our IT security team', score: 1 },
-            { text: 'We have some policies in place but they haven\'t been reviewed or tested recently', score: 2 },
-            { text: 'We have a risk framework with regular assessments, board reporting, and documented policies', score: 3 },
-            { text: 'Our cyber governance is integrated into enterprise risk management with quantified risk metrics, regular tabletop exercises, and board-level accountability', score: 4 }
+            { text: 'I\u2019d probably frame it as \u2018we need to protect our data\u2019 but couldn\u2019t articulate the strategic business implications.', tags: { cy: 'UC', board: 'basic' } },
+            { text: 'I could make the general case but would struggle with specifics about financial exposure, regulatory liability, or competitive impact.', tags: { cy: 'CI', board: 'general' } },
+            { text: 'I could frame it in business terms: revenue risk, regulatory exposure, customer trust, competitive positioning, and insurance implications.', tags: { cy: 'CC', board: 'strategic' } }
           ]
         },
         {
-          id: 'cs_4',
-          type: 'scenario',
-          text: 'A new regulation requires significant changes to your data handling practices. How do you approach compliance?',
+          id: 'CY_F4', pillar: 'cybersecurity', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'Does your organization\u2019s cybersecurity budget get treated as a cost center or as a strategic investment?',
           options: [
-            { text: 'I trust our legal and compliance teams to handle regulatory requirements', score: 1 },
-            { text: 'I understand we need to comply but struggle to assess the strategic implications beyond the compliance checklist', score: 2 },
-            { text: 'I evaluate both compliance requirements and competitive implications, ensuring we meet the letter and spirit of regulation', score: 3 },
-            { text: 'I see regulation as a strategic opportunity — using compliance as a catalyst for building trust, competitive differentiation, and operational resilience', score: 4 }
+            { text: 'It\u2019s definitely a cost center \u2014 we try to minimize spending while meeting basic requirements.', tags: { cy_org: 'cost_center' } },
+            { text: 'It\u2019s somewhere in between \u2014 we invest when something scares us but don\u2019t have a strategic framework.', tags: { cy_org: 'reactive' } },
+            { text: 'It\u2019s treated as a strategic investment tied to business risk and competitive positioning.', tags: { cy_org: 'strategic' } }
+          ]
+        }
+      ],
+      strategic: [
+        {
+          id: 'CY_S1', pillar: 'cybersecurity', track: 'strategic', type: 'single',
+          roles: ['ceo','board','ciso','other_exec'],
+          text: 'Your organization operates in a regulated industry. A new regulation requires board-level cybersecurity reporting. How do you prepare?',
+          options: [
+            { text: 'I\u2019d work with the CISO to build a board-ready dashboard: key risk metrics, compliance status, incident trends, and investment ROI.', tags: { cy: 'CC', governance: 'reporting' } },
+            { text: 'I\u2019d go beyond reporting to reshape the board\u2019s approach: establish a technology risk committee, define oversight questions, and create a cadence where cybersecurity is a standing strategic agenda item, not a compliance checkbox.', tags: { cy: 'UCo', governance: 'strategic' } }
           ]
         },
         {
-          id: 'cs_5',
-          type: 'self-assessment',
-          text: 'How confident are you in discussing cybersecurity investment decisions with your board or investors?',
+          id: 'CY_S2', pillar: 'cybersecurity', track: 'strategic', type: 'single',
+          roles: ['all'],
+          text: 'How do you think about cybersecurity as a competitive advantage, rather than just a cost of doing business?',
           options: [
-            { text: 'I present what the security team recommends without much ability to contextualize the spend', score: 1 },
-            { text: 'I can justify security spending at a high level but can\'t articulate ROI or risk reduction in business terms', score: 2 },
-            { text: 'I can frame security investments in terms of risk reduction, regulatory requirements, and business enablement', score: 3 },
-            { text: 'I lead investment discussions that quantify cyber risk in financial terms and align security spending with strategic priorities', score: 4 }
+            { text: 'I see it primarily as risk mitigation \u2014 the advantage is avoiding the damage a breach would cause.', tags: { cy: 'CC', competitive: 'defensive' } },
+            { text: 'I see it as a trust differentiator \u2014 customers and partners choose organizations they believe will protect their data, and that\u2019s a positioning opportunity.', tags: { cy: 'UCo', competitive: 'offensive' } }
+          ]
+        },
+        {
+          id: 'CY_S3', pillar: 'cybersecurity', track: 'strategic', type: 'single',
+          roles: ['ceo','cfo','other_exec'],
+          text: 'Your CISO presents a proposal to increase the cybersecurity budget by 40%. How do you evaluate this?',
+          options: [
+            { text: 'I\u2019d compare the request against industry benchmarks and our recent incident history.', tags: { cy: 'CC', budget: 'benchmark' } },
+            { text: 'I\u2019d evaluate the request against our risk appetite, map it to specific threat scenarios and their probability and business impact, and assess whether the investment changes our risk profile meaningfully.', tags: { cy: 'UCo', budget: 'risk_based' } }
           ]
         }
       ]
     },
     datascience: {
-      name: 'Data Science',
-      tag: 'Data Science — Analytics & Culture',
-      questions: [
+      foundational: [
         {
-          id: 'ds_1',
-          type: 'self-assessment',
-          text: 'When your analytics team presents data-driven recommendations, how do you typically engage?',
+          id: 'DS_F1', pillar: 'datascience', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'When someone on your team presents data to support a decision, how confident are you in evaluating whether the data is reliable?',
           options: [
-            { text: 'I accept the findings but honestly don\'t always understand the methodology behind them', score: 1 },
-            { text: 'I ask questions about the conclusions but can\'t evaluate whether the analytical approach was sound', score: 2 },
-            { text: 'I can assess the quality of analysis, identify potential biases, and integrate findings into strategic decisions', score: 3 },
-            { text: 'I drive data strategy, define what questions matter most, and ensure analytical rigor supports — rather than replaces — executive judgment', score: 4 }
+            { text: 'Not very \u2014 I tend to accept data at face value if the source seems credible.', tags: { ds: 'UC', data_eval: 'low' } },
+            { text: 'Somewhat \u2014 I ask basic questions about where the data came from, but I\u2019m not sure what to look for in terms of methodology or bias.', tags: { ds: 'CI', data_eval: 'mid' } },
+            { text: 'Confident \u2014 I evaluate data quality, sample size, methodology, and whether the conclusions actually follow from the evidence.', tags: { ds: 'CC', data_eval: 'high' } }
           ]
         },
         {
-          id: 'ds_2',
-          type: 'scenario',
-          text: 'You need to make a major strategic decision, and your team presents conflicting data analyses. What do you do?',
+          id: 'DS_F2', pillar: 'datascience', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'Does your organization have a clear understanding of what data it collects, where it\u2019s stored, and who has access to it?',
           options: [
-            { text: 'I go with my gut or defer to the most senior analyst\'s interpretation', score: 1 },
-            { text: 'I recognize the analyses conflict but am unsure how to evaluate which is more reliable', score: 2 },
-            { text: 'I examine the assumptions, data sources, and methodologies behind each analysis before deciding', score: 3 },
-            { text: 'I convene the analysts to reconcile assumptions, identify what additional data would resolve the conflict, and make a decision that accounts for the uncertainty', score: 4 }
+            { text: 'Honestly, probably not \u2014 data is scattered across systems and teams.', tags: { ds_org: 'scattered' } },
+            { text: 'We have some inventory but it\u2019s incomplete or outdated.', tags: { ds_org: 'partial' } },
+            { text: 'Yes \u2014 we maintain a current data inventory with governance controls.', tags: { ds_org: 'governed' } }
           ]
         },
         {
-          id: 'ds_3',
-          type: 'knowledge',
-          text: 'How would you describe your organization\'s data culture and analytics maturity?',
+          id: 'DS_F3', pillar: 'datascience', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'How would you describe your organization\u2019s ability to turn data into actionable business decisions?',
           options: [
-            { text: 'We collect data but I\'m not sure we use it effectively for decision-making', score: 1 },
-            { text: 'Some teams use data well, but there\'s no enterprise-wide analytics strategy or culture', score: 2 },
-            { text: 'We have an analytics strategy with defined KPIs, regular reporting, and growing data literacy across leadership', score: 3 },
-            { text: 'Data-driven decision-making is embedded in our culture with self-service analytics, executive data literacy, and measurable ROI from data investments', score: 4 }
+            { text: 'We collect a lot of data but rarely use it systematically for decisions.', tags: { ds_org: 'collecting' } },
+            { text: 'Some teams use data well, but it\u2019s inconsistent across the organization.', tags: { ds_org: 'pockets' } },
+            { text: 'We have a data-driven culture where decisions at all levels are informed by analytics.', tags: { ds_org: 'mature' } }
           ]
         },
         {
-          id: 'ds_4',
-          type: 'scenario',
-          text: 'Your organization is evaluating whether to build an internal data science team or partner with an external analytics firm. How do you frame this decision?',
+          id: 'DS_F4', pillar: 'datascience', track: 'foundational', type: 'single',
+          roles: ['all'],
+          text: 'Can you explain the difference between descriptive analytics (\u2018what happened\u2019), predictive analytics (\u2018what will happen\u2019), and prescriptive analytics (\u2018what should we do\u2019)?',
           options: [
-            { text: 'I would ask the CIO or CTO to make this recommendation', score: 1 },
-            { text: 'I understand the tradeoffs exist but am not sure what criteria should drive the decision', score: 2 },
-            { text: 'I would evaluate based on our data maturity, strategic priorities, cost structure, and the need for institutional knowledge', score: 3 },
-            { text: 'I would develop a build-vs-partner strategy that considers our competitive advantage, data sovereignty, talent market, and a phased approach that builds internal capability over time', score: 4 }
+            { text: 'I\u2019m not familiar with those distinctions.', tags: { ds: 'UC', analytics_lit: 'low' } },
+            { text: 'I\u2019ve heard the terms but couldn\u2019t explain them clearly or give examples from our business.', tags: { ds: 'CI', analytics_lit: 'mid' } },
+            { text: 'Yes \u2014 and I can identify which level our organization is currently operating at.', tags: { ds: 'CC', analytics_lit: 'high' } }
+          ]
+        }
+      ],
+      strategic: [
+        {
+          id: 'DS_S1', pillar: 'datascience', track: 'strategic', type: 'single',
+          roles: ['ceo','chro','other_exec'],
+          text: 'Your organization wants to build a \u2018data culture.\u2019 What does that mean to you, and how would you measure whether you\u2019re succeeding?',
+          options: [
+            { text: 'It means more people using dashboards and reports. I\u2019d measure adoption rates of our analytics tools.', tags: { ds: 'CC', culture: 'tool_focused' } },
+            { text: 'It means decisions at every level are informed by data, employees are data-literate, and there\u2019s organizational trust in the data. I\u2019d measure decision quality, not tool adoption.', tags: { ds: 'UCo', culture: 'outcome_focused' } }
           ]
         },
         {
-          id: 'ds_5',
-          type: 'self-assessment',
-          text: 'How comfortable are you discussing data privacy and ethics at the executive level?',
+          id: 'DS_S2', pillar: 'datascience', track: 'strategic', type: 'single',
+          roles: ['all'],
+          text: 'A proposed data analytics project requires access to sensitive customer data. The team argues the business value justifies the privacy trade-off. How do you navigate this?',
           options: [
-            { text: 'I leave privacy and ethics discussions to legal and compliance', score: 1 },
-            { text: 'I know these issues matter but lack a framework for evaluating ethical data use', score: 2 },
-            { text: 'I can engage in privacy and ethics discussions and ensure our practices align with regulations and stakeholder expectations', score: 3 },
-            { text: 'I champion ethical data practices as a leadership priority and competitive differentiator, with clear policies and governance', score: 4 }
+            { text: 'I\u2019d evaluate the business case and if the value is clear, approve with standard data protection measures.', tags: { ds: 'CC', privacy: 'pragmatic' } },
+            { text: 'I\u2019d challenge whether we can achieve the business objective with anonymized or aggregated data first. If not, I\u2019d require a formal privacy impact assessment and ensure the project has explicit customer consent where required.', tags: { ds: 'UCo', privacy: 'principled' } }
+          ]
+        },
+        {
+          id: 'DS_S3', pillar: 'datascience', track: 'strategic', type: 'single',
+          roles: ['ceo','cfo','other_exec'],
+          text: 'How do you evaluate whether a data initiative is worth the investment?',
+          options: [
+            { text: 'Standard ROI calculation: projected revenue or savings against cost.', tags: { ds: 'CC', roi: 'standard' } },
+            { text: 'Multi-layered: direct financial return, decision quality improvement, time-to-insight acceleration, risk reduction, and whether we\u2019re building reusable data infrastructure or a one-off project.', tags: { ds: 'UCo', roi: 'comprehensive' } }
           ]
         }
       ]
     }
   };
 
-  const PILLAR_ORDER = ['ai', 'blockchain', 'cybersecurity', 'datascience'];
+  // ===== PHASE 4: ORGANIZATIONAL CONTEXT =====
+  const ORG_QUESTIONS = [
+    {
+      id: 'O1', phase: 4, type: 'single',
+      text: 'Thinking about your organization\u2019s overall approach to technology transformation, which statement best describes where you are?',
+      context: '',
+      options: [
+        { text: 'We react to technology changes as they affect us. There\u2019s no proactive strategy.', tag: 'org:reactive' },
+        { text: 'We\u2019re aware of the need to transform but are struggling to move from awareness to action.', tag: 'org:stalled' },
+        { text: 'We have active transformation initiatives but they\u2019re not well-coordinated across the organization.', tag: 'org:fragmented' },
+        { text: 'We have a coordinated technology transformation strategy with executive sponsorship and clear milestones.', tag: 'org:strategic' }
+      ]
+    },
+    {
+      id: 'O2', phase: 4, type: 'multi',
+      text: 'When your organization makes a significant technology decision, who is genuinely involved in the evaluation \u2014 not just informed, but actually shaping the decision?',
+      context: 'Select all that apply.',
+      options: [
+        { text: 'CEO / President', tag: 'exec_involvement' },
+        { text: 'CFO / Finance leadership', tag: 'exec_involvement' },
+        { text: 'CIO / CTO / Technology leadership', tag: 'tech_involvement' },
+        { text: 'CISO / Security leadership', tag: 'security_involvement' },
+        { text: 'CHRO / People leadership', tag: 'people_involvement' },
+        { text: 'Board / Advisory Board', tag: 'board_involvement' },
+        { text: 'External advisors or consultants', tag: 'external_involvement' }
+      ]
+    },
+    {
+      id: 'O3', phase: 4, type: 'single',
+      text: 'If you could change one thing about how your organization approaches technology, what would it be?',
+      context: '',
+      options: [
+        { text: 'I wish we moved faster \u2014 we\u2019re too cautious and competitors are pulling ahead.', tag: 'org_gap:speed' },
+        { text: 'I wish we were more strategic \u2014 we invest in technology without a clear connection to business outcomes.', tag: 'org_gap:strategy' },
+        { text: 'I wish our leadership team was more aligned \u2014 technology decisions create conflict because we don\u2019t share a common understanding.', tag: 'org_gap:alignment' },
+        { text: 'I wish I personally had more confidence to lead these conversations \u2014 I know we need to act but I\u2019m not sure I\u2019m the right person to drive it.', tag: 'org_gap:personal_confidence' }
+      ]
+    }
+  ];
+
+  const PILLAR_KEYS = ['ai', 'blockchain', 'cybersecurity', 'datascience'];
+  const PILLAR_NAMES = { ai: 'Artificial Intelligence', blockchain: 'Blockchain & Digital Trust', cybersecurity: 'Cybersecurity', datascience: 'Data Science' };
+  const PHASE_NAMES = ['Context', 'Pulse', 'Deep Dive', 'Org Context'];
 
   // ===== STATE =====
   let state = {
-    screen: 'intro', // intro, question, results
-    role: null,
-    currentPillar: 0,
-    currentQuestion: 0,
-    answers: {},       // { questionId: { score, optionIndex } }
-    pillarScores: {},  // computed after all questions
+    screen: 'intro',           // intro | phase1 | phase2 | phase3 | phase4 | results
+    phase: 1,
+    questionIndex: 0,          // index within current phase's question list
+    answers: {},               // { questionId: selectedIndex (single) or [indices] (multi) }
+    tags: {},                  // accumulated tags from all answers
+    gatewayLevels: {},         // { ai: 'UC'|'CI'|'CC'|'UCo', ... }
+    contextData: {},           // role, industry, size, priority
+    phase3Questions: [],       // selected deep dive questions
+    pillarProfiles: {},        // final CC level per pillar
+    orgLevel: null,
+    orgGap: null,
+    orgInvolvement: 0
   };
 
   const app = document.getElementById('assessmentApp');
+
+  // ===== HELPER: get role from context =====
+  function getRole() {
+    const tag = state.contextData.role || '';
+    return tag.replace('role:', '');
+  }
+
+  function getIndustry() {
+    const tag = state.contextData.industry || '';
+    return tag.replace('ind:', '');
+  }
+
+  function getPriority() {
+    const tag = state.contextData.priority || '';
+    return tag.replace('priority:', '');
+  }
+
+  // ===== BRANCHING ENGINE: Select Phase 3 Questions =====
+  function selectPhase3Questions() {
+    const role = getRole();
+    const priority = getPriority();
+    const selected = [];
+
+    // Determine priority pillar from C-4
+    let priorityPillar = null;
+    if (priority === 'ai') priorityPillar = 'ai';
+    else if (priority === 'cyber') priorityPillar = 'cybersecurity';
+    else if (priority === 'data') priorityPillar = 'datascience';
+    else if (priority === 'blockchain') priorityPillar = 'blockchain';
+    // 'all' = no single priority, distribute evenly
+
+    PILLAR_KEYS.forEach(pillar => {
+      const gateway = state.gatewayLevels[pillar] || 'CI';
+      const isFoundational = (gateway === 'UC' || gateway === 'CI');
+      const track = isFoundational ? 'foundational' : 'strategic';
+      const bank = DEEP_DIVE_BANK[pillar][track];
+
+      // Filter by role relevance
+      const eligible = bank.filter(q => {
+        if (q.roles.includes('all')) return true;
+        return q.roles.includes(role);
+      });
+
+      // Determine how many questions for this pillar
+      let count;
+      if (priorityPillar === pillar) {
+        count = Math.min(3, eligible.length);
+      } else if (priority === 'all') {
+        count = Math.min(2, eligible.length);
+      } else {
+        count = Math.min(2, eligible.length);
+      }
+
+      // Select questions (take first N eligible — they're already ordered by relevance in the bank)
+      for (let i = 0; i < count; i++) {
+        selected.push(eligible[i]);
+      }
+    });
+
+    state.phase3Questions = selected;
+  }
+
+  // ===== GET CURRENT QUESTION LIST FOR PHASE =====
+  function getCurrentQuestions() {
+    switch (state.phase) {
+      case 1: return CONTEXT_QUESTIONS;
+      case 2: return GATEWAY_QUESTIONS;
+      case 3: return state.phase3Questions;
+      case 4: return ORG_QUESTIONS;
+      default: return [];
+    }
+  }
+
+  // ===== TOTAL QUESTION COUNT =====
+  function getTotalQuestions() {
+    return CONTEXT_QUESTIONS.length + GATEWAY_QUESTIONS.length + state.phase3Questions.length + ORG_QUESTIONS.length;
+  }
+
+  function getAnsweredCount() {
+    return Object.keys(state.answers).length;
+  }
 
   // ===== RENDERING =====
   function render() {
     switch (state.screen) {
       case 'intro': renderIntro(); break;
-      case 'question': renderQuestion(); break;
+      case 'assessment': renderQuestion(); break;
       case 'results': renderResults(); break;
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1278,62 +1669,50 @@
           <div class="gold-rule"></div>
         </div>
         <h1>Technology Leadership Readiness Assessment</h1>
-        <p>A private, adaptive evaluation across four technology pillars. Your responses shape the experience — and the insights you receive are genuine, not gated.</p>
+        <p>A private, adaptive evaluation that builds a personalized competence profile across four technology pillars. Every executive sees a different path. Approximately 15 minutes.</p>
       </div>
-      <div class="question-card role-screen">
-        <h2>First, tell us about your role</h2>
-        <p>This helps us contextualize your results and surface the most relevant insights for your position.</p>
-        <div class="role-grid">
-          ${ROLES.map(r => `
-            <div class="role-option${state.role === r.id ? ' selected' : ''}" data-role="${r.id}">
-              <div class="role-option-title">${r.title}</div>
-              <div class="role-option-desc">${r.desc}</div>
-            </div>
-          `).join('')}
-        </div>
-        <button class="btn-primary${!state.role ? ' btn-disabled' : ''}" id="startBtn">Begin Assessment</button>
+      <div class="question-card" style="text-align:center;">
+        <h2>How This Works</h2>
+        <p style="text-align:left;">This assessment moves through four phases. You\u2019ll start with a few questions about your context, then respond to scenarios across four technology domains. Your answers shape which questions come next \u2014 this is adaptive, not one-size-fits-all.</p>
+        <p style="text-align:left; margin-top:0.5rem; margin-bottom:2rem; font-size:0.82rem; color:rgba(255,255,255,0.4);">Your responses are confidential. There are no trick questions and no wrong answers.</p>
+        <button class="btn-primary" id="startBtn">Begin Assessment</button>
       </div>
     `;
 
-    app.querySelectorAll('.role-option').forEach(el => {
-      el.addEventListener('click', () => {
-        state.role = el.dataset.role;
-        render();
-      });
+    document.getElementById('startBtn').addEventListener('click', () => {
+      state.screen = 'assessment';
+      state.phase = 1;
+      state.questionIndex = 0;
+      render();
     });
-
-    const startBtn = document.getElementById('startBtn');
-    if (state.role) {
-      startBtn.addEventListener('click', () => {
-        state.screen = 'question';
-        state.currentPillar = 0;
-        state.currentQuestion = 0;
-        render();
-      });
-    }
   }
 
   function renderQuestion() {
-    const pillarKey = PILLAR_ORDER[state.currentPillar];
-    const pillar = PILLARS[pillarKey];
-    const question = pillar.questions[state.currentQuestion];
-    const totalQuestions = PILLAR_ORDER.reduce((sum, k) => sum + PILLARS[k].questions.length, 0);
-    const answeredCount = Object.keys(state.answers).length;
-    const currentAnswer = state.answers[question.id];
+    const questions = getCurrentQuestions();
+    const q = questions[state.questionIndex];
+    if (!q) return;
 
-    // Determine if we can skip ahead (branching logic):
-    // If someone scores 4 on first two questions in a pillar, skip to next pillar
-    // If someone scores 1 on first two questions, add emphasis but continue
-    const pillarAnswers = pillar.questions
-      .map(q => state.answers[q.id])
-      .filter(Boolean);
+    const isMulti = q.type === 'multi';
+    const currentAnswer = state.answers[q.id];
+    const hasAnswer = isMulti ? (currentAnswer && currentAnswer.length > 0) : (currentAnswer !== undefined);
 
-    // Calculate question number within pillar and overall
-    let questionsBefore = 0;
-    for (let i = 0; i < state.currentPillar; i++) {
-      questionsBefore += PILLARS[PILLAR_ORDER[i]].questions.length;
+    // Phase tag
+    let phaseTag = PHASE_NAMES[state.phase - 1];
+    if (state.phase === 2 && q.pillar) {
+      phaseTag = PILLAR_NAMES[q.pillar];
+    } else if (state.phase === 3 && q.pillar) {
+      phaseTag = PILLAR_NAMES[q.pillar] + (q.track === 'foundational' ? ' \u2014 Foundational' : ' \u2014 Strategic');
     }
-    const overallCurrent = questionsBefore + state.currentQuestion + 1;
+
+    // Question numbering within phase
+    const phaseNum = state.questionIndex + 1;
+    const phaseTotal = questions.length;
+
+    // Can go back?
+    const canGoBack = !(state.phase === 1 && state.questionIndex === 0);
+
+    // Is last question overall?
+    const isLast = (state.phase === 4 && state.questionIndex === questions.length - 1);
 
     app.innerHTML = `
       <div class="assessment-header" style="margin-bottom: 2rem;">
@@ -1345,21 +1724,30 @@
       </div>
       ${renderProgress()}
       <div class="question-card">
-        <div class="question-pillar-tag">${pillar.tag}</div>
-        <div class="question-number">Question ${state.currentQuestion + 1} of ${pillar.questions.length}</div>
-        <div class="question-text">${question.text}</div>
-        ${question.context ? `<div class="question-context">${question.context}</div>` : ''}
+        <div class="question-phase-tag">${phaseTag}</div>
+        <div class="question-number">Question ${phaseNum} of ${phaseTotal} \u2014 Phase ${state.phase} of 4</div>
+        <div class="question-text">${q.text}</div>
+        ${q.context ? `<div class="question-context">${q.context}</div>` : ''}
+        ${isMulti ? '<div class="multi-select-hint">Select all that apply</div>' : ''}
         <div class="options">
-          ${question.options.map((opt, i) => `
-            <div class="option${currentAnswer && currentAnswer.optionIndex === i ? ' selected' : ''}" data-index="${i}">
-              <div class="option-marker">${String.fromCharCode(65 + i)}</div>
-              <div class="option-text">${opt.text}</div>
-            </div>
-          `).join('')}
+          ${q.options.map((opt, i) => {
+            let isSelected = false;
+            if (isMulti) {
+              isSelected = currentAnswer && currentAnswer.includes(i);
+            } else {
+              isSelected = currentAnswer === i;
+            }
+            return `
+              <div class="option${isSelected ? ' selected' : ''}${isMulti ? ' multi-select' : ''}" data-index="${i}">
+                <div class="option-marker">${isMulti ? (isSelected ? '\u2713' : '') : String.fromCharCode(65 + i)}</div>
+                <div class="option-text">${opt.text}</div>
+              </div>
+            `;
+          }).join('')}
         </div>
         <div class="question-nav">
-          <button class="btn-ghost${(state.currentPillar === 0 && state.currentQuestion === 0) ? ' btn-disabled' : ''}" id="prevBtn">Previous</button>
-          <button class="btn-primary${!currentAnswer ? ' btn-disabled' : ''}" id="nextBtn">${isLastQuestion() ? 'View Your Results' : 'Continue'}</button>
+          <button class="btn-ghost${!canGoBack ? ' btn-disabled' : ''}" id="prevBtn">Previous</button>
+          <button class="btn-primary${!hasAnswer ? ' btn-disabled' : ''}" id="nextBtn">${isLast ? 'View Your Results' : 'Continue'}</button>
         </div>
       </div>
     `;
@@ -1368,88 +1756,149 @@
     app.querySelectorAll('.option').forEach(el => {
       el.addEventListener('click', () => {
         const idx = parseInt(el.dataset.index);
-        state.answers[question.id] = {
-          score: question.options[idx].score,
-          optionIndex: idx
-        };
+        if (isMulti) {
+          if (!state.answers[q.id]) state.answers[q.id] = [];
+          const arr = state.answers[q.id];
+          const pos = arr.indexOf(idx);
+          if (pos === -1) arr.push(idx);
+          else arr.splice(pos, 1);
+        } else {
+          state.answers[q.id] = idx;
+        }
         render();
       });
     });
 
     // Nav handlers
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-
-    prevBtn.addEventListener('click', () => {
-      if (state.currentQuestion > 0) {
-        state.currentQuestion--;
-      } else if (state.currentPillar > 0) {
-        state.currentPillar--;
-        state.currentQuestion = PILLARS[PILLAR_ORDER[state.currentPillar]].questions.length - 1;
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (state.questionIndex > 0) {
+        state.questionIndex--;
+      } else if (state.phase > 1) {
+        state.phase--;
+        const prevQuestions = getCurrentQuestions();
+        state.questionIndex = prevQuestions.length - 1;
       }
       render();
     });
 
-    if (currentAnswer) {
-      nextBtn.addEventListener('click', () => {
-        // Branching logic: if first 2 questions in pillar scored 4, skip remaining
-        if (state.currentQuestion === 1) {
-          const q0 = state.answers[pillar.questions[0].id];
-          const q1 = state.answers[pillar.questions[1].id];
-          if (q0 && q1 && q0.score === 4 && q1.score === 4) {
-            // Auto-fill remaining at score 4 and advance to next pillar
-            for (let i = 2; i < pillar.questions.length; i++) {
-              state.answers[pillar.questions[i].id] = { score: 4, optionIndex: 3 };
-            }
-            advancePillar();
-            return;
-          }
-        }
+    if (hasAnswer) {
+      document.getElementById('nextBtn').addEventListener('click', () => {
+        // Process answer tags before advancing
+        processAnswer(q);
 
-        if (state.currentQuestion < pillar.questions.length - 1) {
-          state.currentQuestion++;
+        if (state.questionIndex < questions.length - 1) {
+          state.questionIndex++;
         } else {
-          advancePillar();
+          // Advance to next phase
+          advancePhase();
         }
         render();
       });
     }
   }
 
-  function advancePillar() {
-    if (state.currentPillar < PILLAR_ORDER.length - 1) {
-      state.currentPillar++;
-      state.currentQuestion = 0;
-    } else {
+  // ===== PROCESS ANSWER: Extract tags =====
+  function processAnswer(q) {
+    const answer = state.answers[q.id];
+    if (answer === undefined) return;
+
+    // Phase 1: Store context routing data
+    if (q.phase === 1) {
+      const opt = q.options[answer];
+      if (q.id === 'C1') state.contextData.role = opt.tag;
+      if (q.id === 'C2') state.contextData.industry = opt.tag;
+      if (q.id === 'C3') state.contextData.size = opt.tag;
+      if (q.id === 'C4') state.contextData.priority = opt.tag;
+    }
+
+    // Phase 2: Store gateway levels
+    if (q.phase === 2 && q.pillar) {
+      const opt = q.options[answer];
+      state.gatewayLevels[q.pillar] = opt.level;
+    }
+
+    // Phase 3: Accumulate tags
+    if (q.pillar && q.options) {
+      if (q.type === 'multi' && Array.isArray(answer)) {
+        answer.forEach(idx => {
+          const opt = q.options[idx];
+          if (opt && opt.tags) {
+            Object.entries(opt.tags).forEach(([k, v]) => {
+              if (!state.tags[q.id]) state.tags[q.id] = {};
+              state.tags[q.id][k] = v;
+            });
+          } else if (opt && opt.tag) {
+            if (!state.tags[q.id]) state.tags[q.id] = {};
+            state.tags[q.id][opt.tag] = true;
+          }
+        });
+      } else if (typeof answer === 'number') {
+        const opt = q.options[answer];
+        if (opt && opt.tags) {
+          state.tags[q.id] = opt.tags;
+        }
+      }
+    }
+
+    // Phase 4: Store org data
+    if (q.id === 'O1') {
+      const opt = q.options[answer];
+      state.contextData.orgLevel = opt.tag;
+    }
+    if (q.id === 'O2' && Array.isArray(answer)) {
+      state.orgInvolvement = answer.length;
+    }
+    if (q.id === 'O3') {
+      const opt = q.options[answer];
+      state.contextData.orgGap = opt.tag;
+    }
+  }
+
+  // ===== ADVANCE PHASE =====
+  function advancePhase() {
+    if (state.phase === 1) {
+      state.phase = 2;
+      state.questionIndex = 0;
+    } else if (state.phase === 2) {
+      // Build Phase 3 questions based on gateway results
+      selectPhase3Questions();
+      state.phase = 3;
+      state.questionIndex = 0;
+    } else if (state.phase === 3) {
+      state.phase = 4;
+      state.questionIndex = 0;
+    } else if (state.phase === 4) {
       computeResults();
       state.screen = 'results';
     }
-    render();
   }
 
-  function isLastQuestion() {
-    const pillarKey = PILLAR_ORDER[state.currentPillar];
-    const pillar = PILLARS[pillarKey];
-    return state.currentPillar === PILLAR_ORDER.length - 1 &&
-           state.currentQuestion === pillar.questions.length - 1;
-  }
-
+  // ===== PROGRESS BAR =====
   function renderProgress() {
+    const phases = [
+      { name: 'Context', count: CONTEXT_QUESTIONS.length },
+      { name: 'Pulse', count: GATEWAY_QUESTIONS.length },
+      { name: 'Deep Dive', count: state.phase3Questions.length || 8 },
+      { name: 'Org Context', count: ORG_QUESTIONS.length }
+    ];
+
     return `
       <div class="progress-wrapper">
-        <div class="progress-pillars">
-          ${PILLAR_ORDER.map((key, i) => {
-            const pillar = PILLARS[key];
-            const questions = pillar.questions;
-            const answeredInPillar = questions.filter(q => state.answers[q.id]).length;
-            const pct = questions.length > 0 ? (answeredInPillar / questions.length) * 100 : 0;
-            const isActive = i === state.currentPillar;
-            const isCompleted = i < state.currentPillar || pct === 100;
+        <div class="progress-phases">
+          ${phases.map((p, i) => {
+            const phaseNum = i + 1;
+            const isActive = phaseNum === state.phase;
+            const isCompleted = phaseNum < state.phase;
+            let pct = 0;
+            if (isActive) {
+              const questions = getCurrentQuestions();
+              pct = questions.length > 0 ? (state.questionIndex / questions.length) * 100 : 0;
+            }
             return `
-              <div class="progress-pillar${isActive ? ' active' : ''}${isCompleted ? ' completed' : ''}">
-                <div class="progress-pillar-label">${pillar.name}</div>
+              <div class="progress-phase${isActive ? ' active' : ''}${isCompleted ? ' completed' : ''}">
+                <div class="progress-phase-label">${p.name}</div>
                 <div class="progress-bar-track">
-                  <div class="progress-bar-fill" style="width: ${isActive ? ((state.currentQuestion / questions.length) * 100) : (isCompleted ? 100 : 0)}%"></div>
+                  <div class="progress-bar-fill" style="width: ${isCompleted ? 100 : (isActive ? pct : 0)}%"></div>
                 </div>
               </div>
             `;
@@ -1459,101 +1908,277 @@
     `;
   }
 
-  // ===== SCORING =====
+  // ===== COMPUTE RESULTS =====
   function computeResults() {
-    state.pillarScores = {};
-    PILLAR_ORDER.forEach(key => {
-      const questions = PILLARS[key].questions;
-      let total = 0;
-      let count = 0;
-      questions.forEach(q => {
-        if (state.answers[q.id]) {
-          total += state.answers[q.id].score;
-          count++;
+    // Determine CC level per pillar from accumulated evidence
+    PILLAR_KEYS.forEach(pillar => {
+      const gateway = state.gatewayLevels[pillar] || 'CI';
+      const levelCounts = { UC: 0, CI: 0, CC: 0, UCo: 0 };
+
+      // Count gateway as initial signal
+      levelCounts[gateway] += 2; // Gateway weighs double
+
+      // Count Phase 3 tags
+      Object.values(state.tags).forEach(tagSet => {
+        if (!tagSet) return;
+        // Check pillar-specific level tags
+        const pillarKey = pillar === 'blockchain' ? 'bc' : pillar === 'cybersecurity' ? 'cy' : pillar === 'datascience' ? 'ds' : 'ai';
+        if (tagSet[pillarKey]) {
+          const level = tagSet[pillarKey];
+          if (levelCounts[level] !== undefined) {
+            levelCounts[level]++;
+          }
         }
       });
-      const avg = count > 0 ? total / count : 0;
-      state.pillarScores[key] = {
-        avg: avg,
-        level: Math.round(avg),
-        total: total,
-        count: count,
-        pct: ((avg / 4) * 100)
-      };
-    });
-  }
 
-  function getCompetenceLevel(levelNum) {
-    return COMPETENCE_LEVELS.find(l => l.level === Math.max(1, Math.min(4, levelNum)));
-  }
+      // Handle multi-select governance scoring for AI-S4
+      if (pillar === 'ai') {
+        const aiS4Answer = state.answers['AI_S4'];
+        if (Array.isArray(aiS4Answer)) {
+          if (aiS4Answer.length >= 4) levelCounts.UCo += 2;
+          else if (aiS4Answer.length >= 2) levelCounts.CC += 1;
+          else levelCounts.CI += 1;
+        }
+      }
 
-  function getOverallScore() {
-    const scores = Object.values(state.pillarScores);
-    const totalAvg = scores.reduce((sum, s) => sum + s.avg, 0) / scores.length;
-    return Math.round((totalAvg / 4) * 100);
-  }
+      // Determine preponderant level
+      let maxLevel = gateway;
+      let maxCount = 0;
+      Object.entries(levelCounts).forEach(([level, count]) => {
+        if (count > maxCount) {
+          maxCount = count;
+          maxLevel = level;
+        }
+      });
 
-  // ===== INSIGHTS GENERATION =====
-  function generateInsights() {
-    const role = ROLES.find(r => r.id === state.role);
-    const roleName = role ? role.title : 'Executive';
-    const scores = state.pillarScores;
-    const insights = [];
-
-    // Find strongest and weakest
-    let strongest = null, weakest = null;
-    let maxAvg = 0, minAvg = 5;
-    PILLAR_ORDER.forEach(key => {
-      if (scores[key].avg > maxAvg) { maxAvg = scores[key].avg; strongest = key; }
-      if (scores[key].avg < minAvg) { minAvg = scores[key].avg; weakest = key; }
+      state.pillarProfiles[pillar] = maxLevel;
     });
 
-    // Insight 1: Strength
-    const strongPillar = PILLARS[strongest].name;
-    const strongLevel = getCompetenceLevel(scores[strongest].level);
-    if (scores[strongest].level >= 3) {
-      insights.push(`<strong>${strongPillar}</strong> is your most developed pillar, placing you at ${strongLevel.short}. As a ${roleName}, this capability positions you to lead confidently in this domain — and to mentor others on your team who may be less certain.`);
-    } else {
-      insights.push(`Your strongest area is <strong>${strongPillar}</strong>, currently at ${strongLevel.short}. Even in your area of greatest comfort, there is meaningful room to build the kind of executive fluency that transforms how your organization approaches this domain.`);
+    // Determine org readiness level
+    const orgTag = state.contextData.orgLevel || '';
+    if (orgTag.includes('reactive')) state.orgLevel = 'reactive';
+    else if (orgTag.includes('stalled')) state.orgLevel = 'stalled';
+    else if (orgTag.includes('fragmented')) state.orgLevel = 'fragmented';
+    else if (orgTag.includes('strategic')) state.orgLevel = 'strategic';
+    else state.orgLevel = 'reactive';
+
+    // Org gap
+    const gapTag = state.contextData.orgGap || '';
+    if (gapTag.includes('speed')) state.orgGap = 'speed';
+    else if (gapTag.includes('strategy')) state.orgGap = 'strategy';
+    else if (gapTag.includes('alignment')) state.orgGap = 'alignment';
+    else if (gapTag.includes('personal_confidence')) state.orgGap = 'personal_confidence';
+  }
+
+  // ===== CC LEVEL TO NUMERIC =====
+  function ccToNum(level) {
+    return { UC: 1, CI: 2, CC: 3, UCo: 4 }[level] || 1;
+  }
+
+  function orgToNum(level) {
+    return { reactive: 1, stalled: 2, fragmented: 3, strategic: 4 }[level] || 1;
+  }
+
+  // ===== RADAR CHART (SVG) =====
+  function renderRadarChart() {
+    const size = 420;
+    const center = size / 2;
+    const radius = 130;
+    const levels = 4;
+    const pillars = PILLAR_KEYS;
+    const n = pillars.length;
+
+    // Generate polygon points for each level
+    function getPoints(r) {
+      return pillars.map((_, i) => {
+        const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+        return [center + r * Math.cos(angle), center + r * Math.sin(angle)];
+      });
     }
 
-    // Insight 2: Gap with role context
-    const weakPillar = PILLARS[weakest].name;
-    const weakLevel = getCompetenceLevel(scores[weakest].level);
-    const roleGapContexts = {
-      ceo: `As CEO, your ability to set direction across all four pillars directly shapes organizational confidence. Strengthening your ${weakPillar.toLowerCase()} fluency would close the gap between vision and credible execution.`,
-      cfo: `Financial leadership increasingly requires fluency in technology risk and value. Deepening your understanding of ${weakPillar.toLowerCase()} would strengthen your ability to evaluate investments and articulate risk in terms the board expects.`,
-      cio: `Even with deep technology expertise, ${weakPillar.toLowerCase()} may represent an area where your strategic positioning could sharpen. Peer executives look to you for cross-domain technology judgment.`,
-      chro: `People strategy is inseparable from technology strategy. Building confidence in ${weakPillar.toLowerCase()} would strengthen your ability to lead workforce transformation and talent development initiatives.`,
-      board: `Board-level oversight requires confident engagement across all technology domains. Strengthening your ${weakPillar.toLowerCase()} literacy would enhance your ability to ask the right questions and provide meaningful governance.`,
-      other: `Building deeper fluency in ${weakPillar.toLowerCase()} would expand your strategic toolkit and strengthen your ability to contribute to cross-functional technology decisions.`
+    // Grid lines
+    let gridLines = '';
+    for (let l = 1; l <= levels; l++) {
+      const r = (radius / levels) * l;
+      const pts = getPoints(r);
+      gridLines += `<polygon points="${pts.map(p => p.join(',')).join(' ')}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
+    }
+
+    // Axis lines
+    let axisLines = '';
+    pillars.forEach((_, i) => {
+      const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      const x = center + radius * Math.cos(angle);
+      const y = center + radius * Math.sin(angle);
+      axisLines += `<line x1="${center}" y1="${center}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
+    });
+
+    // Data polygon
+    const dataPoints = pillars.map((pillar, i) => {
+      const level = ccToNum(state.pillarProfiles[pillar]);
+      const r = (radius / levels) * level;
+      const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      return [center + r * Math.cos(angle), center + r * Math.sin(angle)];
+    });
+
+    // Labels
+    let labels = '';
+    const shortNames = { ai: 'AI', blockchain: 'Blockchain', cybersecurity: 'Cyber', datascience: 'Data' };
+    pillars.forEach((pillar, i) => {
+      const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      const labelR = radius + 42;
+      const x = center + labelR * Math.cos(angle);
+      const y = center + labelR * Math.sin(angle);
+      const anchor = Math.abs(Math.cos(angle)) < 0.1 ? 'middle' : (Math.cos(angle) > 0 ? 'start' : 'end');
+      labels += `<text x="${x}" y="${y}" text-anchor="${anchor}" dominant-baseline="middle" fill="rgba(201,168,76,0.7)" font-family="Outfit,sans-serif" font-size="11" font-weight="500" letter-spacing="1">${shortNames[pillar].toUpperCase()}</text>`;
+    });
+
+    return `
+      <div class="radar-container">
+        <svg class="radar-chart" viewBox="0 0 ${size} ${size}" overflow="visible">
+          ${gridLines}
+          ${axisLines}
+          <polygon points="${dataPoints.map(p => p.join(',')).join(' ')}"
+            fill="rgba(201,168,76,0.12)" stroke="var(--gold)" stroke-width="2" stroke-linejoin="round"/>
+          ${dataPoints.map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--gold)"/>`).join('')}
+          ${labels}
+        </svg>
+      </div>
+    `;
+  }
+
+  // ===== GENERATE INSIGHTS =====
+  function generateInsights() {
+    const role = getRole();
+    const roleNames = {
+      ceo: 'CEO', cfo: 'CFO', cio: 'CIO/CTO', chro: 'CHRO', ciso: 'CISO',
+      board: 'Board Member', other_exec: 'Senior Executive'
     };
-    insights.push(roleGapContexts[state.role] || roleGapContexts.other);
+    const roleName = roleNames[role] || 'Executive';
+    const insights = [];
+
+    // Find strongest and weakest pillars
+    let strongest = null, weakest = null;
+    let maxNum = 0, minNum = 5;
+    PILLAR_KEYS.forEach(p => {
+      const num = ccToNum(state.pillarProfiles[p]);
+      if (num > maxNum) { maxNum = num; strongest = p; }
+      if (num < minNum) { minNum = num; weakest = p; }
+    });
+
+    const strongName = PILLAR_NAMES[strongest];
+    const weakName = PILLAR_NAMES[weakest];
+    const strongCC = CC_LEVELS[state.pillarProfiles[strongest]];
+    const weakCC = CC_LEVELS[state.pillarProfiles[weakest]];
+
+    // Insight 1: Strength
+    if (maxNum >= 3) {
+      insights.push(`<strong>${strongName}</strong> is your most developed pillar, placing you at ${strongCC.short}. As a ${roleName}, this capability positions you to lead confidently in this domain \u2014 and to mentor others on your team who may be less certain.`);
+    } else {
+      insights.push(`Your strongest area is <strong>${strongName}</strong>, currently at ${strongCC.short}. Even in your area of greatest comfort, there is meaningful room to build the kind of executive fluency that transforms how your organization approaches this domain.`);
+    }
+
+    // Insight 2: Role-contextualized gap
+    const roleGapContexts = {
+      ceo: `As CEO, your ability to set direction across all four pillars directly shapes organizational confidence. Strengthening your <strong>${weakName}</strong> fluency would close the gap between vision and credible execution.`,
+      cfo: `Financial leadership increasingly requires fluency in technology risk and value. Deepening your understanding of <strong>${weakName}</strong> would strengthen your ability to evaluate investments and articulate risk in terms the board expects.`,
+      cio: `Even with deep technology expertise, <strong>${weakName}</strong> may represent an area where your strategic positioning could sharpen. Peer executives look to you for cross-domain technology judgment.`,
+      ciso: `Security leadership increasingly intersects with every technology domain. Building depth in <strong>${weakName}</strong> would strengthen your ability to frame security within broader strategic conversations.`,
+      chro: `People strategy is inseparable from technology strategy. Building confidence in <strong>${weakName}</strong> would strengthen your ability to lead workforce transformation and talent development initiatives.`,
+      board: `Board-level oversight requires confident engagement across all technology domains. Strengthening your <strong>${weakName}</strong> literacy would enhance your ability to ask the right questions and provide meaningful governance.`,
+      other_exec: `Building deeper fluency in <strong>${weakName}</strong> would expand your strategic toolkit and strengthen your ability to contribute to cross-functional technology decisions.`
+    };
+    insights.push(roleGapContexts[role] || roleGapContexts.other_exec);
 
     // Insight 3: Cross-pillar pattern
-    const allScores = PILLAR_ORDER.map(k => scores[k].level);
-    const variance = allScores.reduce((sum, s) => sum + Math.pow(s - (allScores.reduce((a,b)=>a+b,0)/4), 2), 0) / 4;
+    const allNums = PILLAR_KEYS.map(p => ccToNum(state.pillarProfiles[p]));
+    const avg = allNums.reduce((a, b) => a + b, 0) / 4;
+    const variance = allNums.reduce((sum, s) => sum + Math.pow(s - avg, 2), 0) / 4;
 
     if (variance < 0.5) {
-      insights.push(`Your readiness is <strong>relatively balanced</strong> across all four pillars — which is uncommon. This suggests either broad exposure or a consistent approach to technology leadership. The Apex Vector practice is designed to build on this foundation and take each domain to the next level of executive fluency.`);
+      insights.push(`Your readiness is <strong>relatively balanced</strong> across all four pillars \u2014 which is uncommon. This suggests either broad exposure or a consistent approach to technology leadership. The Apex Vector practice is designed to build on this foundation and take each domain to the next level of executive fluency.`);
     } else {
-      const highPillars = PILLAR_ORDER.filter(k => scores[k].level >= 3).map(k => PILLARS[k].name);
-      const lowPillars = PILLAR_ORDER.filter(k => scores[k].level <= 2).map(k => PILLARS[k].name);
+      const highPillars = PILLAR_KEYS.filter(p => ccToNum(state.pillarProfiles[p]) >= 3).map(p => PILLAR_NAMES[p]);
+      const lowPillars = PILLAR_KEYS.filter(p => ccToNum(state.pillarProfiles[p]) <= 2).map(p => PILLAR_NAMES[p]);
       if (highPillars.length > 0 && lowPillars.length > 0) {
-        insights.push(`There is a <strong>notable gap</strong> between your confidence in ${highPillars.join(' and ')} versus ${lowPillars.join(' and ')}. This is a common pattern among experienced leaders — depth in familiar domains and less exposure in others. A structured engagement would close these gaps efficiently while building on your existing strengths.`);
+        insights.push(`There is a <strong>notable gap</strong> between your confidence in ${highPillars.join(' and ')} versus ${lowPillars.join(' and ')}. This is a common pattern among experienced leaders \u2014 depth in familiar domains and less exposure in others. A structured engagement would close these gaps efficiently while building on your existing strengths.`);
       } else {
-        insights.push(`Your assessment reveals opportunities for growth across multiple domains. The most effective path forward is a structured engagement that builds confidence systematically — starting with the areas most critical to your current role and strategic priorities.`);
+        insights.push(`Your assessment reveals opportunities for growth across multiple domains. The most effective path forward is a structured engagement that builds confidence systematically \u2014 starting with the areas most critical to your current role and strategic priorities.`);
       }
     }
 
     return insights;
   }
 
-  // ===== RESULTS RENDER =====
+  // ===== KEY INSIGHT (the "one thing they didn't know") =====
+  function generateKeyInsight() {
+    const role = getRole();
+    const orgLvl = orgToNum(state.orgLevel);
+    const weakest = PILLAR_KEYS.reduce((w, p) => ccToNum(state.pillarProfiles[p]) < ccToNum(state.pillarProfiles[w]) ? p : w, PILLAR_KEYS[0]);
+    const weakNum = ccToNum(state.pillarProfiles[weakest]);
+    const avgIndividual = PILLAR_KEYS.reduce((s, p) => s + ccToNum(state.pillarProfiles[p]), 0) / 4;
+
+    // Gap between individual capability and org readiness
+    if (avgIndividual > orgLvl + 1) {
+      return `Your personal technology leadership capability appears to significantly exceed your organization\u2019s readiness to act on it. This gap suggests you may be constrained not by what you know, but by your organization\u2019s ability to follow through. The highest-leverage move isn\u2019t building more personal knowledge \u2014 it\u2019s building organizational capacity to match your strategic vision.`;
+    }
+
+    if (orgLvl > avgIndividual + 0.5) {
+      return `Your organization\u2019s technology transformation ambitions may be outpacing your current comfort level in leading those conversations. This isn\u2019t a criticism \u2014 it\u2019s a common inflection point where targeted executive development creates immediate strategic impact.`;
+    }
+
+    if (state.orgGap === 'personal_confidence') {
+      return `You identified personal confidence as the thing you\u2019d most like to change about how you approach technology leadership. That self-awareness is itself a strength \u2014 and it\u2019s precisely the kind of gap that targeted coaching closes quickly. The distance between \u2018I\u2019m not sure I\u2019m the right person\u2019 and \u2018I lead these conversations\u2019 is shorter than most executives expect.`;
+    }
+
+    if (state.orgGap === 'alignment') {
+      return `You identified leadership alignment as your organization\u2019s biggest technology challenge. When leadership teams don\u2019t share a common technology vocabulary, every decision becomes a negotiation rather than a strategic choice. Building shared fluency across the executive team may be the single highest-ROI investment available to you right now.`;
+    }
+
+    if (weakNum <= 1) {
+      return `Your ${PILLAR_NAMES[weakest]} profile suggests you may not yet recognize the specific risks and opportunities in this domain \u2014 which is more common among senior executives than most people realize. The most dangerous gap isn\u2019t the one you know about; it\u2019s the one you haven\u2019t identified yet. This is where coaching creates the most immediate value.`;
+    }
+
+    return `Your profile reveals an uneven landscape \u2014 strength in some domains paired with developing capability in others. This is the typical pattern for executives who have built expertise through experience rather than systematic development. A structured engagement would accelerate the areas where experience alone hasn\u2019t been sufficient.`;
+  }
+
+  // ===== RENDER RESULTS =====
   function renderResults() {
-    const overallPct = getOverallScore();
     const insights = generateInsights();
-    const circumference = 2 * Math.PI * 65; // ~408
+    const keyInsight = generateKeyInsight();
+    const orgInfo = ORG_LEVELS[state.orgLevel] || ORG_LEVELS.reactive;
+
+    // Org involvement analysis
+    let involvementText = '';
+    if (state.orgInvolvement <= 2) {
+      involvementText = 'Technology decisions at your organization involve a narrow group, which may signal siloed decision-making. Broadening executive involvement often leads to better outcomes and stronger buy-in.';
+    } else if (state.orgInvolvement <= 4) {
+      involvementText = 'Your organization involves a moderate cross-section of leadership in technology decisions. There may be room to ensure security and people perspectives are consistently represented.';
+    } else {
+      involvementText = 'Technology decisions at your organization involve broad cross-functional input \u2014 a sign of mature governance and strategic alignment.';
+    }
+
+    // Gap analysis between individual and org
+    const avgIndividual = PILLAR_KEYS.reduce((s, p) => s + ccToNum(state.pillarProfiles[p]), 0) / 4;
+    const orgNum = orgToNum(state.orgLevel);
+    let gapText = '';
+    if (avgIndividual > orgNum + 0.5) {
+      gapText = 'Your individual capability appears to exceed your organization\u2019s current readiness. You may be constrained by organizational capacity rather than personal knowledge.';
+    } else if (orgNum > avgIndividual + 0.5) {
+      gapText = 'Your organization\u2019s transformation ambitions may be ahead of your current comfort level in some domains. Targeted development would close this gap.';
+    } else {
+      gapText = 'Your individual capability and organizational readiness are relatively aligned \u2014 a solid foundation for coordinated growth.';
+    }
+
+    // Overall readiness percentage (for form submission)
+    const overallPct = Math.round((avgIndividual / 4) * 100);
+
+    // Role for display
+    const roleNames = {
+      ceo: 'Chief Executive Officer', cfo: 'Chief Financial Officer', cio: 'CIO / CTO',
+      chro: 'CHRO', ciso: 'CISO', board: 'Board Member', other_exec: 'Senior Executive'
+    };
+    const roleName = roleNames[getRole()] || 'Senior Executive';
 
     app.innerHTML = `
       <div class="results-screen">
@@ -1567,36 +2192,43 @@
           <p>Based on your responses, here is your personalized readiness profile across all four technology pillars.</p>
         </div>
 
-        <div class="overall-score">
-          <div class="score-ring">
-            <svg viewBox="0 0 140 140">
-              <circle class="score-ring-bg" cx="70" cy="70" r="65"></circle>
-              <circle class="score-ring-fill" cx="70" cy="70" r="65" id="scoreRing"></circle>
-            </svg>
-            <div class="score-ring-value" id="scoreValue">0</div>
-          </div>
-          <div class="score-ring-label">Overall Readiness Score</div>
-        </div>
+        ${renderRadarChart()}
 
         <div class="results-grid">
-          ${PILLAR_ORDER.map(key => {
-            const pillar = PILLARS[key];
-            const score = state.pillarScores[key];
-            const level = getCompetenceLevel(score.level);
+          ${PILLAR_KEYS.map(pillar => {
+            const cc = CC_LEVELS[state.pillarProfiles[pillar]];
+            const num = ccToNum(state.pillarProfiles[pillar]);
+            const pct = (num / 4) * 100;
             return `
               <div class="result-pillar-card">
-                <div class="result-pillar-name">${pillar.name}</div>
-                <div class="result-pillar-level">${level.short}</div>
+                <div class="result-pillar-name">${PILLAR_NAMES[pillar]}</div>
+                <div class="result-pillar-level">${cc.short}</div>
+                <div class="result-cc-badge">${cc.code} \u2014 ${cc.name}</div>
                 <div class="result-bar-track">
-                  <div class="result-bar-fill" data-pct="${score.pct}"></div>
+                  <div class="result-bar-fill" data-pct="${pct}"></div>
                 </div>
-                <div class="result-pillar-desc">${level.desc}</div>
+                <div class="result-pillar-desc">${cc.desc}</div>
               </div>
             `;
           }).join('')}
         </div>
 
+        <div class="org-readiness-card">
+          <h3>Organizational Readiness</h3>
+          <div class="org-readiness-level">${orgInfo.name}</div>
+          <div class="org-readiness-desc">${orgInfo.desc}</div>
+          <div class="org-readiness-desc" style="margin-top:0.8rem;">${involvementText}</div>
+          <div class="gap-indicator">
+            <div class="gap-indicator-label">Individual vs. Organization Gap</div>
+            <div class="gap-indicator-text">${gapText}</div>
+          </div>
+        </div>
+
         <div class="results-insights">
+          <div class="key-insight">
+            <div class="key-insight-label">Key Finding</div>
+            <p>${keyInsight}</p>
+          </div>
           <h3>Personalized Insights</h3>
           ${insights.map(text => `
             <div class="insight-item">
@@ -1605,14 +2237,22 @@
           `).join('')}
         </div>
 
+        <div class="threshold-cta">
+          <blockquote>This snapshot shows you where you stand. The deeper analysis \u2014 how your profile maps to your role, your industry, and the specific decisions you\u2019re facing \u2014 is where the real value begins.</blockquote>
+          <p>The full interpretation includes role-specific implications, industry-contextualized priorities, and a development roadmap across all four pillars.</p>
+          <a href="https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/" target="_blank" class="btn-primary">Schedule a Conversation</a>
+        </div>
+
         <div class="results-form" id="resultsForm">
           <h3>Receive Your Complete Profile</h3>
           <p>Enter your details below to receive your full readiness profile and explore how The Apex Vector Studio can help you lead with confidence.</p>
           <form id="contactForm" action="${FORMSPREE_ENDPOINT}" method="POST">
-            <input type="hidden" name="_subject" value="New Assessment Submission — Technology Leadership Readiness">
-            <input type="hidden" name="assessment_scores" id="scoresField">
-            <input type="hidden" name="assessment_role" value="${state.role}">
-            <input type="hidden" name="overall_score" value="${overallPct}">
+            <input type="hidden" name="_subject" id="emailSubject" value="Technology Leadership Readiness \u2014 New Assessment">
+            <input type="hidden" name="_replyto" id="replyTo">
+            <input type="hidden" name="assessment_results" id="resultsField">
+            <input type="hidden" name="assessment_role" value="${getRole()}">
+            <input type="hidden" name="assessment_industry" value="${getIndustry()}">
+            <input type="hidden" name="overall_readiness" value="${overallPct}%">
             <div class="form-grid">
               <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -1644,34 +2284,48 @@
       </div>
     `;
 
-    // Populate hidden scores field — clean, readable format for email
-    const scoreLines = PILLAR_ORDER.map(key => {
-      const s = state.pillarScores[key];
-      const lvl = getCompetenceLevel(s.level);
-      return PILLARS[key].name + ': ' + lvl.short + ' (' + Math.round(s.pct) + '%)';
+    // Build comprehensive results text for email
+    let resultsText = '';
+    resultsText += 'TECHNOLOGY LEADERSHIP READINESS PROFILE\\n';
+    resultsText += '========================================\\n\\n';
+    resultsText += 'Role: ' + roleName + '\\n';
+    resultsText += 'Industry: ' + getIndustry() + '\\n';
+    resultsText += 'Overall Readiness: ' + overallPct + '%\\n\\n';
+    resultsText += 'PILLAR RESULTS (Conscious Competence Framework)\\n';
+    resultsText += '----------------------------------------\\n\\n';
+
+    PILLAR_KEYS.forEach(pillar => {
+      const cc = CC_LEVELS[state.pillarProfiles[pillar]];
+      resultsText += PILLAR_NAMES[pillar] + ': ' + cc.short + ' (' + cc.code + ' - ' + cc.name + ')\\n';
+      resultsText += cc.desc + '\\n\\n';
     });
-    scoreLines.push('Overall: ' + overallPct + '%');
-    document.getElementById('scoresField').value = scoreLines.join('\n');
 
-    // Animate score ring
+    resultsText += 'ORGANIZATIONAL READINESS: ' + orgInfo.name + '\\n';
+    resultsText += orgInfo.desc + '\\n\\n';
+    resultsText += 'GAP ANALYSIS\\n';
+    resultsText += gapText + '\\n\\n';
+
+    resultsText += 'KEY FINDING\\n';
+    resultsText += '----------------------------------------\\n';
+    resultsText += keyInsight.replace(/<[^>]*>/g, '') + '\\n\\n';
+
+    resultsText += 'PERSONALIZED INSIGHTS\\n';
+    resultsText += '----------------------------------------\\n\\n';
+    insights.forEach((text, i) => {
+      resultsText += (i + 1) + '. ' + text.replace(/<[^>]*>/g, '') + '\\n\\n';
+    });
+
+    resultsText += 'RECOMMENDED NEXT STEP\\n';
+    resultsText += '----------------------------------------\\n\\n';
+    resultsText += 'Schedule a conversation to explore how The Apex Vector Studio\\n';
+    resultsText += 'can help you build executive-level technology fluency tailored\\n';
+    resultsText += 'to your role and strategic priorities.\\n\\n';
+    resultsText += 'https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/';
+
+    document.getElementById('resultsField').value = resultsText;
+
+    // Animate bars
     requestAnimationFrame(() => {
-      const ring = document.getElementById('scoreRing');
-      const offset = circumference - (circumference * overallPct / 100);
-      ring.style.strokeDashoffset = offset;
-
-      // Animate number
-      let current = 0;
-      const target = overallPct;
-      const scoreEl = document.getElementById('scoreValue');
-      const step = () => {
-        current += Math.ceil((target - current) / 10) || 1;
-        if (current > target) current = target;
-        scoreEl.textContent = current;
-        if (current < target) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-
-      // Animate bars
       document.querySelectorAll('.result-bar-fill').forEach(bar => {
         setTimeout(() => {
           bar.style.width = bar.dataset.pct + '%';
@@ -1683,6 +2337,13 @@
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const form = this;
+
+      const fn = document.getElementById('firstName').value;
+      const ln = document.getElementById('lastName').value;
+      const em = document.getElementById('email').value;
+      document.getElementById('emailSubject').value = 'Technology Leadership Readiness \u2014 ' + fn + ' ' + ln + ' \u2014 ' + overallPct + '%';
+      document.getElementById('replyTo').value = em;
+
       const formData = new FormData(form);
 
       fetch(form.action, {
@@ -1695,7 +2356,7 @@
           formContainer.innerHTML = `
             <div class="form-success">
               <h4>Thank You</h4>
-              <p>Your readiness profile has been sent. We'll be in touch to explore whether The Apex Vector Studio is the right fit for your leadership journey.</p>
+              <p>Your readiness profile has been sent. We\u2019ll be in touch to explore whether The Apex Vector Studio is the right fit for your leadership journey.</p>
               <a href="index.html" class="btn-ghost" style="margin-top: 1.5rem;">Return Home</a>
             </div>
           `;
@@ -1703,7 +2364,7 @@
           formContainer.innerHTML = `
             <div class="form-success">
               <h4>Something Went Wrong</h4>
-              <p>We weren't able to submit your information. Please try again or reach out directly through our <a href="index.html#contact" style="color: var(--gold);">contact page</a>.</p>
+              <p>We weren\u2019t able to submit your information. Please try again or reach out directly through our <a href="index.html#contact" style="color: var(--gold);">contact page</a>.</p>
               <button class="btn-ghost" style="margin-top: 1.5rem;" onclick="location.reload()">Try Again</button>
             </div>
           `;

@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technology Leadership Readiness Assessment — The Apex Vector Studio</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     APEX VECTOR BRAND TOKENS
+     (Shared with index.html)
+     ============================================ */
+  :root {
+    --black: #111111;
+    --charcoal: #2A2A2A;
+    --gold: #C9A84C;
+    --gold-light: #DDBF6B;
+    --gold-dark: #A8882E;
+    --text: #3D3D3D;
+    --gray-med: #6B6B6B;
+    --sand: #F8F7F5;
+    --border: #D6D2CA;
+    --white: #FFFFFF;
+
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Outfit', Arial, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--font-body);
+    color: var(--white);
+    background: var(--black);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ============================================
+     NAVIGATION (identical to index.html)
+     ============================================ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(17, 17, 17, 0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+    transition: all 0.4s ease;
+  }
+
+  nav.scrolled {
+    padding: 0.8rem 3rem;
+    background: rgba(17, 17, 17, 0.97);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .nav-logo-icon {
+    height: 38px;
+    width: auto;
+    transition: height 0.4s ease;
+  }
+
+  nav.scrolled .nav-logo-icon { height: 30px; }
+
+  .nav-logo-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .nav-logo-the {
+    font-family: var(--font-body);
+    font-size: 0.45rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .nav-logo-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .nav-logo-studio {
+    font-family: var(--font-body);
+    font-size: 0.5rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-med);
+    transition: color 0.3s ease;
+    font-weight: 400;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+
+  .nav-cta {
+    padding: 0.55rem 1.6rem;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--black) !important;
+  }
+
+
+  /* ============================================
+     SHARED UTILITIES
+     ============================================ */
+  .label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .label--centered { justify-content: center; }
+
+  .gold-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 1px solid var(--gold);
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--gold);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: var(--gold-light);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ============================================
+     FOOTER (identical to index.html)
+     ============================================ */
+  footer {
+    background: var(--black);
+    padding: 2rem 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .footer-icon {
+    height: 28px;
+    width: auto;
+    opacity: 0.8;
+  }
+
+  .footer-brand-text {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  .footer-brand-text strong {
+    font-weight: 600;
+  }
+
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.25);
+    font-weight: 300;
+  }
+
+  .footer-tagline {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-style: italic;
+    color: rgba(201, 168, 76, 0.3);
+    font-weight: 400;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.3rem;
+  }
+
+  .footer-links a {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    transition: color 0.3s;
+    font-weight: 400;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ============================================
+     ASSESSMENT — LAYOUT
+     ============================================ */
+  .assessment-page {
+    min-height: 100vh;
+    padding: 8rem 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .assessment-container {
+    max-width: 760px;
+    width: 100%;
+    position: relative;
+  }
+
+  .assessment-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .assessment-header h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-top: 1rem;
+  }
+
+  .assessment-header p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.7;
+    margin-top: 1rem;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============================================
+     PROGRESS BAR
+     ============================================ */
+  .progress-wrapper {
+    margin-bottom: 3rem;
+  }
+
+  .progress-pillars {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .progress-pillar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .progress-pillar-label {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    font-weight: 400;
+    transition: color 0.3s;
+    text-align: center;
+  }
+
+  .progress-pillar.active .progress-pillar-label {
+    color: var(--gold);
+  }
+
+  .progress-pillar.completed .progress-pillar-label {
+    color: rgba(201, 168, 76, 0.5);
+  }
+
+  .progress-bar-track {
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-pillar.active .progress-bar-track {
+    background: rgba(201, 168, 76, 0.15);
+  }
+
+  .progress-pillar.completed .progress-bar-fill {
+    width: 100%;
+    background: var(--gold-dark);
+  }
+
+  .progress-overall {
+    font-size: 0.65rem;
+    color: var(--gray-med);
+    text-align: right;
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
+
+  /* ============================================
+     QUESTION CARD
+     ============================================ */
+  .question-card {
+    background: var(--charcoal);
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    padding: 3rem;
+    position: relative;
+    animation: cardIn 0.4s ease;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-pillar-tag {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .question-number {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.25);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .question-text {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+
+  .question-context {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* ============================================
+     ANSWER OPTIONS
+     ============================================ */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .option {
+    background: var(--black);
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .option:hover {
+    border-color: rgba(201, 168, 76, 0.3);
+    background: rgba(42, 42, 42, 0.5);
+  }
+
+  .option.selected {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.06);
+  }
+
+  .option-marker {
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    font-size: 0.6rem;
+    color: var(--gold-dark);
+    font-weight: 500;
+    letter-spacing: 0;
+    transition: all 0.25s;
+  }
+
+  .option.selected .option-marker {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--black);
+  }
+
+  .option-text {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+  }
+
+  .option.selected .option-text {
+    color: var(--white);
+  }
+
+  /* ============================================
+     NAVIGATION BUTTONS
+     ============================================ */
+  .question-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .question-nav .btn-ghost,
+  .question-nav .btn-primary {
+    font-size: 0.68rem;
+    padding: 0.7rem 2rem;
+  }
+
+  .btn-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* ============================================
+     ROLE SELECTION (INTRO SCREEN)
+     ============================================ */
+  .role-screen {
+    text-align: center;
+  }
+
+  .role-screen h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .role-screen p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .role-option {
+    background: var(--charcoal);
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+  }
+
+  .role-option:hover {
+    border-color: rgba(201, 168, 76, 0.3);
+  }
+
+  .role-option.selected {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.06);
+  }
+
+  .role-option-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .role-option-desc {
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--gray-med);
+  }
+
+  .role-option.selected .role-option-title { color: var(--gold-light); }
+
+  /* ============================================
+     RESULTS
+     ============================================ */
+  .results-screen {
+    animation: cardIn 0.5s ease;
+  }
+
+  .results-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .results-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 300;
+    color: var(--white);
+    margin-top: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .results-header p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.7;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .result-pillar-card {
+    background: var(--charcoal);
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    padding: 2rem;
+  }
+
+  .result-pillar-name {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-pillar-level {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .result-bar-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 0%;
+  }
+
+  .result-pillar-desc {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+
+  /* Insights */
+  .results-insights {
+    background: var(--charcoal);
+    border: 1px solid rgba(201, 168, 76, 0.12);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .results-insights::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .results-insights h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .insight-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .insight-item:last-child { border-bottom: none; }
+
+  .insight-item p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+  }
+
+  .insight-item strong {
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+
+  /* Overall score ring */
+  .overall-score {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .score-ring {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 1.2rem;
+    position: relative;
+  }
+
+  .score-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .score-ring-bg {
+    fill: none;
+    stroke: rgba(255,255,255,0.06);
+    stroke-width: 3;
+  }
+
+  .score-ring-fill {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 408;
+    stroke-dashoffset: 408;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .score-ring-value {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .score-ring-label {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-med);
+    font-weight: 400;
+  }
+
+  /* ============================================
+     CONTACT FORM (below results)
+     ============================================ */
+  .results-form {
+    background: var(--charcoal);
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .results-form h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+  }
+
+  .results-form > p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .form-group label {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group select {
+    background: var(--black);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 300;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.3s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .form-group input::placeholder {
+    color: rgba(255,255,255,0.25);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--gold);
+  }
+
+  .form-group select {
+    cursor: pointer;
+  }
+
+  .form-group select option {
+    background: var(--charcoal);
+    color: var(--white);
+  }
+
+  .form-submit-row {
+    margin-top: 1.5rem;
+  }
+
+  .form-submit-row .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .form-note {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    font-weight: 300;
+    margin-top: 1rem;
+  }
+
+  .form-success {
+    padding: 2rem;
+    text-align: center;
+    animation: cardIn 0.4s ease;
+  }
+
+  .form-success h4 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .form-success p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--gray-med);
+    line-height: 1.7;
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .assessment-page { padding: 7rem 1.5rem 3rem; }
+    .question-card { padding: 2rem; }
+    .role-grid { grid-template-columns: repeat(2, 1fr); }
+    .results-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .results-form { padding: 2rem; }
+    .results-insights { padding: 2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+    .nav-logo-icon { height: 26px; }
+    .nav-logo-name { font-size: 1rem; letter-spacing: 2.5px; }
+    .nav-logo-the, .nav-logo-studio { font-size: 0.4rem; letter-spacing: 3px; }
+    .role-grid { grid-template-columns: 1fr; }
+    .progress-pillar-label { font-size: 0.5rem; letter-spacing: 1px; }
+    .question-text { font-size: 1.25rem; }
+    .question-card { padding: 1.5rem; }
+    .footer-inner { flex-direction: column; gap: 1.2rem; align-items: center; }
+    .footer-right { align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/APEX_VECTOR_Icon__Transparent.png" alt="" class="nav-logo-icon">
+    <div class="nav-logo-text-block">
+      <span class="nav-logo-the">The</span>
+      <span class="nav-logo-name">Apex Vector</span>
+      <span class="nav-logo-studio">Studio</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#pillars">The 4 Pillars</a>
+    <a href="index.html#model">The Virtual Studio</a>
+    <a href="https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/" target="_blank" class="nav-cta">Schedule a Conversation</a>
+  </div>
+</nav>
+
+<!-- ==================== ASSESSMENT CONTENT ==================== -->
+<main class="assessment-page">
+  <div class="assessment-container" id="assessmentApp">
+    <!-- Rendered by JavaScript -->
+  </div>
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-brand">
+        <img src="images/APEX_VECTOR_Icon__Transparent.png" alt="" class="footer-icon">
+        <span class="footer-brand-text">The <strong>Apex Vector</strong> Studio</span>
+      </div>
+    </div>
+    <div class="footer-right">
+      <span class="footer-tagline">Direction and magnitude, aligned.</span>
+      <span class="footer-copy">&copy; 2026 Apex Vector LLC. All rights reserved. Confidential.</span>
+      <div class="footer-links">
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== ASSESSMENT ENGINE ==================== -->
+<script>
+(function() {
+  'use strict';
+
+  // ===== NAV SCROLL =====
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ===== CONFIGURATION =====
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbdzdlkk';
+
+  const ROLES = [
+    { id: 'ceo', title: 'CEO', desc: 'Chief Executive Officer' },
+    { id: 'cfo', title: 'CFO', desc: 'Chief Financial Officer' },
+    { id: 'cio', title: 'CIO / CTO', desc: 'Chief Information or Technology Officer' },
+    { id: 'chro', title: 'CHRO', desc: 'Chief Human Resources Officer' },
+    { id: 'board', title: 'Board Member', desc: 'Board Director or Advisor' },
+    { id: 'other', title: 'Other', desc: 'Senior Executive or Leader' }
+  ];
+
+  const COMPETENCE_LEVELS = [
+    { level: 1, name: 'Foundational', short: 'Foundational', desc: 'You may not yet recognize gaps in this area — which is more common than most executives realize.' },
+    { level: 2, name: 'Emerging Awareness', short: 'Emerging Awareness', desc: 'You recognize the importance of this domain and are beginning to identify where your understanding needs depth.' },
+    { level: 3, name: 'Active Development', short: 'Active Development', desc: 'You can engage effectively in this domain with deliberate attention and continue building your capabilities.' },
+    { level: 4, name: 'Strategic Fluency', short: 'Strategic Fluency', desc: 'You navigate this domain with natural confidence and integrate it into your leadership instinctively.' }
+  ];
+
+  // ===== QUESTION BANK =====
+  // Each pillar has tiered questions. Based on answers, the engine branches.
+  // score: 1=UI, 2=CI, 3=CC, 4=UC per answer
+  const PILLARS = {
+    ai: {
+      name: 'Artificial Intelligence',
+      tag: 'AI — Strategy & Governance',
+      questions: [
+        {
+          id: 'ai_1',
+          type: 'self-assessment',
+          text: 'When your leadership team discusses AI adoption, what best describes your private experience?',
+          context: 'There is no wrong answer. This is about your honest internal reality.',
+          options: [
+            { text: 'I find it difficult to distinguish meaningful AI capabilities from marketing claims', score: 1 },
+            { text: 'I can follow the conversation but lack confidence making strategic AI decisions', score: 2 },
+            { text: 'I can evaluate AI opportunities and risks, though I sometimes seek validation', score: 3 },
+            { text: 'I confidently lead AI strategy conversations and challenge vendor assumptions', score: 4 }
+          ]
+        },
+        {
+          id: 'ai_2',
+          type: 'scenario',
+          text: 'A vendor proposes an AI solution that would automate a significant portion of your workforce\'s tasks. How do you approach this decision?',
+          context: 'Consider both the strategic and human dimensions.',
+          options: [
+            { text: 'I would rely primarily on the vendor\'s assessment and my IT team\'s recommendation', score: 1 },
+            { text: 'I recognize the need for independent evaluation but am unsure what questions to ask', score: 2 },
+            { text: 'I would commission a structured evaluation covering ROI, workforce impact, and ethical considerations', score: 3 },
+            { text: 'I would lead a cross-functional evaluation framework that includes workforce transition planning, competitive analysis, and governance requirements', score: 4 }
+          ]
+        },
+        {
+          id: 'ai_3',
+          type: 'knowledge',
+          text: 'How would you describe your organization\'s current AI governance framework?',
+          options: [
+            { text: 'We don\'t have one, and I\'m not entirely sure what it would include', score: 1 },
+            { text: 'I know we need governance but haven\'t established formal policies yet', score: 2 },
+            { text: 'We have policies covering data use, bias monitoring, and accountability, though they need refinement', score: 3 },
+            { text: 'We maintain a comprehensive framework including ethical guidelines, audit processes, and board-level oversight', score: 4 }
+          ]
+        },
+        {
+          id: 'ai_4',
+          type: 'scenario',
+          text: 'Your board asks you to present a 3-year AI roadmap. What is your first instinct?',
+          options: [
+            { text: 'I would ask our IT leadership to prepare the presentation', score: 1 },
+            { text: 'I would research what other companies in our industry are doing and build from there', score: 2 },
+            { text: 'I would map AI capabilities to our strategic priorities and identify quick wins alongside longer-term transformations', score: 3 },
+            { text: 'I would frame it around competitive positioning, capability building, risk management, and measurable value creation with clear governance milestones', score: 4 }
+          ]
+        },
+        {
+          id: 'ai_5',
+          type: 'self-assessment',
+          text: 'When reading about AI developments in the news, how do you typically process the information?',
+          options: [
+            { text: 'I find it overwhelming and hard to separate signal from noise', score: 1 },
+            { text: 'I can identify relevant trends but struggle to translate them into organizational implications', score: 2 },
+            { text: 'I regularly assess how developments affect our strategy and discuss implications with my team', score: 3 },
+            { text: 'I proactively identify opportunities and threats, often before they become mainstream discussion', score: 4 }
+          ]
+        }
+      ]
+    },
+    blockchain: {
+      name: 'Blockchain',
+      tag: 'Blockchain — Digital Trust',
+      questions: [
+        {
+          id: 'bc_1',
+          type: 'self-assessment',
+          text: 'When blockchain or distributed ledger technology comes up in a strategic conversation, what is your honest comfort level?',
+          options: [
+            { text: 'I\'m not confident I understand how blockchain differs from a conventional database', score: 1 },
+            { text: 'I grasp the basic concept but can\'t evaluate specific business applications', score: 2 },
+            { text: 'I can assess blockchain use cases and distinguish genuine value from hype', score: 3 },
+            { text: 'I can lead strategic discussions on when blockchain creates real competitive advantage versus when simpler solutions suffice', score: 4 }
+          ]
+        },
+        {
+          id: 'bc_2',
+          type: 'scenario',
+          text: 'A supply chain partner proposes implementing blockchain for transparency and traceability. How would you evaluate this?',
+          options: [
+            { text: 'I would defer to our technology team\'s judgment on whether this makes sense', score: 1 },
+            { text: 'I would ask questions about cost and timeline but lack a framework for evaluating the underlying technology choice', score: 2 },
+            { text: 'I would evaluate whether blockchain genuinely solves the trust problem here or if centralized alternatives would work equally well', score: 3 },
+            { text: 'I would lead an assessment covering trust architecture, data sovereignty, interoperability, regulatory implications, and ROI against alternative approaches', score: 4 }
+          ]
+        },
+        {
+          id: 'bc_3',
+          type: 'knowledge',
+          text: 'How familiar are you with the concept of digital identity and self-sovereign identity frameworks?',
+          options: [
+            { text: 'I\'m not sure what digital identity frameworks are or why they matter to my organization', score: 1 },
+            { text: 'I\'ve heard the terms but can\'t explain how they would affect our operations or customers', score: 2 },
+            { text: 'I understand the implications for customer privacy, regulatory compliance, and operational efficiency', score: 3 },
+            { text: 'I can articulate how decentralized identity reshapes trust relationships and have explored strategic positioning', score: 4 }
+          ]
+        },
+        {
+          id: 'bc_4',
+          type: 'scenario',
+          text: 'Your CFO asks whether tokenization of company assets could unlock new value. How do you respond?',
+          options: [
+            { text: 'I\'m not sure what tokenization means in a business context', score: 1 },
+            { text: 'I know it involves representing assets digitally but can\'t assess the risks or regulatory landscape', score: 2 },
+            { text: 'I can discuss the potential benefits, regulatory requirements, and operational considerations at a strategic level', score: 3 },
+            { text: 'I can evaluate tokenization against our specific asset portfolio, regulatory environment, and strategic objectives with concrete next steps', score: 4 }
+          ]
+        }
+      ]
+    },
+    cybersecurity: {
+      name: 'Cybersecurity',
+      tag: 'Cybersecurity — Strategic Risk',
+      questions: [
+        {
+          id: 'cs_1',
+          type: 'self-assessment',
+          text: 'When your CISO or security team briefs the board on cyber risk, how would you describe your ability to engage?',
+          options: [
+            { text: 'I rely on their expertise and accept their recommendations largely at face value', score: 1 },
+            { text: 'I ask questions but often feel I lack the context to challenge or prioritize effectively', score: 2 },
+            { text: 'I can engage meaningfully, ask strategic questions, and connect cyber risk to business risk', score: 3 },
+            { text: 'I drive the conversation, framing cybersecurity as a competitive and governance imperative — not just a technical issue', score: 4 }
+          ]
+        },
+        {
+          id: 'cs_2',
+          type: 'scenario',
+          text: 'Your organization suffers a significant data breach on a Friday evening. Walk through your first response.',
+          options: [
+            { text: 'I would wait for the security team to assess the situation and tell me what happened', score: 1 },
+            { text: 'I would contact the security team immediately but am unsure what decisions need to be made at the executive level', score: 2 },
+            { text: 'I would activate our incident response plan, ensure legal and communications are engaged, and begin stakeholder notification planning', score: 3 },
+            { text: 'I would lead the crisis response: activating the IR plan, making regulatory disclosure decisions, managing board communications, coordinating external counsel, and beginning root cause analysis — while ensuring business continuity', score: 4 }
+          ]
+        },
+        {
+          id: 'cs_3',
+          type: 'knowledge',
+          text: 'How would you describe your organization\'s cyber risk governance maturity?',
+          options: [
+            { text: 'I\'m not sure we have formal cyber risk governance beyond our IT security team', score: 1 },
+            { text: 'We have some policies in place but they haven\'t been reviewed or tested recently', score: 2 },
+            { text: 'We have a risk framework with regular assessments, board reporting, and documented policies', score: 3 },
+            { text: 'Our cyber governance is integrated into enterprise risk management with quantified risk metrics, regular tabletop exercises, and board-level accountability', score: 4 }
+          ]
+        },
+        {
+          id: 'cs_4',
+          type: 'scenario',
+          text: 'A new regulation requires significant changes to your data handling practices. How do you approach compliance?',
+          options: [
+            { text: 'I trust our legal and compliance teams to handle regulatory requirements', score: 1 },
+            { text: 'I understand we need to comply but struggle to assess the strategic implications beyond the compliance checklist', score: 2 },
+            { text: 'I evaluate both compliance requirements and competitive implications, ensuring we meet the letter and spirit of regulation', score: 3 },
+            { text: 'I see regulation as a strategic opportunity — using compliance as a catalyst for building trust, competitive differentiation, and operational resilience', score: 4 }
+          ]
+        },
+        {
+          id: 'cs_5',
+          type: 'self-assessment',
+          text: 'How confident are you in discussing cybersecurity investment decisions with your board or investors?',
+          options: [
+            { text: 'I present what the security team recommends without much ability to contextualize the spend', score: 1 },
+            { text: 'I can justify security spending at a high level but can\'t articulate ROI or risk reduction in business terms', score: 2 },
+            { text: 'I can frame security investments in terms of risk reduction, regulatory requirements, and business enablement', score: 3 },
+            { text: 'I lead investment discussions that quantify cyber risk in financial terms and align security spending with strategic priorities', score: 4 }
+          ]
+        }
+      ]
+    },
+    datascience: {
+      name: 'Data Science',
+      tag: 'Data Science — Analytics & Culture',
+      questions: [
+        {
+          id: 'ds_1',
+          type: 'self-assessment',
+          text: 'When your analytics team presents data-driven recommendations, how do you typically engage?',
+          options: [
+            { text: 'I accept the findings but honestly don\'t always understand the methodology behind them', score: 1 },
+            { text: 'I ask questions about the conclusions but can\'t evaluate whether the analytical approach was sound', score: 2 },
+            { text: 'I can assess the quality of analysis, identify potential biases, and integrate findings into strategic decisions', score: 3 },
+            { text: 'I drive data strategy, define what questions matter most, and ensure analytical rigor supports — rather than replaces — executive judgment', score: 4 }
+          ]
+        },
+        {
+          id: 'ds_2',
+          type: 'scenario',
+          text: 'You need to make a major strategic decision, and your team presents conflicting data analyses. What do you do?',
+          options: [
+            { text: 'I go with my gut or defer to the most senior analyst\'s interpretation', score: 1 },
+            { text: 'I recognize the analyses conflict but am unsure how to evaluate which is more reliable', score: 2 },
+            { text: 'I examine the assumptions, data sources, and methodologies behind each analysis before deciding', score: 3 },
+            { text: 'I convene the analysts to reconcile assumptions, identify what additional data would resolve the conflict, and make a decision that accounts for the uncertainty', score: 4 }
+          ]
+        },
+        {
+          id: 'ds_3',
+          type: 'knowledge',
+          text: 'How would you describe your organization\'s data culture and analytics maturity?',
+          options: [
+            { text: 'We collect data but I\'m not sure we use it effectively for decision-making', score: 1 },
+            { text: 'Some teams use data well, but there\'s no enterprise-wide analytics strategy or culture', score: 2 },
+            { text: 'We have an analytics strategy with defined KPIs, regular reporting, and growing data literacy across leadership', score: 3 },
+            { text: 'Data-driven decision-making is embedded in our culture with self-service analytics, executive data literacy, and measurable ROI from data investments', score: 4 }
+          ]
+        },
+        {
+          id: 'ds_4',
+          type: 'scenario',
+          text: 'Your organization is evaluating whether to build an internal data science team or partner with an external analytics firm. How do you frame this decision?',
+          options: [
+            { text: 'I would ask the CIO or CTO to make this recommendation', score: 1 },
+            { text: 'I understand the tradeoffs exist but am not sure what criteria should drive the decision', score: 2 },
+            { text: 'I would evaluate based on our data maturity, strategic priorities, cost structure, and the need for institutional knowledge', score: 3 },
+            { text: 'I would develop a build-vs-partner strategy that considers our competitive advantage, data sovereignty, talent market, and a phased approach that builds internal capability over time', score: 4 }
+          ]
+        },
+        {
+          id: 'ds_5',
+          type: 'self-assessment',
+          text: 'How comfortable are you discussing data privacy and ethics at the executive level?',
+          options: [
+            { text: 'I leave privacy and ethics discussions to legal and compliance', score: 1 },
+            { text: 'I know these issues matter but lack a framework for evaluating ethical data use', score: 2 },
+            { text: 'I can engage in privacy and ethics discussions and ensure our practices align with regulations and stakeholder expectations', score: 3 },
+            { text: 'I champion ethical data practices as a leadership priority and competitive differentiator, with clear policies and governance', score: 4 }
+          ]
+        }
+      ]
+    }
+  };
+
+  const PILLAR_ORDER = ['ai', 'blockchain', 'cybersecurity', 'datascience'];
+
+  // ===== STATE =====
+  let state = {
+    screen: 'intro', // intro, question, results
+    role: null,
+    currentPillar: 0,
+    currentQuestion: 0,
+    answers: {},       // { questionId: { score, optionIndex } }
+    pillarScores: {},  // computed after all questions
+  };
+
+  const app = document.getElementById('assessmentApp');
+
+  // ===== RENDERING =====
+  function render() {
+    switch (state.screen) {
+      case 'intro': renderIntro(); break;
+      case 'question': renderQuestion(); break;
+      case 'results': renderResults(); break;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderIntro() {
+    app.innerHTML = `
+      <div class="assessment-header">
+        <div class="label label--centered">
+          <div class="gold-rule"></div>
+          <span>Confidential Assessment</span>
+          <div class="gold-rule"></div>
+        </div>
+        <h1>Technology Leadership Readiness Assessment</h1>
+        <p>A private, adaptive evaluation across four technology pillars. Your responses shape the experience — and the insights you receive are genuine, not gated.</p>
+      </div>
+      <div class="question-card role-screen">
+        <h2>First, tell us about your role</h2>
+        <p>This helps us contextualize your results and surface the most relevant insights for your position.</p>
+        <div class="role-grid">
+          ${ROLES.map(r => `
+            <div class="role-option${state.role === r.id ? ' selected' : ''}" data-role="${r.id}">
+              <div class="role-option-title">${r.title}</div>
+              <div class="role-option-desc">${r.desc}</div>
+            </div>
+          `).join('')}
+        </div>
+        <button class="btn-primary${!state.role ? ' btn-disabled' : ''}" id="startBtn">Begin Assessment</button>
+      </div>
+    `;
+
+    app.querySelectorAll('.role-option').forEach(el => {
+      el.addEventListener('click', () => {
+        state.role = el.dataset.role;
+        render();
+      });
+    });
+
+    const startBtn = document.getElementById('startBtn');
+    if (state.role) {
+      startBtn.addEventListener('click', () => {
+        state.screen = 'question';
+        state.currentPillar = 0;
+        state.currentQuestion = 0;
+        render();
+      });
+    }
+  }
+
+  function renderQuestion() {
+    const pillarKey = PILLAR_ORDER[state.currentPillar];
+    const pillar = PILLARS[pillarKey];
+    const question = pillar.questions[state.currentQuestion];
+    const totalQuestions = PILLAR_ORDER.reduce((sum, k) => sum + PILLARS[k].questions.length, 0);
+    const answeredCount = Object.keys(state.answers).length;
+    const currentAnswer = state.answers[question.id];
+
+    // Determine if we can skip ahead (branching logic):
+    // If someone scores 4 on first two questions in a pillar, skip to next pillar
+    // If someone scores 1 on first two questions, add emphasis but continue
+    const pillarAnswers = pillar.questions
+      .map(q => state.answers[q.id])
+      .filter(Boolean);
+
+    // Calculate question number within pillar and overall
+    let questionsBefore = 0;
+    for (let i = 0; i < state.currentPillar; i++) {
+      questionsBefore += PILLARS[PILLAR_ORDER[i]].questions.length;
+    }
+    const overallCurrent = questionsBefore + state.currentQuestion + 1;
+
+    app.innerHTML = `
+      <div class="assessment-header" style="margin-bottom: 2rem;">
+        <div class="label label--centered">
+          <div class="gold-rule"></div>
+          <span>Confidential Assessment</span>
+          <div class="gold-rule"></div>
+        </div>
+      </div>
+      ${renderProgress()}
+      <div class="question-card">
+        <div class="question-pillar-tag">${pillar.tag}</div>
+        <div class="question-number">Question ${state.currentQuestion + 1} of ${pillar.questions.length}</div>
+        <div class="question-text">${question.text}</div>
+        ${question.context ? `<div class="question-context">${question.context}</div>` : ''}
+        <div class="options">
+          ${question.options.map((opt, i) => `
+            <div class="option${currentAnswer && currentAnswer.optionIndex === i ? ' selected' : ''}" data-index="${i}">
+              <div class="option-marker">${String.fromCharCode(65 + i)}</div>
+              <div class="option-text">${opt.text}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="question-nav">
+          <button class="btn-ghost${(state.currentPillar === 0 && state.currentQuestion === 0) ? ' btn-disabled' : ''}" id="prevBtn">Previous</button>
+          <button class="btn-primary${!currentAnswer ? ' btn-disabled' : ''}" id="nextBtn">${isLastQuestion() ? 'View Your Results' : 'Continue'}</button>
+        </div>
+      </div>
+    `;
+
+    // Option click handlers
+    app.querySelectorAll('.option').forEach(el => {
+      el.addEventListener('click', () => {
+        const idx = parseInt(el.dataset.index);
+        state.answers[question.id] = {
+          score: question.options[idx].score,
+          optionIndex: idx
+        };
+        render();
+      });
+    });
+
+    // Nav handlers
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    prevBtn.addEventListener('click', () => {
+      if (state.currentQuestion > 0) {
+        state.currentQuestion--;
+      } else if (state.currentPillar > 0) {
+        state.currentPillar--;
+        state.currentQuestion = PILLARS[PILLAR_ORDER[state.currentPillar]].questions.length - 1;
+      }
+      render();
+    });
+
+    if (currentAnswer) {
+      nextBtn.addEventListener('click', () => {
+        // Branching logic: if first 2 questions in pillar scored 4, skip remaining
+        if (state.currentQuestion === 1) {
+          const q0 = state.answers[pillar.questions[0].id];
+          const q1 = state.answers[pillar.questions[1].id];
+          if (q0 && q1 && q0.score === 4 && q1.score === 4) {
+            // Auto-fill remaining at score 4 and advance to next pillar
+            for (let i = 2; i < pillar.questions.length; i++) {
+              state.answers[pillar.questions[i].id] = { score: 4, optionIndex: 3 };
+            }
+            advancePillar();
+            return;
+          }
+        }
+
+        if (state.currentQuestion < pillar.questions.length - 1) {
+          state.currentQuestion++;
+        } else {
+          advancePillar();
+        }
+        render();
+      });
+    }
+  }
+
+  function advancePillar() {
+    if (state.currentPillar < PILLAR_ORDER.length - 1) {
+      state.currentPillar++;
+      state.currentQuestion = 0;
+    } else {
+      computeResults();
+      state.screen = 'results';
+    }
+    render();
+  }
+
+  function isLastQuestion() {
+    const pillarKey = PILLAR_ORDER[state.currentPillar];
+    const pillar = PILLARS[pillarKey];
+    return state.currentPillar === PILLAR_ORDER.length - 1 &&
+           state.currentQuestion === pillar.questions.length - 1;
+  }
+
+  function renderProgress() {
+    return `
+      <div class="progress-wrapper">
+        <div class="progress-pillars">
+          ${PILLAR_ORDER.map((key, i) => {
+            const pillar = PILLARS[key];
+            const questions = pillar.questions;
+            const answeredInPillar = questions.filter(q => state.answers[q.id]).length;
+            const pct = questions.length > 0 ? (answeredInPillar / questions.length) * 100 : 0;
+            const isActive = i === state.currentPillar;
+            const isCompleted = i < state.currentPillar || pct === 100;
+            return `
+              <div class="progress-pillar${isActive ? ' active' : ''}${isCompleted ? ' completed' : ''}">
+                <div class="progress-pillar-label">${pillar.name}</div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill" style="width: ${isActive ? ((state.currentQuestion / questions.length) * 100) : (isCompleted ? 100 : 0)}%"></div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  // ===== SCORING =====
+  function computeResults() {
+    state.pillarScores = {};
+    PILLAR_ORDER.forEach(key => {
+      const questions = PILLARS[key].questions;
+      let total = 0;
+      let count = 0;
+      questions.forEach(q => {
+        if (state.answers[q.id]) {
+          total += state.answers[q.id].score;
+          count++;
+        }
+      });
+      const avg = count > 0 ? total / count : 0;
+      state.pillarScores[key] = {
+        avg: avg,
+        level: Math.round(avg),
+        total: total,
+        count: count,
+        pct: ((avg / 4) * 100)
+      };
+    });
+  }
+
+  function getCompetenceLevel(levelNum) {
+    return COMPETENCE_LEVELS.find(l => l.level === Math.max(1, Math.min(4, levelNum)));
+  }
+
+  function getOverallScore() {
+    const scores = Object.values(state.pillarScores);
+    const totalAvg = scores.reduce((sum, s) => sum + s.avg, 0) / scores.length;
+    return Math.round((totalAvg / 4) * 100);
+  }
+
+  // ===== INSIGHTS GENERATION =====
+  function generateInsights() {
+    const role = ROLES.find(r => r.id === state.role);
+    const roleName = role ? role.title : 'Executive';
+    const scores = state.pillarScores;
+    const insights = [];
+
+    // Find strongest and weakest
+    let strongest = null, weakest = null;
+    let maxAvg = 0, minAvg = 5;
+    PILLAR_ORDER.forEach(key => {
+      if (scores[key].avg > maxAvg) { maxAvg = scores[key].avg; strongest = key; }
+      if (scores[key].avg < minAvg) { minAvg = scores[key].avg; weakest = key; }
+    });
+
+    // Insight 1: Strength
+    const strongPillar = PILLARS[strongest].name;
+    const strongLevel = getCompetenceLevel(scores[strongest].level);
+    if (scores[strongest].level >= 3) {
+      insights.push(`<strong>${strongPillar}</strong> is your most developed pillar, placing you at ${strongLevel.short}. As a ${roleName}, this capability positions you to lead confidently in this domain — and to mentor others on your team who may be less certain.`);
+    } else {
+      insights.push(`Your strongest area is <strong>${strongPillar}</strong>, currently at ${strongLevel.short}. Even in your area of greatest comfort, there is meaningful room to build the kind of executive fluency that transforms how your organization approaches this domain.`);
+    }
+
+    // Insight 2: Gap with role context
+    const weakPillar = PILLARS[weakest].name;
+    const weakLevel = getCompetenceLevel(scores[weakest].level);
+    const roleGapContexts = {
+      ceo: `As CEO, your ability to set direction across all four pillars directly shapes organizational confidence. Strengthening your ${weakPillar.toLowerCase()} fluency would close the gap between vision and credible execution.`,
+      cfo: `Financial leadership increasingly requires fluency in technology risk and value. Deepening your understanding of ${weakPillar.toLowerCase()} would strengthen your ability to evaluate investments and articulate risk in terms the board expects.`,
+      cio: `Even with deep technology expertise, ${weakPillar.toLowerCase()} may represent an area where your strategic positioning could sharpen. Peer executives look to you for cross-domain technology judgment.`,
+      chro: `People strategy is inseparable from technology strategy. Building confidence in ${weakPillar.toLowerCase()} would strengthen your ability to lead workforce transformation and talent development initiatives.`,
+      board: `Board-level oversight requires confident engagement across all technology domains. Strengthening your ${weakPillar.toLowerCase()} literacy would enhance your ability to ask the right questions and provide meaningful governance.`,
+      other: `Building deeper fluency in ${weakPillar.toLowerCase()} would expand your strategic toolkit and strengthen your ability to contribute to cross-functional technology decisions.`
+    };
+    insights.push(roleGapContexts[state.role] || roleGapContexts.other);
+
+    // Insight 3: Cross-pillar pattern
+    const allScores = PILLAR_ORDER.map(k => scores[k].level);
+    const variance = allScores.reduce((sum, s) => sum + Math.pow(s - (allScores.reduce((a,b)=>a+b,0)/4), 2), 0) / 4;
+
+    if (variance < 0.5) {
+      insights.push(`Your readiness is <strong>relatively balanced</strong> across all four pillars — which is uncommon. This suggests either broad exposure or a consistent approach to technology leadership. The Apex Vector practice is designed to build on this foundation and take each domain to the next level of executive fluency.`);
+    } else {
+      const highPillars = PILLAR_ORDER.filter(k => scores[k].level >= 3).map(k => PILLARS[k].name);
+      const lowPillars = PILLAR_ORDER.filter(k => scores[k].level <= 2).map(k => PILLARS[k].name);
+      if (highPillars.length > 0 && lowPillars.length > 0) {
+        insights.push(`There is a <strong>notable gap</strong> between your confidence in ${highPillars.join(' and ')} versus ${lowPillars.join(' and ')}. This is a common pattern among experienced leaders — depth in familiar domains and less exposure in others. A structured engagement would close these gaps efficiently while building on your existing strengths.`);
+      } else {
+        insights.push(`Your assessment reveals opportunities for growth across multiple domains. The most effective path forward is a structured engagement that builds confidence systematically — starting with the areas most critical to your current role and strategic priorities.`);
+      }
+    }
+
+    return insights;
+  }
+
+  // ===== RESULTS RENDER =====
+  function renderResults() {
+    const overallPct = getOverallScore();
+    const insights = generateInsights();
+    const circumference = 2 * Math.PI * 65; // ~408
+
+    app.innerHTML = `
+      <div class="results-screen">
+        <div class="results-header">
+          <div class="label label--centered">
+            <div class="gold-rule"></div>
+            <span>Your Readiness Profile</span>
+            <div class="gold-rule"></div>
+          </div>
+          <h2>Technology Leadership Readiness Assessment</h2>
+          <p>Based on your responses, here is your personalized readiness profile across all four technology pillars.</p>
+        </div>
+
+        <div class="overall-score">
+          <div class="score-ring">
+            <svg viewBox="0 0 140 140">
+              <circle class="score-ring-bg" cx="70" cy="70" r="65"></circle>
+              <circle class="score-ring-fill" cx="70" cy="70" r="65" id="scoreRing"></circle>
+            </svg>
+            <div class="score-ring-value" id="scoreValue">0</div>
+          </div>
+          <div class="score-ring-label">Overall Readiness Score</div>
+        </div>
+
+        <div class="results-grid">
+          ${PILLAR_ORDER.map(key => {
+            const pillar = PILLARS[key];
+            const score = state.pillarScores[key];
+            const level = getCompetenceLevel(score.level);
+            return `
+              <div class="result-pillar-card">
+                <div class="result-pillar-name">${pillar.name}</div>
+                <div class="result-pillar-level">${level.short}</div>
+                <div class="result-bar-track">
+                  <div class="result-bar-fill" data-pct="${score.pct}"></div>
+                </div>
+                <div class="result-pillar-desc">${level.desc}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div class="results-insights">
+          <h3>Personalized Insights</h3>
+          ${insights.map(text => `
+            <div class="insight-item">
+              <p>${text}</p>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="results-form" id="resultsForm">
+          <h3>Receive Your Complete Profile</h3>
+          <p>Enter your details below to receive your full readiness profile and explore how The Apex Vector Studio can help you lead with confidence.</p>
+          <form id="contactForm" action="${FORMSPREE_ENDPOINT}" method="POST">
+            <input type="hidden" name="_subject" id="emailSubject" value="Technology Leadership Readiness — New Assessment">
+            <input type="hidden" name="_replyto" id="replyTo">
+            <input type="hidden" name="assessment_results" id="resultsField">
+            <input type="hidden" name="assessment_role" value="${state.role}">
+            <input type="hidden" name="overall_score" value="${overallPct}%">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="first_name" placeholder="First name" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="last_name" placeholder="Last name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+              </div>
+              <div class="form-group">
+                <label for="organization">Organization</label>
+                <input type="text" id="organization" name="organization" placeholder="Your organization">
+              </div>
+              <div class="form-group full-width">
+                <label for="roleTitle">Your Title / Role</label>
+                <input type="text" id="roleTitle" name="role_title" placeholder="e.g., Chief Executive Officer">
+              </div>
+            </div>
+            <div class="form-submit-row">
+              <button type="submit" class="btn-primary" style="width:100%;">Send My Results</button>
+            </div>
+            <p class="form-note">Your information is confidential and will only be used to deliver your results and explore whether the practice is a fit.</p>
+          </form>
+        </div>
+      </div>
+    `;
+
+    // Build comprehensive results for email — full profile with insights
+    const role = ROLES.find(r => r.id === state.role);
+    const roleName = role ? role.desc : 'Senior Executive';
+    function stripHtml(html) { return html.replace(/<[^>]*>/g, ''); }
+
+    let resultsText = '';
+    resultsText += 'TECHNOLOGY LEADERSHIP READINESS PROFILE\n';
+    resultsText += '========================================\n\n';
+    resultsText += 'Role: ' + roleName + '\n';
+    resultsText += 'Overall Readiness Score: ' + overallPct + '%\n\n';
+    resultsText += 'PILLAR RESULTS\n';
+    resultsText += '----------------------------------------\n\n';
+
+    PILLAR_ORDER.forEach(key => {
+      const s = state.pillarScores[key];
+      const lvl = getCompetenceLevel(s.level);
+      resultsText += PILLARS[key].name + ': ' + lvl.short + ' (' + Math.round(s.pct) + '%)\n';
+      resultsText += lvl.desc + '\n\n';
+    });
+
+    resultsText += 'PERSONALIZED INSIGHTS\n';
+    resultsText += '----------------------------------------\n\n';
+    insights.forEach((text, i) => {
+      resultsText += (i + 1) + '. ' + stripHtml(text) + '\n\n';
+    });
+
+    resultsText += 'RECOMMENDED NEXT STEP\n';
+    resultsText += '----------------------------------------\n\n';
+    resultsText += 'Schedule a conversation to explore how The Apex Vector Studio\n';
+    resultsText += 'can help you build executive-level technology fluency tailored\n';
+    resultsText += 'to your role and strategic priorities.\n\n';
+    resultsText += 'https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/';
+
+    document.getElementById('resultsField').value = resultsText;
+
+    // Animate score ring
+    requestAnimationFrame(() => {
+      const ring = document.getElementById('scoreRing');
+      const offset = circumference - (circumference * overallPct / 100);
+      ring.style.strokeDashoffset = offset;
+
+      // Animate number
+      let current = 0;
+      const target = overallPct;
+      const scoreEl = document.getElementById('scoreValue');
+      const step = () => {
+        current += Math.ceil((target - current) / 10) || 1;
+        if (current > target) current = target;
+        scoreEl.textContent = current;
+        if (current < target) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+
+      // Animate bars
+      document.querySelectorAll('.result-bar-fill').forEach(bar => {
+        setTimeout(() => {
+          bar.style.width = bar.dataset.pct + '%';
+        }, 300);
+      });
+    });
+
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = this;
+
+      // Set dynamic subject line and reply-to before capturing form data
+      const fn = document.getElementById('firstName').value;
+      const ln = document.getElementById('lastName').value;
+      const em = document.getElementById('email').value;
+      document.getElementById('emailSubject').value = 'Technology Leadership Readiness — ' + fn + ' ' + ln + ' — ' + overallPct + '%';
+      document.getElementById('replyTo').value = em;
+
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        const formContainer = document.getElementById('resultsForm');
+        if (response.ok) {
+          formContainer.innerHTML = `
+            <div class="form-success">
+              <h4>Thank You</h4>
+              <p>Your readiness profile has been sent. We'll be in touch to explore whether The Apex Vector Studio is the right fit for your leadership journey.</p>
+              <a href="index.html" class="btn-ghost" style="margin-top: 1.5rem;">Return Home</a>
+            </div>
+          `;
+        } else {
+          formContainer.innerHTML = `
+            <div class="form-success">
+              <h4>Something Went Wrong</h4>
+              <p>We weren't able to submit your information. Please try again or reach out directly through our <a href="index.html#contact" style="color: var(--gold);">contact page</a>.</p>
+              <button class="btn-ghost" style="margin-top: 1.5rem;" onclick="location.reload()">Try Again</button>
+            </div>
+          `;
+        }
+      }).catch(() => {
+        const formContainer = document.getElementById('resultsForm');
+        formContainer.innerHTML = `
+          <div class="form-success">
+            <h4>Connection Error</h4>
+            <p>Please check your internet connection and try again, or reach out directly through our <a href="index.html#contact" style="color: var(--gold);">contact page</a>.</p>
+            <button class="btn-ghost" style="margin-top: 1.5rem;" onclick="location.reload()">Try Again</button>
+          </div>
+        `;
+      });
+    });
+  }
+
+  // ===== INIT =====
+  render();
+
+})();
+</script>
+
+</body>
+</html>
