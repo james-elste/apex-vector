@@ -2269,10 +2269,19 @@
           <form id="contactForm" action="${FORMSPREE_ENDPOINT}" method="POST">
             <input type="hidden" name="_subject" id="emailSubject" value="Technology Leadership Readiness \u2014 New Assessment">
             <input type="hidden" name="_replyto" id="replyTo">
-            <input type="hidden" name="assessment_results" id="resultsField">
-            <input type="hidden" name="assessment_role" value="${getRole()}">
-            <input type="hidden" name="assessment_industry" value="${getIndustry()}">
-            <input type="hidden" name="overall_readiness" value="${overallPct}%">
+            <input type="hidden" name="_autoresponse" id="autoResponse">
+            <input type="hidden" name="Role Category" value="${getRole()}">
+            <input type="hidden" name="Industry" value="${getIndustry()}">
+            <input type="hidden" name="Overall Readiness" value="${overallPct}%">
+            <input type="hidden" name="Track" value="${state.track || 'N/A'}">
+            ${PILLAR_KEYS.map(p => {
+              const cc = CC_LEVELS[state.pillarProfiles[p]];
+              return '<input type="hidden" name="' + PILLAR_NAMES[p] + '" value="' + cc.short + ' (' + cc.name + ')">';
+            }).join('\n            ')}
+            <input type="hidden" name="Organizational Readiness" value="${orgInfo.name}">
+            <input type="hidden" name="Gap Analysis" id="gapField">
+            <input type="hidden" name="Key Finding" id="keyFindingField">
+            <input type="hidden" name="Insights" id="insightsField">
             <div class="form-grid">
               <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -2304,45 +2313,28 @@
       </div>
     `;
 
-    // Build comprehensive results text for email
-    let resultsText = '';
-    resultsText += 'TECHNOLOGY LEADERSHIP READINESS PROFILE\\n';
-    resultsText += '========================================\\n\\n';
-    resultsText += 'Role: ' + roleName + '\\n';
-    resultsText += 'Industry: ' + getIndustry() + '\\n';
-    resultsText += 'Overall Readiness: ' + overallPct + '%\\n\\n';
-    resultsText += 'PILLAR RESULTS (Conscious Competence Framework)\\n';
-    resultsText += '----------------------------------------\\n\\n';
+    // Populate structured hidden fields for clean Formspree email
+    document.getElementById('gapField').value = gapText.replace(/<[^>]*>/g, '');
+    document.getElementById('keyFindingField').value = keyInsight.replace(/<[^>]*>/g, '');
+    document.getElementById('insightsField').value = insights.map((text, i) => (i + 1) + '. ' + text.replace(/<[^>]*>/g, '')).join(' | ');
 
+    // Build auto-response message for the client
+    let autoMsg = 'Thank you for completing the Technology Leadership Readiness Assessment from The Apex Vector Studio.\n\n';
+    autoMsg += 'YOUR RESULTS SUMMARY\n';
+    autoMsg += '========================\n\n';
+    autoMsg += 'Overall Readiness: ' + overallPct + '%\n\n';
     PILLAR_KEYS.forEach(pillar => {
       const cc = CC_LEVELS[state.pillarProfiles[pillar]];
-      resultsText += PILLAR_NAMES[pillar] + ': ' + cc.short + ' (' + cc.code + ' - ' + cc.name + ')\\n';
-      resultsText += cc.desc + '\\n\\n';
+      autoMsg += PILLAR_NAMES[pillar] + ': ' + cc.short + '\n';
     });
-
-    resultsText += 'ORGANIZATIONAL READINESS: ' + orgInfo.name + '\\n';
-    resultsText += orgInfo.desc + '\\n\\n';
-    resultsText += 'GAP ANALYSIS\\n';
-    resultsText += gapText + '\\n\\n';
-
-    resultsText += 'KEY FINDING\\n';
-    resultsText += '----------------------------------------\\n';
-    resultsText += keyInsight.replace(/<[^>]*>/g, '') + '\\n\\n';
-
-    resultsText += 'PERSONALIZED INSIGHTS\\n';
-    resultsText += '----------------------------------------\\n\\n';
-    insights.forEach((text, i) => {
-      resultsText += (i + 1) + '. ' + text.replace(/<[^>]*>/g, '') + '\\n\\n';
-    });
-
-    resultsText += 'RECOMMENDED NEXT STEP\\n';
-    resultsText += '----------------------------------------\\n\\n';
-    resultsText += 'Schedule a conversation to explore how The Apex Vector Studio\\n';
-    resultsText += 'can help you build executive-level technology fluency tailored\\n';
-    resultsText += 'to your role and strategic priorities.\\n\\n';
-    resultsText += 'https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/';
-
-    document.getElementById('resultsField').value = resultsText;
+    autoMsg += '\nOrganizational Readiness: ' + orgInfo.name + '\n\n';
+    autoMsg += 'KEY FINDING\n';
+    autoMsg += keyInsight.replace(/<[^>]*>/g, '') + '\n\n';
+    autoMsg += '---\n\n';
+    autoMsg += 'Ready to explore what these results mean for your leadership?\n';
+    autoMsg += 'Schedule a conversation: https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/\n\n';
+    autoMsg += 'The Apex Vector Studio\nhttps://www.apex-vector.com';
+    document.getElementById('autoResponse').value = autoMsg;
 
     // Animate bars
     requestAnimationFrame(() => {
