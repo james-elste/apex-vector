@@ -1,0 +1,50 @@
+name: Deploy AV Intelligence Boost
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'avs-boost-src/**'    # only re-deploy app when its source changes
+  workflow_dispatch:           # allow manual trigger from GitHub UI
+
+permissions:
+  contents: write              # needed to push compiled files back to main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: avs-boost-src/package-lock.json
+
+      - name: Install dependencies
+        working-directory: avs-boost-src
+        run: npm ci
+
+      - name: Build app
+        working-directory: avs-boost-src
+        run: npm run build
+
+      # Build output lands in avs-boost-src/dist/
+      # Copy to /avs-boost/ at repo root so GitHub Pages serves it
+      # at apex-vector.com/avs-boost/
+      - name: Copy dist to /avs-boost/
+        run: |
+          rm -rf avs-boost
+          cp -r avs-boost-src/dist avs-boost
+
+      - name: Commit and push built files
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add avs-boost/
+          git diff --staged --quiet || git commit -m "chore: rebuild avs-boost [skip ci]"
+          git push

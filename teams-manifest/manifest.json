@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.17",
+  "version": "1.0.0",
+  "id": "YOUR_TEAMS_APP_GUID",
+  "developer": {
+    "name": "Apex Vector LLC",
+    "websiteUrl": "https://apex-vector.com",
+    "privacyUrl": "https://apex-vector.com/privacy",
+    "termsOfUseUrl": "https://apex-vector.com/terms"
+  },
+  "name": {
+    "short": "Intelligence Boost",
+    "full": "AV Studio · Intelligence Boost"
+  },
+  "description": {
+    "short": "Daily technology leadership lessons — 90-day program.",
+    "full": "The AV Studio Intelligence Boost delivers one executive technology leadership lesson per day across six pillars: AI, Blockchain & Digital Trust, Cybersecurity, Data & Analytics, Governance & Risk, and Technology Leadership. Track progress, save reflections, and build fluency over a 90-day program."
+  },
+  "icons": {
+    "color": "icon-192.png",
+    "outline": "icon-32.png"
+  },
+  "accentColor": "#C9A84C",
+  "staticTabs": [
+    {
+      "entityId": "intelligence-boost",
+      "name": "Intelligence Boost",
+      "contentUrl": "https://apex-vector.com/avs-boost/",
+      "websiteUrl": "https://apex-vector.com/avs-boost/",
+      "scopes": ["personal", "team", "groupChat"]
+    }
+  ],
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://apex-vector.com/avs-boost/teams-config.html",
+      "canUpdateConfiguration": false,
+      "scopes": ["team", "groupChat"]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": [
+    "apex-vector.com",
+    "graph.microsoft.com",
+    "login.microsoftonline.com"
+  ],
+  "webApplicationInfo": {
+    "id": "YOUR_ENTRA_APP_CLIENT_ID",
+    "resource": "api://apex-vector.com/avs-boost/YOUR_ENTRA_APP_CLIENT_ID"
+  },
+  "showLoadingIndicator": true,
+  "isFullScreen": false
+}

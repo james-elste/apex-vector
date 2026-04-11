@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AV Studio · Intelligence Boost — Configure</title>
+  <script src="https://res.cdn.office.net/teams-js/2.22.0/js/MicrosoftTeams.min.js" crossorigin="anonymous"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #000;
+      color: #ccc8c0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px;
+    }
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .wordmark {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #C9A84C;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #eae6dc;
+      margin-bottom: 12px;
+      font-family: Georgia, serif;
+    }
+    p {
+      font-size: 14px;
+      color: #6b6b6b;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .pillars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .pillar {
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid;
+      font-weight: 500;
+    }
+    .ai   { color: #5a8aae; border-color: #5a8aae44; }
+    .bc   { color: #8a6aae; border-color: #8a6aae44; }
+    .cy   { color: #5aae6a; border-color: #5aae6a44; }
+    .ds   { color: #ae8a5a; border-color: #ae8a5a44; }
+    .gov  { color: #ae5a6a; border-color: #ae5a6a44; }
+    .tl   { color: #C9A84C; border-color: #C9A84C44; }
+    .btn {
+      background: #C9A84C;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 32px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      width: 100%;
+    }
+    .btn:hover { background: #DDBF6B; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="wordmark">THE AV STUDIO</div>
+    <h1>Intelligence Boost</h1>
+    <p>One executive technology leadership lesson per day.<br>
+    90 lessons across six pillars. Progress saved to your account.</p>
+
+    <div class="pillars">
+      <span class="pillar ai">AI & Automation</span>
+      <span class="pillar bc">Blockchain & Digital Trust</span>
+      <span class="pillar cy">Cybersecurity</span>
+      <span class="pillar ds">Data & Analytics</span>
+      <span class="pillar gov">Governance & Risk</span>
+      <span class="pillar tl">Technology Leadership</span>
+    </div>
+
+    <button class="btn" id="saveBtn">Add to this channel</button>
+  </div>
+
+  <script>
+    microsoftTeams.app.initialize().then(() => {
+      microsoftTeams.pages.config.registerOnSaveHandler((saveEvent) => {
+        microsoftTeams.pages.config.setConfig({
+          suggestedDisplayName: "Intelligence Boost",
+          entityId: "intelligence-boost",
+          contentUrl: "https://apex-vector.com/avs-boost/",
+          websiteUrl: "https://apex-vector.com/avs-boost/",
+        });
+        saveEvent.notifySuccess();
+      });
+
+      document.getElementById("saveBtn").addEventListener("click", () => {
+        microsoftTeams.pages.config.setValidityState(true);
+      });
+
+      microsoftTeams.pages.config.setValidityState(false);
+    });
+  </script>
+</body>
+</html>
