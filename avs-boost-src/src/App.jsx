@@ -448,7 +448,7 @@ export default function App() {
             <div style={{ fontSize: 14, color: C.white, lineHeight: 1.65 }}>{l.why}</div>
           </div>
           <div style={{ ...crd, padding: 20, marginBottom: 16, borderColor: cs.color + "33" }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: cs.color, letterSpacing: 1.5, marginBottom: 8 }}>THIS WEEK\'S ACTION</div>
+            <div style={{ fontSize: 10, fontWeight: 700, color: cs.color, letterSpacing: 1.5, marginBottom: 8 }}>TAKE ACTION</div>
             <div style={{ fontSize: 14, color: C.white, lineHeight: 1.65 }}>{l.action}</div>
           </div>
           <div style={{ ...crd, padding: 20, marginBottom: 16 }}>
@@ -668,12 +668,12 @@ export default function App() {
         <div style={{ ...crd, padding: 22, marginBottom: 16, background: "linear-gradient(135deg,#141414,#1c1a18)", borderColor: C.gold + "33" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 6, height: 6, borderRadius: "50%", background: getCatStyle(tl.cat).color }} />
-            <span style={{ fontSize: 10, fontWeight: 700, color: getCatStyle(tl.cat).color, letterSpacing: 1.5 }}>{"TODAY\'S LESSON · " + getCatStyle(tl.cat).label.toUpperCase()}</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: getCatStyle(tl.cat).color, letterSpacing: 1.5 }}>{"TODAY'S LESSON · " + getCatStyle(tl.cat).label.toUpperCase()}</span>
           </div>
           <h2 style={{ fontFamily: fh, fontSize: 22, fontWeight: 700, color: C.white, lineHeight: 1.3, marginBottom: 6 }}>{tl.title}</h2>
           <div style={{ fontSize: 12, color: C.textDim, marginBottom: 14 }}>{tl.source}</div>
           <div style={{ fontSize: 14, color: C.text, lineHeight: 1.65, marginBottom: 16, fontWeight: 300 }}>{tl.insight.length > 180 ? tl.insight.substring(0, 180) + "..." : tl.insight}</div>
-          <button onClick={() => goLesson(ti)} style={{ ...btnS, width: "100%", padding: 14, fontSize: 14, fontWeight: 700, color: todayDone ? C.textDim : "#111111", background: todayDone ? C.bg3 : C.gold, borderRadius: 12 }}>{todayDone ? "Review Today\'s Lesson ✓" : "Read Today\'s Lesson"}</button>
+          <button onClick={() => goLesson(ti)} style={{ ...btnS, width: "100%", padding: 14, fontSize: 14, fontWeight: 700, color: todayDone ? C.textDim : "#111111", background: todayDone ? C.bg3 : C.gold, borderRadius: 12 }}>{todayDone ? "Review Today's Lesson ✓" : "Read Today's Lesson"}</button>
         </div>
         <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
           {[{l:String(comp.length),s:"Completed"},{l:String(LESSONS.length - comp.length),s:"Remaining"},{l:String(bm.length),s:"Saved"}].map(v => (
