@@ -27,28 +27,41 @@ let _spItemId     = null;    // cached SharePoint list item ID for this user
 
 // Initialise Teams SDK and fetch the user's email + Graph token.
 // Called once at app mount. Returns true if running inside Teams.
+// Resolves after ms milliseconds — used to timeout Teams SDK calls
+// that hang indefinitely when the app runs outside of Teams.
+const withTimeout = (promise, ms) =>
+  Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("timeout")), ms)
+    ),
+  ]);
+
 async function initTeams() {
   if (typeof microsoftTeams === "undefined") return false;
   try {
-    await microsoftTeams.app.initialize();
-    const ctx = await microsoftTeams.app.getContext();
+    // 2-second timeout — if not inside Teams, initialize() never resolves
+    await withTimeout(microsoftTeams.app.initialize(), 2000);
+    const ctx = await withTimeout(microsoftTeams.app.getContext(), 2000);
     _userEmail = ctx?.user?.loginHint || ctx?.user?.userPrincipalName || null;
     if (!_userEmail) return false;
 
-    // Exchange the Teams SSO token for a Graph-scoped token via the
-    // getAuthToken → your Entra app → Graph consent flow.
-    _graphToken = await new Promise((resolve, reject) => {
-      microsoftTeams.authentication.getAuthToken({
-        resources: ["https://graph.microsoft.com"],
-        successCallback: resolve,
-        failureCallback: reject,
-      });
-    });
+    // Exchange the Teams SSO token for a Graph-scoped token
+    _graphToken = await withTimeout(
+      new Promise((resolve, reject) => {
+        microsoftTeams.authentication.getAuthToken({
+          resources: ["https://graph.microsoft.com"],
+          successCallback: resolve,
+          failureCallback: reject,
+        });
+      }),
+      5000
+    );
 
     _teamsReady = !!_graphToken;
     return _teamsReady;
   } catch (e) {
-    console.warn("[AVS] Teams init failed, falling back to localStorage:", e);
+    console.warn("[AVS] Teams init failed, falling back to localStorage:", e.message);
     return false;
   }
 }
