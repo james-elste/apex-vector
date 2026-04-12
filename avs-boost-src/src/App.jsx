@@ -434,6 +434,14 @@ export default function App() {
       } catch (e) { setData(defaultData()); }
       setScreen("home");
     })();
+
+    // Keep-alive — prevents Teams iframe from timing out during idle periods.
+    // Sends a silent HEAD request every 4 minutes to signal the tab is still active.
+    const keepAlive = setInterval(() => {
+      fetch('/avs-boost/', { method: 'HEAD', cache: 'no-store' }).catch(() => {});
+    }, 4 * 60 * 1000);
+
+    return () => clearInterval(keepAlive);
   }, []);
 
   const save = useCallback(async (d) => {
