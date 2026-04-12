@@ -42,6 +42,13 @@ async function initTeams() {
   try {
     // 2-second timeout — if not inside Teams, initialize() never resolves
     await withTimeout(microsoftTeams.app.initialize(), 2000);
+
+    // Notify Teams immediately that the app has loaded successfully.
+    // This MUST be called promptly after initialize() or Teams shows
+    // "There is a problem reaching this app" after ~30 seconds.
+    try { microsoftTeams.app.notifyAppLoaded(); } catch(e) {}
+    try { microsoftTeams.app.notifySuccess(); } catch(e) {}
+
     const ctx = await withTimeout(microsoftTeams.app.getContext(), 2000);
     _userEmail = ctx?.user?.loginHint || ctx?.user?.userPrincipalName || null;
     if (!_userEmail) return false;
@@ -62,6 +69,9 @@ async function initTeams() {
     return _teamsReady;
   } catch (e) {
     console.warn("[AVS] Teams init failed, falling back to localStorage:", e.message);
+    // Still notify Teams we loaded even if auth failed — prevents timeout error
+    try { microsoftTeams.app.notifyAppLoaded(); } catch(e2) {}
+    try { microsoftTeams.app.notifySuccess(); } catch(e2) {}
     return false;
   }
 }

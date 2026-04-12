@@ -1,10 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
   "manifestVersion": "1.17",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "id": "fb10d951-6001-5ce5-846b-74950def1e0b",
   "developer": {
-    "name": "Apex Vector LLC",
+    "name": "The Apex Vector Studio",
     "websiteUrl": "https://apex-vector.com",
     "privacyUrl": "https://apex-vector.com/privacy",
     "termsOfUseUrl": "https://apex-vector.com/terms"
