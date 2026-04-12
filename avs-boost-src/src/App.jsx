@@ -819,15 +819,21 @@ export default function App() {
         {comp.length < LESSONS.length && (
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 12, fontWeight: 600, color: C.textDim, marginBottom: 8 }}>Up Next</div>
-            {[1,2,3].map(off => {
-              let idx = (ti + off) % LESSONS.length;
-              let tries = 0;
-              while (comp.includes(idx) && tries < LESSONS.length) { idx = (idx + 1) % LESSONS.length; tries++; }
-              if (comp.includes(idx)) return null;
-              const l = LESSONS[idx];
-              const cs = getCatStyle(l.cat);
-              return (
-                <button key={idx+"-"+off} onClick={() => goLesson(idx)} style={{ ...crd, ...btnS, width: "100%", textAlign: "left", padding: "14px 16px", marginBottom: 4 }}>
+            {(() => {
+              const shown = [];
+              return [1,2,3].map(off => {
+                let idx = (ti + off) % LESSONS.length;
+                let tries = 0;
+                while ((comp.includes(idx) || shown.includes(idx)) && tries < LESSONS.length) {
+                  idx = (idx + 1) % LESSONS.length;
+                  tries++;
+                }
+                if (comp.includes(idx) || shown.includes(idx)) return null;
+                shown.push(idx);
+                const l = LESSONS[idx];
+                const cs = getCatStyle(l.cat);
+                return (
+                  <button key={idx+"-"+off} onClick={() => goLesson(idx)} style={{ ...crd, ...btnS, width: "100%", textAlign: "left", padding: "14px 16px", marginBottom: 4 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <div style={{ width: 6, height: 6, borderRadius: "50%", background: cs.color, flexShrink: 0 }} />
                     <div style={{ flex: 1 }}>
@@ -838,7 +844,8 @@ export default function App() {
                   </div>
                 </button>
               );
-            })}
+              });
+            })()}
           </div>
         )}
         {bm.length > 0 && (
