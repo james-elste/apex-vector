@@ -269,6 +269,18 @@ const LESSONS = [
   {title:"The Practice Embodies the Model",source:"The AV Studio · Coaching Practice Design",insight:"The most powerful demonstration of technology leadership competence is not a presentation or a credential. It is how you operate. An executive who uses AI tools deliberately and transparently, who makes decisions grounded in data while applying professional judgment, who governs technology risk seriously, and who continuously develops technology fluency demonstrates the model. In coaching and leadership, credibility comes from embodying the principles you advocate. The gap between what leaders say about technology and how they actually engage with it is visible to every person they lead.",why:"Clients choose advisors they believe understand the terrain they're navigating. An executive who can speak credibly from personal technology experience — not just about it — builds a different quality of trust.",action:"Identify the largest gap between your stated technology leadership principles and your actual daily practice. Name it. Address it this week. The leaders who practice what they teach are the ones worth following.",cat:"techleadership",pillar:"Technology Leadership"},
 ];
 
+// ─── PREVIEW MODE ─────────────────────────────────────────────────────────────
+// When the app is loaded with ?mode=preview (public website), show 12 curated
+// lessons — two per pillar. Full 90-lesson program is available inside Teams.
+const PREVIEW_MODE = typeof window !== "undefined" &&
+  new URLSearchParams(window.location.search).get("mode") === "preview";
+
+const PREVIEW_INDICES = [0, 33, 51, 35, 15, 62, 20, 69, 25, 78, 29, 85];
+const PREVIEW_LESSONS = PREVIEW_INDICES.map(i => LESSONS[i]);
+
+const ACTIVE_LESSONS = PREVIEW_MODE ? PREVIEW_LESSONS : LESSONS;
+
+
 const QUOTES = [
   {text:"Trustworthy AI requires transparency, accountability, and a commitment to human oversight.",source:"NIST · AI RMF 1.0"},
   {text:"AI governance is not a technology problem. It is a leadership problem.",source:"Deloitte · Board AI Oversight 2025"},
@@ -433,8 +445,8 @@ export default function App() {
   const bm = data ? data.bookmarks || [] : [];
   const stk = data ? data.streak || { count: 0, last: "" } : { count: 0, last: "" };
   const jnl = data ? data.journal || {} : {};
-  const ti = dse() % LESSONS.length;
-  const tl = LESSONS[ti];
+  const ti = dse() % ACTIVE_LESSONS.length;
+  const tl = ACTIVE_LESSONS[ti];
   const todayDone = comp.indexOf(ti) !== -1;
   const dq = QUOTES[dse() % QUOTES.length];
 
@@ -460,7 +472,7 @@ export default function App() {
   // Group by institution (first part of source before "·")
   const srcMap = useMemo(() => {
     const m = {};
-    LESSONS.forEach((l, i) => {
+    ACTIVE_LESSONS.forEach((l, i) => {
       const inst = l.source.split("·")[0].trim();
       if (!m[inst]) m[inst] = { docs: {}, idx: [] };
       m[inst].idx.push(i);
@@ -476,9 +488,9 @@ export default function App() {
   const fLessons = useMemo(() => {
     if (sq.trim()) {
       const q = sq.toLowerCase();
-      return LESSONS.filter(l => l.title.toLowerCase().includes(q) || l.source.toLowerCase().includes(q) || l.insight.toLowerCase().includes(q));
+      return ACTIVE_LESSONS.filter(l => l.title.toLowerCase().includes(q) || l.source.toLowerCase().includes(q) || l.insight.toLowerCase().includes(q));
     }
-    return filter === "all" ? LESSONS : LESSONS.filter(l => l.cat === filter);
+    return filter === "all" ? ACTIVE_LESSONS : ACTIVE_LESSONS.filter(l => l.cat === filter);
   }, [filter, sq]);
 
   const crd = { background: C.bg2, borderRadius: 14, border: "1px solid " + C.border };
@@ -507,7 +519,7 @@ export default function App() {
 
   // LESSON DETAIL
   if (screen === "lesson" && sel !== null) {
-    const l = LESSONS[sel];
+    const l = ACTIVE_LESSONS[sel];
     const cs = getCatStyle(l.cat);
     const dn = comp.indexOf(sel) !== -1;
     const bkd = bm.indexOf(sel) !== -1;
@@ -521,6 +533,16 @@ export default function App() {
             <img src={LOGO} alt="Apex Vector" style={{ width: 24, height: 24, objectFit: "contain" }} />
             <span style={{ fontFamily: fh, fontSize: 11, fontWeight: 600, color: C.textDim, letterSpacing: 1.5 }}>THE APEX VECTOR STUDIO</span>
           </div>
+
+          {PREVIEW_MODE && (
+            <div style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: 8, padding: "10px 16px", marginBottom: 4, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+              <div>
+                <div style={{ fontFamily: fh, fontSize: 11, fontWeight: 600, color: C.gold, letterSpacing: 1 }}>SAMPLE — 12 OF 90 LESSONS</div>
+                <div style={{ fontSize: 11, color: C.textDim, marginTop: 2 }}>The full program is available to AV Studio clients.</div>
+              </div>
+              <a href="/avs-boost/" style={{ fontSize: 11, color: C.gold, textDecoration: "underline", textDecorationColor: C.gold, whiteSpace: "nowrap", fontFamily: fh, fontWeight: 600 }}>Learn More →</a>
+            </div>
+          )}
 
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: cs.color }} />
@@ -595,7 +617,7 @@ export default function App() {
               <div style={{ marginTop: 24 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: C.textDim, marginBottom: 10 }}>More from {inst}</div>
                 {related.map(idx => {
-                  const ml = LESSONS[idx];
+                  const ml = ACTIVE_LESSONS[idx];
                   return (
                     <button key={idx} onClick={() => goLesson(idx)} style={{ ...crd, ...btnS, width: "100%", textAlign: "left", padding: "12px 16px", marginBottom: 4 }}>
                       <div style={{ fontFamily: fh, fontSize: 13, fontWeight: 600, color: C.white }}>{ml.title}</div>
@@ -622,7 +644,7 @@ export default function App() {
             <span style={{ fontFamily: fh, fontSize: 11, fontWeight: 600, color: C.textDim, letterSpacing: 1.5 }}>THE APEX VECTOR STUDIO</span>
           </div>
           <h1 style={{ fontFamily: fh, fontSize: 24, fontWeight: 700, color: C.white, marginBottom: 4 }}>Sources</h1>
-          <p style={{ fontSize: 12, color: C.textDim, marginBottom: 20 }}>{srcList.length} institutions · {LESSONS.length} lessons</p>
+          <p style={{ fontSize: 12, color: C.textDim, marginBottom: 20 }}>{srcList.length} institutions · {ACTIVE_LESSONS.length} lessons</p>
           {srcList.map(inst => {
             const info = srcMap[inst];
             const docs = Object.keys(info.docs);
@@ -652,8 +674,8 @@ export default function App() {
   // PROGRESS TAB
   if (tab === "stats") {
     const catStats = cats.filter(c => c !== "all").map(cat => {
-      const tot = LESSONS.filter(l => l.cat === cat).length;
-      const dn = LESSONS.filter((l, i) => l.cat === cat && comp.includes(i)).length;
+      const tot = ACTIVE_LESSONS.filter(l => l.cat === cat).length;
+      const dn = ACTIVE_LESSONS.filter((l, i) => l.cat === cat && comp.includes(i)).length;
       return { cat, total: tot, done: dn, pct: tot > 0 ? Math.round((dn / tot) * 100) : 0 };
     });
     const jc = Object.keys(jnl).length;
@@ -679,12 +701,12 @@ export default function App() {
           <div style={{ ...crd, padding: 16, marginBottom: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
               <span style={{ fontSize: 13, fontWeight: 600, color: C.white }}>Overall Mastery</span>
-              <span style={{ fontSize: 13, fontWeight: 700, color: C.gold }}>{Math.round((comp.length / LESSONS.length) * 100)}%</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: C.gold }}>{Math.round((comp.length / ACTIVE_LESSONS.length) * 100)}%</span>
             </div>
             <div style={{ height: 8, background: C.bg4, borderRadius: 4, overflow: "hidden" }}>
-              <div style={{ height: "100%", width: Math.round((comp.length / LESSONS.length) * 100) + "%", background: "linear-gradient(90deg," + C.gold + "," + C.goldBright + ")", borderRadius: 4, transition: "width 0.5s" }} />
+              <div style={{ height: "100%", width: Math.round((comp.length / ACTIVE_LESSONS.length) * 100) + "%", background: "linear-gradient(90deg," + C.gold + "," + C.goldBright + ")", borderRadius: 4, transition: "width 0.5s" }} />
             </div>
-            <div style={{ fontSize: 11, color: C.textDim, marginTop: 6 }}>{comp.length} of {LESSONS.length} lessons</div>
+            <div style={{ fontSize: 11, color: C.textDim, marginTop: 6 }}>{comp.length} of {ACTIVE_LESSONS.length} lessons</div>
           </div>
           <div style={{ fontSize: 13, fontWeight: 600, color: C.textDim, marginBottom: 10 }}>By Pillar</div>
           {catStats.map(s => {
@@ -722,7 +744,7 @@ export default function App() {
             <span style={{ fontFamily: fh, fontSize: 11, fontWeight: 600, color: C.textDim, letterSpacing: 1.5 }}>THE APEX VECTOR STUDIO</span>
           </div>
           <h1 style={{ fontFamily: fh, fontSize: 24, fontWeight: 700, color: C.white, marginBottom: 2 }}>Library</h1>
-          <p style={{ fontSize: 12, color: C.textDim, marginBottom: 14 }}>{LESSONS.length} lessons · {srcList.length} sources</p>
+          <p style={{ fontSize: 12, color: C.textDim, marginBottom: 14 }}>{ACTIVE_LESSONS.length} lessons · {srcList.length} sources</p>
           <input value={sq} onChange={e => setSq(e.target.value)} placeholder="Search lessons, topics, sources..." style={{ width: "100%", padding: "12px 16px", background: C.bg3, border: "1px solid " + C.border, borderRadius: 10, color: C.white, fontFamily: fb, fontSize: 14, boxSizing: "border-box", marginBottom: 14 }} />
           <div style={{ display: "flex", gap: 4, marginBottom: 14, flexWrap: "wrap" }}>
             {cats.map(cat => {
@@ -737,7 +759,7 @@ export default function App() {
             <div style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 12, fontWeight: 600, color: C.gold, marginBottom: 8 }}>★ Saved ({bm.length})</div>
               {bm.slice(0, 4).map(i => {
-                const l = LESSONS[i];
+                const l = ACTIVE_LESSONS[i];
                 if (!l) return null;
                 return (
                   <button key={i} onClick={() => goLesson(i)} style={{ ...crd, ...btnS, width: "100%", textAlign: "left", padding: "12px 16px", marginBottom: 4 }}>
@@ -750,7 +772,7 @@ export default function App() {
           )}
           {fLessons.length === 0 && <div style={{ textAlign: "center", padding: 40, color: C.textDim }}>No lessons found</div>}
           {fLessons.map(l => {
-            const ri = LESSONS.indexOf(l);
+            const ri = ACTIVE_LESSONS.indexOf(l);
             return <LessonCard key={ri} l={l} idx={ri} onClick={() => goLesson(ri)} isDone={comp.includes(ri)} cs={getCatStyle(l.cat)} />;
           })}
         </div>
@@ -771,7 +793,7 @@ export default function App() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 20 }}>
           <div>
             <h1 style={{ fontFamily: fh, fontSize: 24, fontWeight: 700, color: C.white, marginBottom: 2, lineHeight: 1.1 }}>Daily Intelligence Boost</h1>
-            <p style={{ fontSize: 10, color: C.textDim }}>{srcList.length} sources · {LESSONS.length} lessons</p>
+            <p style={{ fontSize: 10, color: C.textDim }}>{srcList.length} sources · {ACTIVE_LESSONS.length} lessons</p>
           </div>
           <div style={{ textAlign: "right", flexShrink: 0 }}>
             <div style={{ fontFamily: fh, fontSize: 22, fontWeight: 700, color: stk.count > 0 ? C.gold : C.textMut }}>{(stk.count > 0 ? stk.count : "0") + " 🔥"}</div>
@@ -800,7 +822,7 @@ export default function App() {
           <button onClick={() => goLesson(ti)} style={{ ...btnS, width: "100%", padding: 14, fontSize: 14, fontWeight: 700, color: todayDone ? C.textDim : "#111111", background: todayDone ? C.bg3 : C.gold, borderRadius: 12 }}>{todayDone ? "Review Today's Lesson ✓" : "Read Today's Lesson"}</button>
         </div>
         <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
-          {[{l:String(comp.length),s:"Completed"},{l:String(LESSONS.length - comp.length),s:"Remaining"},{l:String(bm.length),s:"Saved"}].map(v => (
+          {[{l:String(comp.length),s:"Completed"},{l:String(ACTIVE_LESSONS.length - comp.length),s:"Remaining"},{l:String(bm.length),s:"Saved"}].map(v => (
             <div key={v.s} style={{ ...crd, flex: 1, padding: 12, textAlign: "center" }}>
               <div style={{ fontFamily: fh, fontSize: 18, fontWeight: 700, color: C.gold }}>{v.l}</div>
               <div style={{ fontSize: 10, color: C.textDim, marginTop: 2 }}>{v.s}</div>
@@ -810,27 +832,27 @@ export default function App() {
         <div style={{ ...crd, padding: 14, marginBottom: 16 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
             <span style={{ fontSize: 11, color: C.textDim }}>Mastery Progress</span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: C.gold }}>{Math.round((comp.length / LESSONS.length) * 100)}%</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: C.gold }}>{Math.round((comp.length / ACTIVE_LESSONS.length) * 100)}%</span>
           </div>
           <div style={{ height: 6, background: C.bg4, borderRadius: 3, overflow: "hidden" }}>
-            <div style={{ height: "100%", width: Math.round((comp.length / LESSONS.length) * 100) + "%", background: "linear-gradient(90deg," + C.gold + "," + C.goldBright + ")", borderRadius: 3, transition: "width 0.5s" }} />
+            <div style={{ height: "100%", width: Math.round((comp.length / ACTIVE_LESSONS.length) * 100) + "%", background: "linear-gradient(90deg," + C.gold + "," + C.goldBright + ")", borderRadius: 3, transition: "width 0.5s" }} />
           </div>
         </div>
-        {comp.length < LESSONS.length && (
+        {comp.length < ACTIVE_LESSONS.length && (
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 12, fontWeight: 600, color: C.textDim, marginBottom: 8 }}>Up Next</div>
             {(() => {
               const shown = [];
               return [1,2,3].map(off => {
-                let idx = (ti + off) % LESSONS.length;
+                let idx = (ti + off) % ACTIVE_LESSONS.length;
                 let tries = 0;
-                while ((comp.includes(idx) || shown.includes(idx)) && tries < LESSONS.length) {
-                  idx = (idx + 1) % LESSONS.length;
+                while ((comp.includes(idx) || shown.includes(idx)) && tries < ACTIVE_LESSONS.length) {
+                  idx = (idx + 1) % ACTIVE_LESSONS.length;
                   tries++;
                 }
                 if (comp.includes(idx) || shown.includes(idx)) return null;
                 shown.push(idx);
-                const l = LESSONS[idx];
+                const l = ACTIVE_LESSONS[idx];
                 const cs = getCatStyle(l.cat);
                 return (
                   <button key={idx+"-"+off} onClick={() => goLesson(idx)} style={{ ...crd, ...btnS, width: "100%", textAlign: "left", padding: "14px 16px", marginBottom: 4 }}>
@@ -852,7 +874,7 @@ export default function App() {
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 12, fontWeight: 600, color: C.gold, marginBottom: 8 }}>★ Saved ({bm.length})</div>
             {bm.slice(0, 2).map(i => {
-              const l = LESSONS[i];
+              const l = ACTIVE_LESSONS[i];
               if (!l) return null;
               return (
                 <button key={i} onClick={() => goLesson(i)} style={{ ...crd, ...btnS, width: "100%", textAlign: "left", padding: "12px 16px", marginBottom: 4 }}>
