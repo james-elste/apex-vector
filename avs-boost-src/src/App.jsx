@@ -266,7 +266,7 @@ const LESSONS = [
   {title:"The 2030 Organization",source:"McKinsey · The Agentic Organization / WEF Future of Jobs 2025",insight:"McKinsey and WEF research describes the 2030 organization: AI agents handle multi-step operational work that currently requires human coordination; human roles concentrate in judgment, creativity, relationship management, and exception handling; organizational structures flatten as AI removes the information-processing justification for managerial layers; 170 million new roles emerge that do not currently exist. Organizations planning backward from this vision are redesigning work and building AI infrastructure now.",why:"The leaders who will lead their organizations in 2030 are the ones engaging seriously with AI today — not reacting to each quarterly AI news cycle, but building deliberate capability and organizational design with a five-year horizon.",action:"Sketch what your organization looks like in 2030 if AI agents are embedded in your core operations. What roles exist that don't today? What roles are gone or transformed? Use that sketch as a planning document, not a prediction.",cat:"techleadership",pillar:"Technology Leadership"},
   {title:"The Federal Data Strategy as Blueprint",source:"US Federal Data Strategy · 2020 Action Plan and Principles",insight:"The US Federal Data Strategy's three overarching principles — ethical governance, conscious design, and learning culture — provide a framework that extends directly to private sector organizations. Ethical governance means data practices are accountable and rights-respecting. Conscious design means data systems are built intentionally rather than accumulating accidentally. Learning culture means continuous capability improvement rather than treating data transformation as a one-time project.",why:"Organizations building data programs for the first time benefit from a principled framework that is not vendor-defined. The Federal Data Strategy is the most rigorous publicly available baseline for organizational data governance design.",action:"Rate your organization against the three principles: ethical governance (1–5), conscious design (1–5), learning culture (1–5). The lowest score is your strategic priority for the next 90 days.",cat:"data",pillar:"Data & Analytics"},
   {title:"The Global AI Policy Landscape",source:"OECD · AI Policy Observatory / Stanford HAI Policy Research",insight:"The OECD AI Policy Observatory tracks 900+ AI policy initiatives from 70+ countries. The pattern is clear: AI regulation is accelerating globally. The EU AI Act is most comprehensive; China's regulations are most prescriptive; the US federal approach remains fragmented between executive orders and sectoral guidance. Stanford HAI's policy research provides academic analysis of which regulatory approaches are effective and which create compliance burden without safety benefit.",why:"Clients operating across jurisdictions face AI regulatory requirements that vary significantly. Professionals who track the global landscape can provide more strategic compliance guidance than those reacting to one jurisdiction at a time.",action:"Identify the three jurisdictions most relevant to your organization's operations or target markets. Research the current AI regulatory posture of each. Assign someone on your team to monitor regulatory developments in those jurisdictions quarterly.",cat:"governance",pillar:"Governance & Risk"},
-  {title:"The Practice Embodies the Model",source:"The AV Studio · Coaching Practice Design",insight:"The most powerful demonstration of technology leadership competence is not a presentation or a credential. It is how you operate. An executive who uses AI tools deliberately and transparently, who makes decisions grounded in data while applying professional judgment, who governs technology risk seriously, and who continuously develops technology fluency demonstrates the model. In coaching and leadership, credibility comes from embodying the principles you advocate. The gap between what leaders say about technology and how they actually engage with it is visible to every person they lead.",why:"Clients choose advisors they believe understand the terrain they're navigating. An executive who can speak credibly from personal technology experience — not just about it — builds a different quality of trust.",action:"Identify the largest gap between your stated technology leadership principles and your actual daily practice. Name it. Address it this week. The leaders who practice what they teach are the ones worth following.",cat:"techleadership",pillar:"Technology Leadership"},,,
+  {title:"The Practice Embodies the Model",source:"The AV Studio · Coaching Practice Design",insight:"The most powerful demonstration of technology leadership competence is not a presentation or a credential. It is how you operate. An executive who uses AI tools deliberately and transparently, who makes decisions grounded in data while applying professional judgment, who governs technology risk seriously, and who continuously develops technology fluency demonstrates the model. In coaching and leadership, credibility comes from embodying the principles you advocate. The gap between what leaders say about technology and how they actually engage with it is visible to every person they lead.",why:"Clients choose advisors they believe understand the terrain they're navigating. An executive who can speak credibly from personal technology experience — not just about it — builds a different quality of trust.",action:"Identify the largest gap between your stated technology leadership principles and your actual daily practice. Name it. Address it this week. The leaders who practice what they teach are the ones worth following.",cat:"techleadership",pillar:"Technology Leadership"},
 ];
 
 const QUOTES = [
@@ -547,6 +547,27 @@ export default function App() {
             <div style={{ fontSize: 10, fontWeight: 700, color: cs.color, letterSpacing: 1.5, marginBottom: 8 }}>TAKE ACTION</div>
             <div style={{ fontSize: 14, color: C.white, lineHeight: 1.65 }}>{l.action}</div>
           </div>
+          <a
+            href="https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/?ismsaljsauthenabled=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "block",
+              background: C.gold,
+              color: "#111111",
+              borderRadius: 12,
+              padding: "16px 20px",
+              textAlign: "center",
+              textDecoration: "none",
+              fontFamily: fh,
+              fontWeight: 700,
+              fontSize: 14,
+              marginBottom: 16,
+              letterSpacing: 0.3,
+            }}
+          >
+            Discuss this with a Coach — Schedule a Session
+          </a>
           <div style={{ ...crd, padding: 20, marginBottom: 16 }}>
             <div style={{ fontSize: 10, fontWeight: 700, color: C.bc, letterSpacing: 1.5, marginBottom: 10 }}>YOUR REFLECTION</div>
             {je ? (
@@ -835,6 +856,27 @@ export default function App() {
             })}
           </div>
         )}
+                <a
+          href="https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/?ismsaljsauthenabled=true"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "block",
+            background: C.gold,
+            color: "#111111",
+            borderRadius: 12,
+            padding: "16px 20px",
+            textAlign: "center",
+            textDecoration: "none",
+            fontFamily: fh,
+            fontWeight: 700,
+            fontSize: 14,
+            margin: "24px 0 16px",
+            letterSpacing: 0.3,
+          }}
+        >
+          Discuss this with a Coach — Schedule a Session
+        </a>
         <div style={{ textAlign: "center", padding: "16px 0 8px", fontSize: 10, color: C.textMut }}>The Apex Vector Studio</div>
       </div>
       <Nav />
