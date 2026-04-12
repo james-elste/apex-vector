@@ -284,6 +284,95 @@ const QUOTES = [
   {text:"Accountability for AI outcomes must sit with people, not systems.",source:"OECD · AI Principles"},
 ];
 
+const SOURCE_URLS = {
+  "Bipartisan House Task Force · Report on Artificial Intelligence (December 2024)": "https://judiciary.house.gov/sites/evo-subsites/republicans-judiciary.house.gov/files/evo-media-document/2024-12-17-house-ai-task-force-report.pdf",
+  "CIS Controls v8.1 · Implementation Group 1 / CISA Cybersecurity Performance Goals": "https://www.cisecurity.org/controls/v8",
+  "CISA · Secure by Design Principles": "https://www.cisa.gov/resources-tools/resources/secure-by-design",
+  "CISA · StopRansomware.gov — Incident Response Playbook": "https://www.cisa.gov/stopransomware/ransomware-guide",
+  "CISA · Zero Trust Maturity Model 2.0": "https://www.cisa.gov/zero-trust-maturity-model",
+  "DAMA International · Data Management Body of Knowledge": "https://www.dama.org/cpages/body-of-knowledge",
+  "Davenport & Bean · 2025 AI and Data Leadership Benchmark": "https://newvantage.com/wp-content/uploads/2025/01/NVP-2025-AI-And-Data-Leadership-Executive-Survey.pdf",
+  "DeepLearning.AI · AI for Everyone (Andrew Ng)": "https://www.deeplearning.ai/courses/ai-for-everyone/",
+  "Deloitte · Board Practices Report: AI Oversight 2025": "https://www.deloitte.com/us/en/pages/center-for-board-effectiveness/articles/board-practices-report.html",
+  "Deloitte · Chief Data Officer Survey 2025": "https://www.deloitte.com/us/en/insights/topics/analytics/chief-data-officer-survey.html",
+  "European Commission · EU AI Act (entered into force August 2024)": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+  "European Commission · Markets in Crypto-Assets Regulation (MiCA)": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-in-crypto-assets-regulation-mica",
+  "European Commission · eIDAS 2.0 Regulation (2024)": "https://digital-strategy.ec.europa.eu/en/policies/eidas-regulation",
+  "FAIR Institute · Factor Analysis of Information Risk": "https://www.fairinstitute.org/what-is-fair",
+  "GDPR / CCPA-CPRA / NIST Privacy Framework": "https://www.nist.gov/privacy-framework",
+  "GO FAIR Foundation · FAIR Data Principles": "https://www.go-fair.org/fair-principles/",
+  "Gartner · Hype Cycle Methodology": "https://www.gartner.com/en/research/methodologies/gartner-hype-cycle",
+  "Google · Prompting Essentials / Anthropic · Prompt Engineering Guide": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+  "Gordon Training International · Conscious Competence Model": "https://www.gordontraining.com/free-workplace-articles/learning-a-new-skill-is-easier-said-than-done/",
+  "Harvard Business Review · 5 Ways Your Data Strategy Can Fail (Redman)": "https://hbr.org/2017/06/5-ways-data-strategy-can-fail",
+  "Harvard Business Review · Building a Transparent Supply Chain (Gaur & Gaiha, 2020)": "https://hbr.org/2020/05/building-a-transparent-supply-chain",
+  "Harvard Business Review · Companies Are Failing to Become Data-Driven (Bean, 2019)": "https://hbr.org/2019/02/companies-are-failing-in-their-efforts-to-become-data-driven",
+  "Harvard Business Review · Decision Frameworks / Gartner": "https://hbr.org/2017/11/how-to-make-smarter-decisions-about-technology",
+  "Harvard Business Review · Digital Transformation in Professional Services": "https://hbr.org/topic/subject/digital-transformation",
+  "Harvard Business Review · Embracing Gen AI at Work (Wilson & Daugherty, 2024)": "https://hbr.org/2023/07/how-to-use-generative-ai-as-a-thought-partner",
+  "Harvard Business Review · How AI Is Redefining Managerial Roles (2025)": "https://hbr.org/topic/subject/ai-and-machine-learning",
+  "Harvard Business Review · Leading Digital Transformation / The AV Studio": "https://hbr.org/topic/subject/digital-transformation",
+  "ISO 31000:2018 · Risk Management Guidelines": "https://www.iso.org/iso-31000-risk-management.html",
+  "Lewis et al. · Retrieval-Augmented Generation (2020) / Enterprise Implementation Guides": "https://arxiv.org/abs/2005.11401",
+  "MIT Digital Currency Initiative · Research and Publications": "https://dci.mit.edu/research",
+  "MIT Sloan CISR · How to Boost Your Organization's AI Maturity Level (2025)": "https://cisr.mit.edu/publication/2024_0101_AIMaturity_LaFountainMocker",
+  "MIT Sloan Management Review · Digital Leadership Capabilities 2025": "https://sloanreview.mit.edu/topic/digital-leadership/",
+  "MIT Sloan Management Review · The CDO Role: What's Next / Deloitte CDO Survey 2025": "https://sloanreview.mit.edu/topic/analytics/",
+  "MIT Sloan · AI & Data Leadership Benchmark (Davenport & Bean, 2025)": "https://newvantage.com/wp-content/uploads/2025/01/NVP-2025-AI-And-Data-Leadership-Executive-Survey.pdf",
+  "Marsh · Cyber Insurance Market Report 2025": "https://www.marsh.com/en/industries/cyber-risk/insights/cyber-insurance-market.html",
+  "McKinsey / Harvard Business Review · Digital Transformation Research": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/digital-transformations",
+  "McKinsey · Are Your People Ready for AI at Scale?": "https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/are-your-people-ready-for-ai-at-scale",
+  "McKinsey · Path to the AI-Driven Enterprise of 2030": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-data-driven-enterprise-of-2025",
+  "McKinsey · Path to the Data- and AI-Driven Enterprise of 2030": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-data-driven-enterprise-of-2025",
+  "McKinsey · Rewired / Harvard Business Review · Measuring Digital ROI": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/rewired-to-outcompete",
+  "McKinsey · Rewired: Six Capabilities of Successful Transformations": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/rewired-to-outcompete",
+  "McKinsey · Rewired: The Guide to Outcompeting in the Age of Digital and AI": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/rewired-to-outcompete",
+  "McKinsey · The Agentic Organization (2025)": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/agentic-ai",
+  "McKinsey · The Agentic Organization / WEF Future of Jobs 2025": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/agentic-ai",
+  "McKinsey · The Data-Driven Enterprise of 2025": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-data-driven-enterprise-of-2025",
+  "McKinsey · The Influence Model for Organizational Change": "https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/the-four-building-blocks-of-change",
+  "McKinsey · The State of AI in 2025": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+  "McKinsey · Three Horizons of Growth Framework": "https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/enduring-ideas-the-three-horizons-of-growth",
+  "NACD · Director's Handbook on Cyber-Risk Oversight / WEF Principles for Board Governance": "https://nacdonline.org/insights/publications.cfm?ItemNumber=67298",
+  "NIST Privacy Framework · Ann Cavoukian / ISO/IEC 27701": "https://www.nist.gov/privacy-framework",
+  "NIST · AI RMF 1.0": "https://airc.nist.gov/RMF",
+  "NIST · AI RMF Playbook": "https://airc.nist.gov/Docs/1",
+  "NIST · Big Data Interoperability Framework SP 1500": "https://www.nist.gov/programs-projects/nist-big-data-public-working-group",
+  "NIST · CSF 2.0 Organizational Profile Template": "https://www.nist.gov/cyberframework/csf-20-profiles",
+  "NIST · Cybersecurity Framework 2.0 (2024)": "https://www.nist.gov/cyberframework",
+  "NIST · Digital Identity Guidelines SP 800-63": "https://pages.nist.gov/800-63-4/",
+  "NIST · FIPS 203, 204, 205 — Post-Quantum Cryptography Standards (August 2024)": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+  "NIST · IR 8202 — Blockchain Technology Overview": "https://csrc.nist.gov/pubs/ir/8202/final",
+  "NIST · IR 8286 Series — Cybersecurity and Enterprise Risk Management": "https://csrc.nist.gov/pubs/ir/8286/final",
+  "NIST · IR 8301 — Blockchain Networks: Token Design and Management": "https://csrc.nist.gov/pubs/ir/8301/final",
+  "NIST · Post-Quantum Cryptography Standards (FIPS 203, 204, 205)": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+  "OECD · AI Policy Observatory / Stanford HAI Policy Research": "https://oecd.ai/en/",
+  "OECD · AI Principles": "https://oecd.ai/en/ai-principles",
+  "Ponemon/IBM · Cost of a Data Breach Report 2024": "https://www.ibm.com/reports/data-breach",
+  "RAND Corporation · Cyber Insurance Research": "https://www.rand.org/topics/cyber-insurance.html",
+  "SEC · Cybersecurity Disclosure Rules (2023)": "https://www.sec.gov/corpfin/cybersecurity",
+  "Sideman & Bancroft · Smart Contracts Revisited: Lessons from the Courts (2025)": "https://www.sideman.com/publications/smart-contracts/",
+  "Stanford HAI · AI Index Report 2025": "https://aiindex.stanford.edu/report/",
+  "Stanford HAI · AI Policy Research / WEF Data Equity for Generative AI": "https://hai.stanford.edu/policy",
+  "The AV Studio · Client Development Philosophy": "https://apex-vector.com",
+  "The AV Studio · Coaching Methodology / Gordon Training International": "https://apex-vector.com",
+  "The AV Studio · Coaching Practice Design": "https://apex-vector.com",
+  "The AV Studio · Intelligence Metabolism Framework": "https://apex-vector.com",
+  "US Federal Data Strategy · 2020 Action Plan and Principles": "https://strategy.data.gov/principles/",
+  "Uniform Law Commission · UCC Article 12 — Controllable Electronic Records": "https://www.uniformlaws.org/committees/community-home?CommunityKey=ae9b5f84-1b0f-4faa-8f1e-467df9ae9aa5",
+  "Verizon · Data Breach Investigations Report 2024": "https://www.verizon.com/business/resources/reports/dbir/",
+  "W3C · Verifiable Credentials Data Model 2.0 (May 2025)": "https://www.w3.org/TR/vc-data-model-2.0/",
+  "WEF · Global Cybersecurity Outlook 2025": "https://www.weforum.org/publications/global-cybersecurity-outlook-2025/",
+  "WEF · Global Cybersecurity Outlook 2025 / CISA · Supply Chain Risk Management Guidance": "https://www.weforum.org/publications/global-cybersecurity-outlook-2025/",
+  "World Economic Forum · Blockchain Beyond the Hype": "https://www.weforum.org/reports/blockchain-beyond-the-hype/",
+  "World Economic Forum · Building Value with Blockchain Technology": "https://www.weforum.org/reports/building-value-with-blockchain-technology/",
+  "World Economic Forum · Digital Assets Regulation Report 2025": "https://www.weforum.org/publications/digital-asset-ecosystem-regulation-report-2025/",
+  "World Economic Forum · Future of Jobs Report 2025": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "World Economic Forum · Global Cybersecurity Outlook 2025": "https://www.weforum.org/publications/global-cybersecurity-outlook-2025/",
+  "World Economic Forum · Governance in the Age of Generative AI (2025)": "https://www.weforum.org/publications/governance-in-the-age-of-generative-ai/",
+  "World Economic Forum · Invest in the Workforce for the AI Age": "https://www.weforum.org/publications/invest-in-the-workforce-for-the-ai-age/",
+};
+
 function getCatStyle(c) {
   const m = {
     ai:{color:C.ai,label:"AI & Automation"},
@@ -438,7 +527,14 @@ export default function App() {
             <span style={{ fontSize: 11, fontWeight: 600, color: cs.color }}>{cs.label}</span>
           </div>
           <h1 style={{ fontFamily: fh, fontSize: 26, fontWeight: 700, color: C.white, lineHeight: 1.3, marginBottom: 6 }}>{l.title}</h1>
-          <div style={{ fontSize: 12, color: C.textDim, marginBottom: 24 }}>{l.source}</div>
+          <div style={{ fontSize: 12, color: C.textDim, marginBottom: 24 }}>
+            {SOURCE_URLS[l.source]
+              ? <a href={SOURCE_URLS[l.source]} target="_blank" rel="noopener noreferrer"
+                   style={{ color: C.textDim, textDecoration: "underline", textDecorationColor: C.gold, textUnderlineOffset: 3 }}>
+                  {l.source}
+                </a>
+              : l.source}
+          </div>
           <div style={{ ...crd, padding: 24, marginBottom: 16 }}>
             <div style={{ fontSize: 10, fontWeight: 600, color: C.textDim, letterSpacing: 1.5, marginBottom: 10 }}>INSIGHT</div>
             <div style={{ fontSize: 15, color: C.white, lineHeight: 1.75, fontWeight: 300 }}>{l.insight}</div>
@@ -671,7 +767,14 @@ export default function App() {
             <span style={{ fontSize: 10, fontWeight: 700, color: getCatStyle(tl.cat).color, letterSpacing: 1.5 }}>{"TODAY'S LESSON · " + getCatStyle(tl.cat).label.toUpperCase()}</span>
           </div>
           <h2 style={{ fontFamily: fh, fontSize: 22, fontWeight: 700, color: C.white, lineHeight: 1.3, marginBottom: 6 }}>{tl.title}</h2>
-          <div style={{ fontSize: 12, color: C.textDim, marginBottom: 14 }}>{tl.source}</div>
+          <div style={{ fontSize: 12, color: C.textDim, marginBottom: 14 }}>
+          {SOURCE_URLS[tl.source]
+            ? <a href={SOURCE_URLS[tl.source]} target="_blank" rel="noopener noreferrer"
+                 style={{ color: C.textDim, textDecoration: "underline", textDecorationColor: C.gold, textUnderlineOffset: 3 }}>
+                {tl.source}
+              </a>
+            : tl.source}
+        </div>
           <div style={{ fontSize: 14, color: C.text, lineHeight: 1.65, marginBottom: 16, fontWeight: 300 }}>{tl.insight.length > 180 ? tl.insight.substring(0, 180) + "..." : tl.insight}</div>
           <button onClick={() => goLesson(ti)} style={{ ...btnS, width: "100%", padding: 14, fontSize: 14, fontWeight: 700, color: todayDone ? C.textDim : "#111111", background: todayDone ? C.bg3 : C.gold, borderRadius: 12 }}>{todayDone ? "Review Today's Lesson ✓" : "Read Today's Lesson"}</button>
         </div>
