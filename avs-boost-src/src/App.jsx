@@ -587,7 +587,7 @@ export default function App() {
                 <div style={{ fontFamily: fh, fontSize: 11, fontWeight: 600, color: C.gold, letterSpacing: 1 }}>SAMPLE — 12 OF 90 LESSONS</div>
                 <div style={{ fontSize: 11, color: C.textDim, marginTop: 2 }}>The full program is available to AV Studio clients.</div>
               </div>
-              <a href="/avs-boost/" style={{ fontSize: 11, color: C.gold, textDecoration: "underline", textDecorationColor: C.gold, whiteSpace: "nowrap", fontFamily: fh, fontWeight: 600 }}>Learn More →</a>
+              <a href="https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/?ismsaljsauthenabled=true" target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: C.gold, textDecoration: "underline", textDecorationColor: C.gold, whiteSpace: "nowrap", fontFamily: fh, fontWeight: 600 }}>Schedule a Session →</a>
             </div>
           )}
 
