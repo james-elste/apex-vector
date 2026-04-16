@@ -53,17 +53,19 @@ async function initTeams() {
     _userEmail = ctx?.user?.loginHint || ctx?.user?.userPrincipalName || null;
     if (!_userEmail) return false;
 
-    // Exchange the Teams SSO token for a Graph-scoped token
-    _graphToken = await withTimeout(
-      new Promise((resolve, reject) => {
-        microsoftTeams.authentication.getAuthToken({
-          resources: ["https://graph.microsoft.com"],
-          successCallback: resolve,
-          failureCallback: reject,
-        });
-      }),
-      5000
-    );
+    // Get SSO token via Teams SDK v2 — no 'resources' param needed.
+    // Token exchange is handled by the manifest webApplicationInfo config.
+    // We use this token to identify the user; Graph calls use their own auth.
+    try {
+      _graphToken = await withTimeout(
+        microsoftTeams.authentication.getAuthToken({ clientId: ENTRA_CLIENT_ID }),
+        5000
+      );
+    } catch (authErr) {
+      console.warn("[AVS] getAuthToken failed:", authErr);
+      // Auth failed but app still loads — fall back to localStorage
+      _graphToken = null;
+    }
 
     _teamsReady = !!_graphToken;
     return _teamsReady;
