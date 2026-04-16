@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
   "manifestVersion": "1.17",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "id": "fb10d951-6001-5ce5-846b-74950def1e0b",
   "developer": {
     "name": "The Apex Vector Studio",
@@ -54,10 +54,6 @@
     "graph.microsoft.com",
     "login.microsoftonline.com"
   ],
-  "webApplicationInfo": {
-    "id": "6b4bec25-04c5-4ef3-a9c8-d176400fad4f",
-    "resource": "api://apex-vector.com/avs-boost/6b4bec25-04c5-4ef3-a9c8-d176400fad4f"
-  },
   "showLoadingIndicator": true,
   "isFullScreen": false
 }

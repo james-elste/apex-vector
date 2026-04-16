@@ -43,40 +43,30 @@ async function initTeams() {
     // 2-second timeout — if not inside Teams, initialize() never resolves
     await withTimeout(microsoftTeams.app.initialize(), 2000);
 
-    // Notify Teams immediately that the app has loaded successfully.
-    // This MUST be called promptly after initialize() or Teams shows
-    // "There is a problem reaching this app" after ~30 seconds.
+    // Notify Teams immediately — required to prevent "problem reaching app" error
     try { microsoftTeams.app.notifyAppLoaded(); } catch(e) {}
     try { microsoftTeams.app.notifySuccess(); } catch(e) {}
 
-    const ctx = await withTimeout(microsoftTeams.app.getContext(), 2000);
-    _userEmail = ctx?.user?.loginHint || ctx?.user?.userPrincipalName || null;
-    if (!_userEmail) return false;
-
-    // Get SSO token via Teams SDK v2 — no 'resources' param needed.
-    // Token exchange is handled by the manifest webApplicationInfo config.
-    // We use this token to identify the user; Graph calls use their own auth.
+    // Get user context for email-keyed storage
     try {
-      _graphToken = await withTimeout(
-        microsoftTeams.authentication.getAuthToken({ clientId: ENTRA_CLIENT_ID }),
-        5000
-      );
-    } catch (authErr) {
-      console.warn("[AVS] getAuthToken failed:", authErr);
-      // Auth failed but app still loads — fall back to localStorage
-      _graphToken = null;
+      const ctx = await withTimeout(microsoftTeams.app.getContext(), 2000);
+      _userEmail = ctx?.user?.loginHint || ctx?.user?.userPrincipalName || null;
+    } catch(e) {
+      console.warn("[AVS] getContext failed:", e.message);
     }
 
-    _teamsReady = !!_graphToken;
-    return _teamsReady;
+    // Mark Teams as ready — storage falls back to localStorage for now
+    // Graph persistence will be enabled in a future update
+    _teamsReady = false; // Use localStorage until Graph auth is configured
+    return true;
   } catch (e) {
     console.warn("[AVS] Teams init failed, falling back to localStorage:", e.message);
-    // Still notify Teams we loaded even if auth failed — prevents timeout error
     try { microsoftTeams.app.notifyAppLoaded(); } catch(e2) {}
     try { microsoftTeams.app.notifySuccess(); } catch(e2) {}
     return false;
   }
 }
+
 
 // Graph helper — all calls go through here
 async function graphFetch(path, method = "GET", body = null) {
