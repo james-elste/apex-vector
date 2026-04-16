@@ -8,7 +8,7 @@ const ENTRA_CLIENT_ID   = "6b4bec25-04c5-4ef3-a9c8-d176400fad4f";
 const SP_SITE_ID        = "apexvector.sharepoint.com,2a329831-2e84-4ede-966d-813c3f5b3b58,6749e824-e5dd-45bd-a285-55cbd8404311";
 const SP_LIST_ID        = "5424ef53-c656-443c-bd73-63a1b2";
 
-const SK = "avs-daily-v2";  // localStorage key (fallback / dev mode)
+const SK = "avs-daily-v1";  // localStorage key (fallback / dev mode)
 
 // ─── TEAMS + GRAPH STORAGE LAYER ─────────────────────────────────────────────
 //
@@ -282,8 +282,11 @@ const LESSONS = [
 // ─── PREVIEW MODE ─────────────────────────────────────────────────────────────
 // When the app is loaded with ?mode=preview (public website), show 12 curated
 // lessons — two per pillar. Full 90-lesson program is available inside Teams.
+// Preview mode is the DEFAULT for public web access.
+// Full 90-lesson mode requires ?mode=full — used only in the Teams tab URL.
+// This means anyone hitting the public URL sees 12 lessons only.
 const PREVIEW_MODE = typeof window !== "undefined" &&
-  new URLSearchParams(window.location.search).get("mode") === "preview";
+  new URLSearchParams(window.location.search).get("mode") !== "full";
 
 const PREVIEW_INDICES = [0, 33, 51, 35, 15, 62, 20, 69, 25, 78, 29, 85];
 const PREVIEW_LESSONS = PREVIEW_INDICES.map(i => LESSONS[i]);

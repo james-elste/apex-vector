@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
   "manifestVersion": "1.17",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "id": "fb10d951-6001-5ce5-846b-74950def1e0b",
   "developer": {
     "name": "The Apex Vector Studio",
@@ -26,8 +26,8 @@
     {
       "entityId": "intelligence-boost",
       "name": "Intelligence Boost",
-      "contentUrl": "https://apex-vector.com/avs-boost/",
-      "websiteUrl": "https://apex-vector.com/avs-boost/",
+      "contentUrl": "https://apex-vector.com/avs-boost/?mode=full",
+      "websiteUrl": "https://apex-vector.com/avs-boost/?mode=full",
       "scopes": [
         "personal",
         "team",

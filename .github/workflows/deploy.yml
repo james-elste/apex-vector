@@ -29,6 +29,10 @@ jobs:
         working-directory: avs-boost-src
         run: npm ci
 
+      - name: Clear previous build cache
+        working-directory: avs-boost-src
+        run: rm -rf dist node_modules/.vite
+
       - name: Build app
         working-directory: avs-boost-src
         run: npm run build
