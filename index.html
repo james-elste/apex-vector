@@ -3,1264 +3,1887 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Apex Vector Studio</title>
-<meta name="description" content="Private executive technology coaching for leaders navigating AI, blockchain, cybersecurity, and data science. Confidential, personalized coaching built on four decades of cross-domain technology leadership.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://apex-vector.com/">
-<meta property="og:site_name" content="The Apex Vector Studio">
-<meta property="og:title" content="The Apex Vector Studio — Private Executive Technology Coaching">
-<meta property="og:description" content="Confidential coaching for executives navigating AI, blockchain, cybersecurity, and data science. Built on four decades of cross-domain technology leadership.">
-<meta property="og:url" content="https://apex-vector.com/">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://apex-vector.com/images/APEX_VECTOR_Banner__Transparent.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Apex Vector Studio — Private Executive Technology Coaching">
-<meta name="twitter:description" content="Confidential coaching for executives navigating AI, blockchain, cybersecurity, and data science.">
-<meta name="twitter:image" content="https://apex-vector.com/images/APEX_VECTOR_Banner__Transparent.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "The Apex Vector Studio",
-  "description": "Private executive technology coaching for leaders navigating AI, blockchain, cybersecurity, and data science. Confidential, personalized coaching built on four decades of cross-domain technology leadership.",
-  "url": "https://apex-vector.com",
-  "logo": "https://apex-vector.com/images/APEX_VECTOR_Icon__Transparent.png",
-  "image": "https://apex-vector.com/images/APEX_VECTOR_Banner__Transparent.png",
-  "founder": {
-    "@type": "Person",
-    "name": "James R. Elste",
-    "jobTitle": "Private Executive Technology Coach & Strategic Advisor",
-    "url": "https://linkedin.com/in/james-elste-159a0b1"
-  },
-  "areaServed": {
-    "@type": "Country",
-    "name": "United States"
-  },
-  "serviceType": [
-    "Executive Technology Coaching",
-    "Strategic Technology Advisory",
-    "AI Readiness Assessment",
-    "Cybersecurity Advisory",
-    "Executive Team Development"
-  ],
-  "knowsAbout": [
-    "Artificial Intelligence",
-    "Blockchain",
-    "Cybersecurity",
-    "Data Science",
-    "Executive Leadership Development",
-    "Digital Transformation"
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "addressRegion": "TX",
-    "addressCountry": "US"
-  }
-}
-</script>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Spaceship Earth v2.0 — An Implementation Guide</title>
+<meta name="description" content="Fuller had the vision. We have the tools. An 18-chapter implementation guide for planetary stewardship. Free, open-source, forkable.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ============================================
-     APEX VECTOR BRAND TOKENS
-     ============================================ */
-  :root {
-    --black: #111111;
-    --charcoal: #2A2A2A;
-    --gold: #C9A84C;
-    --gold-light: #DDBF6B;
-    --gold-dark: #A8882E;
-    --text: #3D3D3D;
-    --gray-med: #6B6B6B;
-    --sand: #F8F7F5;
-    --border: #D6D2CA;
-    --white: #FFFFFF;
-
-    --font-heading: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'Outfit', Arial, sans-serif;
-  }
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; font-size: 16px; }
-  body {
-    font-family: var(--font-body);
-    color: var(--white);
-    background: var(--black);
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  img { max-width: 100%; display: block; }
-  a { text-decoration: none; color: inherit; }
-
-  /* ============================================
-     UTILITY — CENTERED LABEL WITH RULES ON BOTH SIDES
-     ============================================ */
-  .label {
-    font-family: var(--font-body);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .label--centered {
-    justify-content: center;
-  }
-
-  .gold-rule {
-    width: 48px;
-    height: 1px;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-
-  .gold-rule--grow {
-    flex: 1;
-    max-width: 48px;
-    height: 1px;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-
-  /* ============================================
-     NAVIGATION — OPTION A: BANNER IMAGE
-     ============================================ */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.2rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(17, 17, 17, 0.92);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
-    transition: all 0.4s ease;
-  }
-
-  nav.scrolled {
-    padding: 0.8rem 3rem;
-    background: rgba(17, 17, 17, 0.97);
-  }
-
-  /* Nav logo — icon + text */
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .nav-logo-icon {
-    height: 38px;
-    width: auto;
-    transition: height 0.4s ease;
-  }
-
-  nav.scrolled .nav-logo-icon {
-    height: 30px;
-  }
-
-  .nav-logo-text-block {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-  }
-
-  .nav-logo-the {
-    font-family: var(--font-body);
-    font-size: 0.45rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 400;
-    line-height: 1;
-  }
-
-  .nav-logo-name {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
-    color: var(--white);
-    line-height: 1.1;
-  }
-
-  .nav-logo-studio {
-    font-family: var(--font-body);
-    font-size: 0.5rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 400;
-    line-height: 1;
-    margin-top: 1px;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    align-items: center;
-  }
-
-  .nav-links a {
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gray-med);
-    transition: color 0.3s ease;
-    font-weight: 400;
-  }
-
-  .nav-links a:hover { color: var(--gold-light); }
-
-  .nav-cta {
-    padding: 0.55rem 1.6rem;
-    border: 1px solid var(--gold);
-    color: var(--gold) !important;
-    transition: all 0.3s ease !important;
-  }
-
-  .nav-cta:hover {
-    background: var(--gold);
-    color: var(--black) !important;
-  }
-
-
-  /* ============================================
-     HERO
-     ============================================ */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 3rem 6rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -30%; right: -15%;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
-  }
-
-  .hero-inner {
-    max-width: 820px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-label {
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.3s;
-  }
-
-  .hero h1 {
-    font-family: var(--font-heading);
-    font-size: clamp(2.8rem, 5.5vw, 4.2rem);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--white);
-    margin-bottom: 1.8rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.5s;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .hero-sub {
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    font-weight: 300;
-    line-height: 1.7;
-    color: var(--gray-med);
-    max-width: 580px;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.7s;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.9s;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    padding: 0.85rem 2.5rem;
-    background: var(--gold);
-    color: var(--black);
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    border: 1px solid var(--gold);
-  }
-
-  .btn-primary:hover {
-    background: transparent;
-    color: var(--gold);
-  }
-
-  .btn-ghost {
-    display: inline-block;
-    padding: 0.85rem 2.5rem;
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    color: var(--gold-light);
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-  }
-
-  .btn-ghost:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-  }
-
-  /* ============================================
-     SECTION FRAMEWORK
-     ============================================ */
-  section {
-    padding: 7rem 3rem;
-    position: relative;
-  }
-
-  .section-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-header {
-    margin-bottom: 4rem;
-  }
-
-  .section-header .label {
-    margin-bottom: 1rem;
-  }
-
-  .section-header h2 {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
-    font-weight: 400;
-    color: var(--white);
-    line-height: 1.2;
-  }
-
-  /* ============================================
-     DISTINCTION — "What the Practice Does"
-     ============================================ */
-  .distinction {
-    background: var(--black);
-  }
-
-  .distinction-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .distinction-text p {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 1.5rem;
-  }
-
-  /* Hybrid Human/AI Model Card */
-  .hybrid-card {
-    background: var(--charcoal);
-    border: 1px solid rgba(201, 168, 76, 0.12);
-    padding: 2.5rem;
-    position: relative;
-  }
-
-  .hybrid-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 2px;
-    background: linear-gradient(90deg, var(--gold), transparent);
-  }
-
-  .hybrid-card-label {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-    margin-bottom: 0.6rem;
-  }
-
-  .hybrid-card h3 {
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--white);
-    margin-bottom: 1.2rem;
-  }
-
-  .hybrid-card p {
-    font-size: 0.88rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-
-  .hybrid-card p:last-child { margin-bottom: 0; }
-
-  .hybrid-emphasis {
-    color: var(--gold-light) !important;
-    font-weight: 400 !important;
-    border-left: 2px solid var(--gold-dark);
-    padding-left: 1rem;
-    margin-top: 1.2rem;
-  }
-
-  /* ============================================
-     FOUR PILLARS
-     ============================================ */
-  .pillars {
-    background: var(--charcoal);
-  }
-
-  .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: rgba(201, 168, 76, 0.1);
-    border: 1px solid rgba(201, 168, 76, 0.1);
-  }
-
-  .pillar {
-    background: var(--black);
-    padding: 2.5rem 2rem;
-    transition: all 0.4s ease;
-  }
-
-  .pillar:hover { background: var(--charcoal); }
-
-  .pillar-num {
-    font-family: var(--font-heading);
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: rgba(201, 168, 76, 0.15);
-    line-height: 1;
-    margin-bottom: 1.2rem;
-  }
-
-  .pillar h3 {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 0.3rem;
-  }
-
-  .pillar-sub {
-    font-family: var(--font-body);
-    font-size: 0.68rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 400;
-    margin-bottom: 1.2rem;
-  }
-
-  .pillar p {
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.65;
-  }
-
-  /* ============================================
-     THE VIRTUAL STUDIO MODEL
-     ============================================ */
-  .model {
-    background: var(--charcoal);
-    overflow: hidden;
-  }
-
-  .model-intro {
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    font-weight: 300;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.65);
-    max-width: 650px;
-    margin-bottom: 4rem;
-  }
-
-  .model-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 3rem;
-  }
-
-  .model-card {
-    background: var(--black);
-    border: 1px solid rgba(201, 168, 76, 0.08);
-    padding: 3rem 2.2rem;
-    transition: border-color 0.3s ease;
-  }
-
-  .model-card:hover {
-    border-color: rgba(201, 168, 76, 0.25);
-  }
-
-  .model-card-icon {
-    width: 40px; height: 40px;
-    border: 1px solid var(--gold-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.8rem;
-  }
-
-  .model-card-icon svg {
-    width: 18px; height: 18px;
-    stroke: var(--gold);
-    fill: none;
-    stroke-width: 1.5;
-  }
-
-  .model-card h3 {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--white);
-    margin-bottom: 0.8rem;
-  }
-
-  .model-card p {
-    font-size: 0.88rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.55);
-    line-height: 1.7;
-  }
-
-  /* Async / 24-7 callout bar */
-  .async-bar {
-    background: var(--black);
-    border: 1px solid rgba(201, 168, 76, 0.12);
-    padding: 2rem 2.5rem;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .async-bar-icon {
-    flex-shrink: 0;
-    width: 48px; height: 48px;
-    border: 1px solid var(--gold-dark);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .async-bar-icon svg {
-    width: 20px; height: 20px;
-    stroke: var(--gold);
-    fill: none;
-    stroke-width: 1.5;
-  }
-
-  .async-bar-content h4 {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--white);
-    margin-bottom: 0.3rem;
-  }
-
-  .async-bar-content p {
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.6;
-  }
-
-  /* ============================================
-     CREDENTIALS — "The Experience Behind the Practice"
-     ============================================ */
-  .credentials {
-    background: var(--black);
-  }
-
-  .cred-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(214, 210, 202, 0.08);
-  }
-
-  .cred-item {
-    background: var(--black);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .cred-domain {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-  }
-
-  .cred-title {
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: var(--white);
-    line-height: 1.35;
-  }
-
-  .cred-detail {
-    font-size: 0.78rem;
-    font-weight: 300;
-    color: var(--gray-med);
-    line-height: 1.5;
-  }
-
-  /* ============================================
-     ASSESSMENT CTA — "Measure Your Readiness"
-     ============================================ */
-  .assessment {
-    background: var(--black);
-    text-align: center;
-    padding: 8rem 3rem;
-    position: relative;
-  }
-
-  .assessment::before {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .assessment .section-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 640px;
-  }
-
-  .assessment h2 {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
-    font-weight: 400;
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-  }
-
-  .assessment p {
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 2.5rem;
-  }
-
-  .assessment-features {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    margin-bottom: 3rem;
-  }
-
-  .assessment-feature {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    align-items: center;
-  }
-
-  .assessment-feature span:first-child {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 300;
-    color: var(--gold);
-  }
-
-  .assessment-feature span:last-child {
-    font-size: 0.68rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gray-med);
-    font-weight: 400;
-  }
-
-  /* ============================================
-     CONTACT / FOOTER
-     ============================================ */
-  .contact {
-    background: var(--black);
-    padding: 5rem 3rem;
-    border-top: 1px solid rgba(201, 168, 76, 0.1);
-  }
-
-  .contact-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-
-  .contact-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .contact-name {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--white);
-  }
-
-  .contact-title {
-    font-size: 0.8rem;
-    font-weight: 300;
-    color: var(--gray-med);
-    line-height: 1.6;
-  }
-
-  .contact-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.8rem;
-  }
-
-  .contact-right a {
-    font-size: 0.72rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 400;
-    transition: color 0.3s ease;
-  }
-
-  .contact-right a:hover { color: var(--gold-light); }
-
-  footer {
-    background: var(--black);
-    padding: 2rem 3rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-  }
-
-  .footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-
-  .footer-icon {
-    height: 28px;
-    width: auto;
-    opacity: 0.8;
-  }
-
-  .footer-brand-text {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 300;
-  }
-
-  .footer-brand-text strong {
-    font-weight: 600;
-  }
-
-  .footer-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.3rem;
-  }
-
-  .footer-copy {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.25);
-    font-weight: 300;
-  }
-
-  .footer-tagline {
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    font-style: italic;
-    color: rgba(201, 168, 76, 0.3);
-    font-weight: 400;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 0.3rem;
-  }
-
-  .footer-links a {
-    font-size: 0.65rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    transition: color 0.3s;
-    font-weight: 400;
-  }
-
-  .footer-links a:hover { color: var(--gold); }
-
-
-  /* ============================================
-     ANIMATIONS
-     ============================================ */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ============================================
-     RESPONSIVE
-     ============================================ */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    section { padding: 5rem 1.5rem; }
-    .hero { padding: 7rem 1.5rem 5rem; }
-    .distinction-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .pillars-grid { grid-template-columns: repeat(2, 1fr); }
-    .model-cards { grid-template-columns: 1fr; }
-    .cred-grid { grid-template-columns: 1fr; }
-    .contact-inner { flex-direction: column; align-items: flex-start; gap: 2rem; }
-    .contact-right { align-items: flex-start; }
-    .assessment-features { flex-direction: column; gap: 1.5rem; }
-    .async-bar { flex-direction: column; text-align: center; }
-  }
-
-  @media (max-width: 600px) {
-    .nav-links a:not(.nav-cta) { display: none; }
-    .pillars-grid { grid-template-columns: 1fr; }
-    .hero-actions { flex-direction: column; align-items: flex-start; }
-    .footer-inner { flex-direction: column; gap: 1.2rem; align-items: center; }
-    .footer-right { align-items: center; }
-    .nav-logo-icon { height: 26px; }
-    .nav-logo-name { font-size: 1rem; letter-spacing: 2.5px; }
-    .nav-logo-the, .nav-logo-studio { font-size: 0.4rem; letter-spacing: 3px; }
-  }
+
+/* ════════════════════════════════════════════════════════
+   DESIGN TOKENS — Command Bridge
+════════════════════════════════════════════════════════ */
+:root {
+  /* Shell — near-black with cool blue tint */
+  --void:      #030508;
+  --space:     #070B12;
+  --deep:      #0A0F18;
+  --panel:     #0E1522;
+  --lift:      #141B2B;
+  --raised:    #1A2235;
+
+  /* Signals */
+  --amber:     #E8B84F;
+  --amber-lo:  rgba(232,184,79,0.08);
+  --amber-mid: rgba(232,184,79,0.22);
+  --amber-hi:  rgba(232,184,79,0.55);
+
+  --cyan:      #4DD0E1;
+  --cyan-lo:   rgba(77,208,225,0.08);
+  --cyan-mid:  rgba(77,208,225,0.25);
+  --cyan-hi:   rgba(77,208,225,0.6);
+
+  --crit:      #E85060;
+  --regen:     #4CE0A0;
+
+  /* Text */
+  --body:      #E8E4DC;
+  --body-mid:  rgba(232,228,220,0.78);
+  --body-dim:  rgba(232,228,220,0.56);
+  --muted:     #6B7585;
+  --faint:     rgba(232,228,220,0.34);
+
+  /* Hairlines */
+  --hair:      rgba(255,255,255,0.06);
+  --hair-mid:  rgba(255,255,255,0.10);
+  --hair-hi:   rgba(255,255,255,0.18);
+
+  /* Type */
+  --display:   'Chakra Petch', system-ui, sans-serif;
+  --serif:     'Fraunces', Georgia, serif;
+  --mono:      'JetBrains Mono', 'Courier New', monospace;
+
+  /* Geometry */
+  --radius:    2px;
+  --shell:     1320px;
+  --read:      720px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--void); color:var(--body);
+  font-family:var(--display); font-weight:400;
+  overflow-x:hidden; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+a { color:inherit; text-decoration:none; }
+img, svg { display:block; max-width:100%; }
+button { font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+
+::selection { background:var(--amber); color:var(--void); }
+
+/* ════════════════════════════════════════════════════════
+   ATMOSPHERE — starfield + grid + scanlines
+════════════════════════════════════════════════════════ */
+.atmo {
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+}
+.atmo-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(77,208,225,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,208,225,0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
+}
+.atmo-stars {
+  position:absolute; inset:0; opacity:0.55;
+  background-image:
+    radial-gradient(1px 1px at 6% 8%,   rgba(255,255,255,0.7),transparent 50%),
+    radial-gradient(1px 1px at 17% 14%, rgba(255,255,255,0.4),transparent 50%),
+    radial-gradient(1px 1px at 28% 4%,  rgba(255,255,255,0.6),transparent 50%),
+    radial-gradient(1px 1px at 42% 19%, rgba(255,255,255,0.35),transparent 50%),
+    radial-gradient(2px 2px at 55% 7%,  rgba(232,184,79,0.4),transparent 50%),
+    radial-gradient(1px 1px at 69% 12%, rgba(255,255,255,0.5),transparent 50%),
+    radial-gradient(1px 1px at 81% 4%,  rgba(255,255,255,0.6),transparent 50%),
+    radial-gradient(1px 1px at 94% 18%, rgba(255,255,255,0.35),transparent 50%),
+    radial-gradient(1px 1px at 9% 36%,  rgba(255,255,255,0.4),transparent 50%),
+    radial-gradient(2px 2px at 23% 48%, rgba(77,208,225,0.3),transparent 50%),
+    radial-gradient(1px 1px at 37% 42%, rgba(255,255,255,0.5),transparent 50%),
+    radial-gradient(1px 1px at 52% 58%, rgba(255,255,255,0.35),transparent 50%),
+    radial-gradient(1px 1px at 65% 38%, rgba(255,255,255,0.45),transparent 50%),
+    radial-gradient(1px 1px at 79% 53%, rgba(255,255,255,0.3),transparent 50%),
+    radial-gradient(1px 1px at 91% 44%, rgba(255,255,255,0.5),transparent 50%),
+    radial-gradient(1px 1px at 4% 72%,  rgba(255,255,255,0.4),transparent 50%),
+    radial-gradient(1px 1px at 18% 82%, rgba(255,255,255,0.3),transparent 50%),
+    radial-gradient(2px 2px at 31% 88%, rgba(232,184,79,0.35),transparent 50%),
+    radial-gradient(1px 1px at 44% 69%, rgba(255,255,255,0.4),transparent 50%),
+    radial-gradient(1px 1px at 59% 87%, rgba(255,255,255,0.45),transparent 50%),
+    radial-gradient(1px 1px at 73% 78%, rgba(255,255,255,0.3),transparent 50%),
+    radial-gradient(1px 1px at 86% 91%, rgba(255,255,255,0.4),transparent 50%),
+    radial-gradient(1px 1px at 97% 82%, rgba(255,255,255,0.35),transparent 50%);
+  animation: twinkle 12s ease-in-out infinite;
+}
+@keyframes twinkle { 0%,100%{opacity:0.55;} 50%{opacity:0.78;} }
+
+/* Subtle horizontal scan line */
+.atmo-scan {
+  position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(77,208,225,0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  mix-blend-mode: overlay;
+  opacity:0.45;
+}
+
+/* ════════════════════════════════════════════════════════
+   NAV — persistent command strip
+════════════════════════════════════════════════════════ */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background: linear-gradient(180deg, rgba(3,5,8,0.95) 0%, rgba(3,5,8,0.82) 100%);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom:1px solid var(--hair);
+}
+nav::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent 0%, var(--amber-mid) 30%, var(--cyan-mid) 70%, transparent 100%);
+  opacity:0.5;
+}
+.nav-inner {
+  max-width:var(--shell); margin:0 auto; padding:0 32px;
+  height:60px; display:flex; align-items:center; justify-content:space-between; gap:24px;
+}
+.nav-brand {
+  display:flex; align-items:center; gap:12px;
+}
+.nav-mark {
+  width:32px; height:32px; flex-shrink:0; position:relative;
+}
+.nav-mark svg {
+  filter: drop-shadow(0 0 8px rgba(77,208,225,0.4));
+  animation: orbit-pulse 5s ease-in-out infinite;
+}
+@keyframes orbit-pulse {
+  0%,100% { filter: drop-shadow(0 0 4px rgba(77,208,225,0.3)); }
+  50%     { filter: drop-shadow(0 0 14px rgba(77,208,225,0.7)); }
+}
+.nav-title {
+  font-family:var(--display); font-size:18px; font-weight:700;
+  letter-spacing:0.18em; text-transform:uppercase;
+}
+.nav-title em { color:var(--amber); font-style:normal; font-weight:600; }
+.nav-title small {
+  display:block; font-size:8.5px; letter-spacing:0.28em;
+  color:var(--faint); font-weight:400; text-transform:uppercase; margin-top:1px;
+}
+
+.nav-links {
+  list-style:none; display:flex; align-items:center; gap:4px;
+}
+.nav-links > li > a {
+  display:inline-block; padding:8px 14px;
+  font-family:var(--mono); font-size:10px; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--body-dim);
+  border:1px solid transparent; transition:all 0.2s;
+}
+.nav-links > li > a:hover {
+  color:var(--amber); border-color:var(--hair-hi);
+  background:var(--amber-lo);
+}
+.nav-cta {
+  background:var(--amber) !important; color:var(--void) !important;
+  padding:8px 16px !important; font-weight:600 !important;
+  border-color:var(--amber) !important;
+}
+.nav-cta:hover { background:var(--body) !important; }
+
+/* System status ticker in nav */
+.nav-status {
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:0.18em;
+  color:var(--cyan); text-transform:uppercase;
+}
+.status-dot {
+  width:7px; height:7px; border-radius:50%; background:var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: status-pulse 1.6s ease-in-out infinite;
+}
+@keyframes status-pulse { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+/* ════════════════════════════════════════════════════════
+   HERO — full-bleed command console
+════════════════════════════════════════════════════════ */
+.hero {
+  position:relative; min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:140px 32px 90px;
+  overflow:hidden; z-index:1;
+}
+
+/* Earth orb — radial gradient with orbital ring */
+.hero-orb {
+  position:absolute; bottom:-440px; left:50%; transform:translateX(-50%);
+  width:900px; height:900px; pointer-events:none; z-index:0;
+}
+.hero-orb-core {
+  position:absolute; inset:0; border-radius:50%;
+  background: radial-gradient(circle at 38% 34%,
+    rgba(77,208,225,0.4) 0%,
+    rgba(30,120,200,0.22) 22%,
+    rgba(30,110,60,0.15) 44%,
+    rgba(5,10,18,0) 66%);
+  animation: orb-breathe 11s ease-in-out infinite;
+}
+@keyframes orb-breathe {
+  0%,100%{ opacity:0.82; transform:scale(1); }
+  50%{ opacity:1; transform:scale(1.035); }
+}
+.hero-orb-ring {
+  position:absolute; inset:-40px; border-radius:50%;
+  border:1px solid rgba(77,208,225,0.18);
+  border-top-color:rgba(77,208,225,0.45);
+  animation: orbit-spin 28s linear infinite;
+}
+.hero-orb-ring.r2 {
+  inset:-80px; border-color:rgba(232,184,79,0.08);
+  border-right-color:rgba(232,184,79,0.3);
+  animation-duration:44s; animation-direction:reverse;
+}
+
+@keyframes orbit-spin {
+  0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); }
+}
+
+/* Corner bracket decorations */
+.hero::before, .hero::after {
+  content:''; position:absolute; width:48px; height:48px;
+  border:1px solid var(--amber-mid); pointer-events:none;
+}
+.hero::before { top:88px; left:32px; border-right:none; border-bottom:none; }
+.hero::after  { top:88px; right:32px; border-left:none; border-bottom:none; }
+
+.hero-content { position:relative; z-index:2; }
+
+/* Status badge */
+.status-badge {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:8px 18px; margin-bottom:34px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.24em;
+  text-transform:uppercase; color:var(--cyan);
+  border:1px solid var(--cyan-mid); background:var(--cyan-lo);
+  position:relative;
+}
+.status-badge::before, .status-badge::after {
+  content:''; position:absolute; width:6px; height:6px;
+  border:1px solid var(--cyan);
+}
+.status-badge::before { top:-1px; left:-1px; border-right:none; border-bottom:none; }
+.status-badge::after { bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
+/* Hero title — big, technical */
+.hero-title {
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(64px, 10vw, 138px);
+  letter-spacing:0.025em; line-height:0.92;
+  margin-bottom:18px;
+  text-shadow: 0 0 40px rgba(232,184,79,0.08);
+}
+.hero-title .line2 { display:block; }
+.hero-title .v-tag {
+  display:inline-block;
+  font-size:0.38em; letter-spacing:0.1em;
+  color:var(--amber); font-weight:500;
+  vertical-align:0.4em; margin-left:0.15em;
+  padding:0.12em 0.3em;
+  border:1.5px solid var(--amber-mid);
+  background: rgba(232,184,79,0.06);
+}
+
+.hero-sub {
+  font-family:var(--mono); font-size:11px; letter-spacing:0.28em;
+  text-transform:uppercase; color:var(--body-dim); margin-bottom:40px;
+}
+.hero-sub span { color:var(--amber); }
+
+/* Fuller quote */
+.fuller-quote {
+  max-width:620px; margin:0 auto 44px; position:relative;
+  padding:0 30px;
+}
+.fuller-quote::before, .fuller-quote::after {
+  content:''; position:absolute; top:50%; width:24px; height:1px;
+  background:var(--amber-hi); transform:translateY(-50%);
+}
+.fuller-quote::before { left:0; }
+.fuller-quote::after { right:0; }
+.fuller-quote p {
+  font-family:var(--serif); font-size:20px; font-style:italic; font-weight:400;
+  line-height:1.58; color:var(--body-mid); margin-bottom:12px;
+}
+.fuller-quote cite {
+  font-family:var(--mono); font-size:9.5px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--amber); font-style:normal;
+}
+
+/* Declaration + stats panel — like a ship's console */
+.console-panel {
+  width:100%; max-width:900px; margin:0 auto 44px;
+  background:
+    linear-gradient(180deg, rgba(14,21,34,0.92), rgba(7,11,18,0.92));
+  border:1px solid var(--hair-mid);
+  position:relative;
+}
+.console-panel::before, .console-panel::after,
+.console-panel .c-br-tl, .console-panel .c-br-tr,
+.console-panel .c-br-bl, .console-panel .c-br-br {
+  content:''; position:absolute; width:10px; height:10px;
+  border:1px solid var(--amber); z-index:2;
+}
+.console-panel::before { top:-1px; left:-1px; border-right:none; border-bottom:none; }
+.console-panel::after { top:-1px; right:-1px; border-left:none; border-bottom:none; }
+.console-panel .c-br-bl { bottom:-1px; left:-1px; border-right:none; border-top:none; }
+.console-panel .c-br-br { bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
+.console-header {
+  padding:10px 18px; border-bottom:1px solid var(--hair-mid);
+  display:flex; align-items:center; justify-content:space-between;
+  font-family:var(--mono); font-size:9px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--muted);
+}
+.console-header .ch-tag { color:var(--amber); }
+.console-header .ch-live {
+  display:inline-flex; align-items:center; gap:6px; color:var(--regen);
+}
+.console-header .ch-live::before {
+  content:''; width:6px; height:6px; border-radius:50%;
+  background:var(--regen); box-shadow:0 0 6px var(--regen);
+  animation:status-pulse 1.6s ease-in-out infinite;
+}
+
+.decl-row {
+  display:flex; align-items:center; justify-content:center; gap:24px;
+  padding:22px 24px; border-bottom:1px solid var(--hair);
+  flex-wrap:wrap;
+}
+.decl-line {
+  font-family:var(--display); font-weight:600;
+  font-size:clamp(22px, 3.4vw, 36px); letter-spacing:0.08em;
+  text-transform:uppercase; line-height:1;
+}
+.decl-line.accent { color:var(--amber); }
+.decl-sep {
+  width:6px; height:6px; background:var(--amber-hi);
+  transform:rotate(45deg);
+}
+
+.stats-row {
+  display:grid; grid-template-columns:repeat(3, 1fr);
+}
+.stat-cell {
+  padding:22px 16px; text-align:center; position:relative;
+}
+.stat-cell + .stat-cell { border-left:1px solid var(--hair); }
+.stat-cell .stat-pct {
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(42px, 6.2vw, 62px); letter-spacing:0.03em; line-height:1;
+  display:block; margin-bottom:8px;
+}
+.stat-cell.pirates .stat-pct { color:var(--crit); }
+.stat-cell.passenger .stat-pct { color:var(--muted); }
+.stat-cell.crew .stat-pct { color:var(--cyan); }
+.stat-cell .stat-lbl {
+  font-family:var(--mono); font-size:10px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--body-dim);
+  display:block;
+}
+.stat-cell .stat-bar {
+  position:absolute; top:0; left:0; height:2px; opacity:0.5;
+}
+.stat-cell.pirates .stat-bar { background:var(--crit); width:1%; }
+.stat-cell.passenger .stat-bar { background:var(--muted); width:98%; }
+.stat-cell.crew .stat-bar { background:var(--cyan); width:1%; box-shadow:0 0 6px var(--cyan); }
+
+/* Hero CTAs */
+.hero-actions {
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+  margin-top:8px;
+}
+.btn {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 28px;
+  font-family:var(--mono); font-size:10.5px; font-weight:500;
+  letter-spacing:0.22em; text-transform:uppercase;
+  border:1px solid; transition:all 0.2s;
+  position:relative;
+}
+.btn-primary {
+  background:var(--amber); color:var(--void); border-color:var(--amber);
+}
+.btn-primary:hover {
+  background:transparent; color:var(--amber);
+  box-shadow: 0 0 16px rgba(232,184,79,0.3);
+}
+.btn-ghost {
+  background:transparent; color:var(--cyan); border-color:var(--cyan-mid);
+}
+.btn-ghost:hover {
+  border-color:var(--cyan); background:var(--cyan-lo);
+  box-shadow: 0 0 16px rgba(77,208,225,0.2);
+}
+.btn svg { width:14px; height:14px; }
+
+/* ════════════════════════════════════════════════════════
+   SECTION PRIMITIVES
+════════════════════════════════════════════════════════ */
+.section {
+  position:relative; z-index:1; padding:100px 32px;
+}
+.section-wrap { max-width:var(--shell); margin:0 auto; }
+
+/* Section transition — mission stage bar */
+.stage-bar {
+  display:flex; align-items:center; gap:14px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--muted);
+  margin-bottom:24px;
+}
+.stage-bar .sb-num { color:var(--amber); }
+.stage-bar .sb-dash { flex:1; height:1px; background:var(--hair-mid); }
+.stage-bar .sb-time { color:var(--cyan); }
+
+.section-eye {
+  font-family:var(--mono); font-size:10px; letter-spacing:0.28em;
+  text-transform:uppercase; color:var(--amber);
+  margin-bottom:22px; display:inline-flex; align-items:center; gap:10px;
+}
+.section-eye::before {
+  content:''; width:18px; height:1px; background:var(--amber-hi);
+}
+
+.section-h {
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(38px, 5.8vw, 76px); letter-spacing:0.02em;
+  line-height:1.02; margin-bottom:22px;
+}
+.section-lead {
+  font-family:var(--serif); font-size:20px; font-weight:400; line-height:1.62;
+  color:var(--body-mid); max-width:720px;
+}
+
+/* ════════════════════════════════════════════════════════
+   RECOGNITION
+════════════════════════════════════════════════════════ */
+.recognition {
+  background: linear-gradient(180deg, transparent, rgba(14,21,34,0.4));
+  border-top:1px solid var(--hair);
+  text-align:center; padding:96px 32px;
+}
+.recog-inner { max-width:820px; margin:0 auto; }
+.recog-h {
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(36px, 5.4vw, 68px); letter-spacing:0.02em;
+  line-height:1.06; margin-bottom:30px;
+}
+.recog-body p {
+  font-family:var(--serif); font-size:20px; line-height:1.74;
+  color:var(--body-mid); margin-bottom:22px;
+}
+.recog-body p strong { color:var(--body); font-weight:500; }
+.recog-body p em { color:var(--amber); font-style:italic; }
+.recog-body p:last-child { margin-bottom:0; }
+
+.pull {
+  margin:44px auto 0; max-width:780px;
+  padding:30px 36px;
+  border:1px solid var(--amber-mid);
+  background: linear-gradient(135deg, rgba(232,184,79,0.04), transparent 60%);
+  position:relative;
+}
+.pull::before {
+  content:''; position:absolute; top:0; left:0; width:3px; height:100%;
+  background:var(--amber);
+  box-shadow:0 0 8px rgba(232,184,79,0.4);
+}
+.pull p {
+  font-family:var(--serif); font-size:21px; font-weight:500; font-style:italic;
+  line-height:1.54; color:var(--body); margin-bottom:14px;
+}
+.pull cite {
+  font-family:var(--mono); font-size:9.5px; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--amber); font-style:normal;
+}
+
+/* ════════════════════════════════════════════════════════
+   PASSENGER vs CREW — split diagnostic
+════════════════════════════════════════════════════════ */
+.contrast {
+  padding:0; border-top:1px solid var(--hair); border-bottom:1px solid var(--hair);
+}
+.contrast-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+}
+.contrast-col {
+  padding:72px 54px; position:relative;
+}
+.contrast-col.passenger {
+  background: linear-gradient(180deg, rgba(20,27,43,0.4), var(--void));
+  border-right:1px solid var(--hair-mid);
+}
+.contrast-col.crew {
+  background: linear-gradient(180deg, rgba(77,208,225,0.04), var(--void));
+}
+.contrast-label {
+  font-family:var(--mono); font-size:10px; letter-spacing:0.26em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:10px;
+  display:flex; align-items:center; gap:10px;
+}
+.contrast-label::before {
+  content:''; width:6px; height:6px; transform:rotate(45deg);
+  background:var(--muted);
+}
+.contrast-col.crew .contrast-label { color:var(--cyan); }
+.contrast-col.crew .contrast-label::before { background:var(--cyan); box-shadow:0 0 6px var(--cyan); }
+
+.contrast-h {
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(48px, 6vw, 78px); letter-spacing:0.06em;
+  line-height:1; margin-bottom:32px;
+}
+.contrast-col.passenger .contrast-h { color:var(--muted); }
+.contrast-col.crew .contrast-h { color:var(--body); }
+
+.ci-list { list-style:none; display:flex; flex-direction:column; gap:18px; }
+.ci {
+  display:flex; gap:14px; align-items:flex-start;
+  font-family:var(--serif); font-size:17.5px; line-height:1.55;
+  color:var(--body-mid);
+}
+.ci-mark {
+  font-family:var(--mono); font-size:14px; font-weight:600;
+  flex-shrink:0; min-width:18px; padding-top:2px;
+  color:var(--muted);
+}
+.contrast-col.crew .ci-mark { color:var(--cyan); }
+.ci strong { color:var(--body); font-weight:500; }
+
+/* ════════════════════════════════════════════════════════
+   CONVERGENCE — timeline + pillars
+════════════════════════════════════════════════════════ */
+.convergence { background:transparent; }
+
+.timeline {
+  display:grid; grid-template-columns:1fr 80px 1fr;
+  align-items:stretch; gap:0; margin:52px 0 76px;
+}
+.tl-node {
+  padding:30px 30px;
+  border:1px solid var(--hair-mid);
+  background: linear-gradient(180deg, rgba(14,21,34,0.5), rgba(7,11,18,0.5));
+  position:relative;
+}
+.tl-node.past { border-left:3px solid var(--muted); }
+.tl-node.now {
+  border-left:3px solid var(--amber);
+  box-shadow: 0 0 28px rgba(232,184,79,0.08);
+  background: linear-gradient(180deg, rgba(232,184,79,0.04), rgba(14,21,34,0.5));
+}
+.tl-year {
+  font-family:var(--display); font-weight:700;
+  font-size:56px; letter-spacing:0.04em; line-height:1;
+  margin-bottom:12px;
+}
+.tl-node.past .tl-year { color:var(--muted); }
+.tl-node.now .tl-year { color:var(--amber); }
+.tl-label {
+  font-family:var(--mono); font-size:10px; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--body-dim);
+  margin-bottom:16px;
+}
+.tl-desc {
+  font-family:var(--serif); font-size:16px; line-height:1.68;
+  color:var(--body-mid);
+}
+.tl-bridge {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position:relative;
+}
+.tl-bridge-line {
+  width:100%; height:1px;
+  background: linear-gradient(90deg, var(--muted), var(--amber));
+  position:relative;
+}
+.tl-bridge-line::after {
+  content:'▶'; position:absolute; right:-2px; top:-7px;
+  color:var(--amber); font-size:12px;
+}
+.tl-bridge-lbl {
+  font-family:var(--mono); font-size:9px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--muted); margin-top:12px;
+}
+
+/* Pillars */
+.pillars {
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;
+}
+.pillar {
+  padding:28px 24px;
+  background: linear-gradient(180deg, rgba(14,21,34,0.5), rgba(7,11,18,0.5));
+  border:1px solid var(--hair-mid);
+  position:relative; transition:all 0.3s;
+}
+.pillar::before {
+  content:''; position:absolute; top:0; left:0; width:100%; height:2px;
+  background:var(--amber); opacity:0.3; transition:opacity 0.3s;
+}
+.pillar:hover::before { opacity:1; box-shadow:0 0 8px rgba(232,184,79,0.5); }
+.pillar:hover { border-color:var(--amber-mid); }
+
+.pillar-top {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:20px;
+}
+.pillar-num {
+  font-family:var(--mono); font-size:10px; letter-spacing:0.2em;
+  color:var(--muted);
+}
+.pillar-icon {
+  width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--amber-mid); background:var(--amber-lo);
+}
+.pillar-icon svg { stroke:var(--amber); }
+
+.pillar-name {
+  font-family:var(--display); font-weight:600;
+  font-size:17px; letter-spacing:0.04em;
+  margin-bottom:12px; color:var(--body);
+}
+.pillar-desc {
+  font-family:var(--serif); font-size:15px; line-height:1.62;
+  color:var(--body-mid); margin-bottom:16px;
+}
+.pillar-shift {
+  font-family:var(--mono); font-size:9.5px; letter-spacing:0.16em;
+  color:var(--cyan); padding-top:14px; border-top:1px solid var(--hair);
+  display:flex; align-items:center; gap:8px;
+}
+.pillar-shift .ps-from { color:var(--muted); text-decoration:line-through; }
+.pillar-shift .ps-arr { color:var(--amber); }
+.pillar-shift .ps-to { color:var(--cyan); }
+
+/* ════════════════════════════════════════════════════════
+   GLIMPSE — 2050 scene
+════════════════════════════════════════════════════════ */
+.glimpse {
+  padding:104px 32px;
+  background:
+    linear-gradient(180deg, transparent, rgba(77,208,225,0.03) 50%, transparent),
+    var(--space);
+  border-top:1px solid var(--hair); border-bottom:1px solid var(--hair);
+  text-align:center; position:relative;
+}
+.glimpse::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity:0.4;
+}
+.glimpse-inner { max-width:820px; margin:0 auto; }
+.glimpse-h {
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(36px, 5vw, 64px); letter-spacing:0.02em;
+  line-height:1.08; margin-bottom:32px;
+}
+.glimpse-text {
+  font-family:var(--serif); font-size:19px; line-height:1.76;
+  color:var(--body-mid);
+}
+.glimpse-text strong { color:var(--body); font-weight:500; }
+.glimpse-badge {
+  display:inline-block; margin-top:40px;
+  padding:12px 24px;
+  border:1px solid var(--cyan-mid); background:var(--cyan-lo);
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--cyan);
+}
+
+/* ════════════════════════════════════════════════════════
+   GUIDE — chapter grid
+════════════════════════════════════════════════════════ */
+.guide {
+  padding:104px 32px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(232,184,79,0.06), transparent 60%),
+    var(--void);
+}
+
+.part-block {
+  margin-bottom:56px; padding-top:36px;
+  border-top:1px solid var(--hair);
+}
+.part-head {
+  display:grid; grid-template-columns:auto auto 1fr;
+  align-items:center; gap:18px; margin-bottom:24px;
+}
+.part-tag {
+  font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:0.24em;
+  text-transform:uppercase; color:var(--amber);
+  padding:5px 12px; border:1px solid var(--amber-mid); background:var(--amber-lo);
+}
+.part-name {
+  font-family:var(--display); font-weight:700; font-size:24px;
+  letter-spacing:0.04em; color:var(--body);
+}
+.part-thesis {
+  font-family:var(--serif); font-style:italic; font-size:15px;
+  color:var(--body-dim); line-height:1.5; text-align:right;
+}
+
+/* Chapter grid */
+.ch-grid {
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;
+}
+.ch-card {
+  padding:22px 22px;
+  background: rgba(14,21,34,0.5);
+  border:1px solid var(--hair-mid);
+  display:flex; gap:18px; align-items:flex-start;
+  transition:all 0.25s;
+  color:inherit;
+  position:relative;
+}
+.ch-card::before {
+  content:''; position:absolute; top:0; left:0; width:2px; height:0;
+  background:var(--amber); transition:height 0.25s;
+  box-shadow:0 0 6px rgba(232,184,79,0.5);
+}
+.ch-card:hover { background:rgba(20,27,43,0.8); border-color:var(--amber-mid); }
+.ch-card:hover::before { height:100%; }
+
+.ch-num {
+  font-family:var(--display); font-weight:700;
+  font-size:34px; letter-spacing:0.04em; line-height:1;
+  color:var(--amber); flex-shrink:0;
+  min-width:48px;
+}
+.ch-card-body { flex:1; }
+.ch-title {
+  font-family:var(--display); font-weight:600; font-size:15px;
+  letter-spacing:0.03em; color:var(--body); margin-bottom:6px;
+  line-height:1.3;
+}
+.ch-desc {
+  font-family:var(--serif); font-size:14.5px; line-height:1.55;
+  color:var(--body-dim);
+}
+
+/* Front matter grid — 4 wide */
+.front-grid {
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;
+}
+.fc {
+  padding:20px 20px;
+  background: rgba(14,21,34,0.4);
+  border:1px solid var(--hair-mid);
+  transition:all 0.25s; position:relative;
+}
+.fc:hover { background:rgba(20,27,43,0.8); border-color:var(--cyan-mid); }
+.fc-type {
+  font-family:var(--mono); font-size:9px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--cyan); margin-bottom:10px;
+}
+.fc-title {
+  font-family:var(--display); font-weight:600; font-size:16px;
+  letter-spacing:0.02em; color:var(--body); margin-bottom:6px;
+}
+.fc-desc {
+  font-family:var(--serif); font-size:14px; line-height:1.55;
+  color:var(--body-dim); font-style:italic;
+}
+
+/* Appendix chapter cards differ — muted letter */
+.ch-card.appx .ch-num {
+  color:var(--cyan);
+}
+
+/* ════════════════════════════════════════════════════════
+   FULLER BAND — divider quote
+════════════════════════════════════════════════════════ */
+.fuller-band {
+  padding:80px 32px;
+  background: linear-gradient(180deg, rgba(232,184,79,0.04), transparent);
+  border-top:1px solid var(--amber-mid);
+  border-bottom:1px solid var(--amber-mid);
+  text-align:center;
+  position:relative;
+}
+.fuller-band::before, .fuller-band::after {
+  content:''; position:absolute; width:14px; height:14px;
+  border:1px solid var(--amber);
+}
+.fuller-band::before { top:-7px; left:50%; transform:translateX(-50%) rotate(45deg); background:var(--void); }
+.fuller-band::after  { bottom:-7px; left:50%; transform:translateX(-50%) rotate(45deg); background:var(--void); }
+
+.fuller-band blockquote {
+  max-width:820px; margin:0 auto;
+}
+.fuller-band blockquote p {
+  font-family:var(--serif); font-size:clamp(22px, 2.8vw, 30px); font-style:italic;
+  line-height:1.54; color:var(--body); margin-bottom:20px;
+}
+.fuller-band blockquote cite {
+  font-family:var(--mono); font-size:10px; letter-spacing:0.24em;
+  text-transform:uppercase; color:var(--amber); font-style:normal;
+}
+
+/* ════════════════════════════════════════════════════════
+   SUPPORT
+════════════════════════════════════════════════════════ */
+.support { padding:104px 32px; }
+
+.support-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:18px;
+  margin-top:48px;
+}
+.s-card {
+  padding:34px 32px;
+  background: linear-gradient(180deg, rgba(14,21,34,0.6), rgba(7,11,18,0.6));
+  border:1px solid var(--hair-mid);
+  position:relative;
+}
+.s-card.primary {
+  border-color:var(--amber-mid);
+  background: linear-gradient(180deg, rgba(232,184,79,0.06), rgba(14,21,34,0.6));
+}
+.s-icon {
+  display:inline-flex; width:44px; height:44px; margin-bottom:20px;
+  border:1px solid var(--amber-mid); background:var(--amber-lo);
+  align-items:center; justify-content:center;
+}
+.s-icon svg { stroke:var(--amber); }
+.s-title {
+  font-family:var(--display); font-weight:700;
+  font-size:24px; letter-spacing:0.03em;
+  margin-bottom:14px; color:var(--body);
+}
+.s-card.primary .s-title { color:var(--amber); }
+.s-card.secondary .s-title { color:var(--cyan); font-size:22px; }
+.s-body {
+  font-family:var(--serif); font-size:16.5px; line-height:1.68;
+  color:var(--body-mid); margin-bottom:22px;
+}
+.s-note {
+  margin-top:18px; padding-top:14px; border-top:1px solid var(--hair);
+  font-family:var(--mono); font-size:10px; line-height:1.6;
+  color:var(--faint); letter-spacing:0.1em;
+}
+
+.repo {
+  display:flex; gap:16px; padding:16px;
+  border:1px solid var(--hair-mid);
+  margin-bottom:10px; transition:all 0.25s;
+  text-decoration:none; color:inherit;
+  position:relative;
+}
+.repo:hover { border-color:var(--cyan-mid); background:var(--cyan-lo); }
+.repo-icon {
+  width:32px; height:32px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--cyan-mid); background:var(--cyan-lo);
+}
+.repo-icon svg { stroke:var(--cyan); }
+.repo-title {
+  font-family:var(--display); font-weight:600; font-size:14px;
+  letter-spacing:0.04em; color:var(--body); margin-bottom:3px;
+}
+.repo-desc {
+  font-family:var(--serif); font-size:13.5px; line-height:1.5;
+  color:var(--body-dim);
+}
+.repo-link {
+  display:block; margin-top:8px;
+  font-family:var(--mono); font-size:9px; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--cyan);
+}
+
+/* ════════════════════════════════════════════════════════
+   CONNECT
+════════════════════════════════════════════════════════ */
+.connect {
+  padding:104px 32px;
+  background: linear-gradient(180deg, transparent, rgba(14,21,34,0.5));
+  border-top:1px solid var(--hair);
+}
+.connect-grid {
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;
+  margin-top:48px;
+}
+.c-card {
+  padding:32px 28px; text-align:left;
+  background: rgba(14,21,34,0.5);
+  border:1px solid var(--hair-mid);
+  transition:all 0.25s;
+  color:inherit;
+  position:relative;
+}
+.c-card:hover {
+  border-color:var(--cyan-mid); background:rgba(20,27,43,0.8);
+  transform:translateY(-2px);
+}
+.c-icon {
+  width:44px; height:44px; margin-bottom:20px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--cyan-mid); background:var(--cyan-lo);
+}
+.c-icon svg { stroke:var(--cyan); }
+.c-label {
+  font-family:var(--mono); font-size:9.5px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--cyan); margin-bottom:8px;
+}
+.c-title {
+  font-family:var(--display); font-weight:700;
+  font-size:22px; letter-spacing:0.03em; color:var(--body); margin-bottom:10px;
+}
+.c-detail {
+  font-family:var(--mono); font-size:12px;
+  color:var(--body); margin-bottom:8px; word-break:break-all;
+}
+.c-sub {
+  font-family:var(--serif); font-size:14px; font-style:italic;
+  color:var(--body-dim); line-height:1.5;
+}
+
+/* ════════════════════════════════════════════════════════
+   INVITATION
+════════════════════════════════════════════════════════ */
+.invitation {
+  padding:104px 32px; text-align:center;
+  border-top:1px solid var(--hair);
+}
+.inv-inner { max-width:820px; margin:0 auto; }
+.inv-h {
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(44px, 6.5vw, 82px); letter-spacing:0.02em;
+  line-height:1; margin-bottom:32px;
+}
+.inv-body {
+  font-family:var(--serif); font-size:20px; line-height:1.72;
+  color:var(--body-mid); margin-bottom:44px;
+}
+.inv-body strong { color:var(--body); font-weight:500; }
+.inv-actions {
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+}
+
+/* ════════════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════════════ */
+footer {
+  padding:72px 32px 44px;
+  background:var(--space); border-top:1px solid var(--hair);
+  position:relative;
+}
+footer::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, var(--amber-mid) 30%, var(--cyan-mid) 70%, transparent);
+  opacity:0.5;
+}
+.foot-inner { max-width:var(--shell); margin:0 auto; }
+.foot-top {
+  display:flex; align-items:flex-start; justify-content:space-between; gap:44px;
+  padding-bottom:38px; border-bottom:1px solid var(--hair);
+  flex-wrap:wrap;
+}
+.foot-title {
+  font-family:var(--display); font-weight:700;
+  font-size:22px; letter-spacing:0.16em; text-transform:uppercase;
+  margin-bottom:8px;
+}
+.foot-title em { color:var(--amber); font-style:normal; }
+.foot-tag {
+  font-family:var(--mono); font-size:10px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--muted);
+}
+
+.activated {
+  display:inline-block; padding:6px 14px; margin-bottom:12px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.24em;
+  text-transform:uppercase; color:var(--regen);
+  border:1px solid rgba(76,224,160,0.3); background:rgba(76,224,160,0.05);
+}
+.foot-status {
+  font-family:var(--mono); font-size:10.5px; line-height:1.8;
+  color:var(--body-dim); letter-spacing:0.06em;
+}
+.foot-status .p { color:var(--crit); }
+.foot-status .pa { color:var(--muted); }
+.foot-status .c { color:var(--cyan); }
+
+.foot-bottom {
+  padding-top:28px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  flex-wrap:wrap; gap:28px;
+}
+.foot-copy {
+  font-family:var(--mono); font-size:10px; line-height:1.8; letter-spacing:0.04em;
+  color:var(--muted);
+}
+.foot-copy a { color:var(--body-dim); text-decoration:none; border-bottom:1px solid transparent; transition:all 0.2s; }
+.foot-copy a:hover { color:var(--amber); border-bottom-color:var(--amber-mid); }
+
+.foot-decl {
+  text-align:right;
+  font-family:var(--display); font-weight:600; font-size:13px;
+  letter-spacing:0.2em; text-transform:uppercase; line-height:1.8;
+  color:var(--body-dim);
+}
+.foot-decl .fd-line { display:block; }
+.foot-decl .fd-crew { color:var(--amber); }
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════ */
+@media (max-width: 1040px) {
+  .pillars { grid-template-columns:1fr 1fr; }
+  .ch-grid { grid-template-columns:1fr 1fr; }
+  .front-grid { grid-template-columns:1fr 1fr; }
+  .part-thesis { display:none; }
+}
+
+@media (max-width: 760px) {
+  .nav-links li:not(.nav-cta-li) { display:none; }
+  .nav-status { display:none; }
+  nav { height:54px; }
+  .nav-inner { height:54px; }
+  .nav-title small { display:none; }
+  .hero { padding:110px 20px 70px; }
+  .hero::before, .hero::after { top:68px; width:32px; height:32px; }
+  .section, .glimpse, .guide, .support, .connect, .invitation { padding:72px 20px; }
+  .recognition { padding:72px 20px; }
+  .decl-row { flex-direction:column; gap:10px; }
+  .contrast-grid { grid-template-columns:1fr; }
+  .contrast-col { padding:52px 28px; }
+  .contrast-col.passenger { border-right:none; border-bottom:1px solid var(--hair-mid); }
+  .timeline { grid-template-columns:1fr; gap:18px; }
+  .tl-bridge { display:none; }
+  .pillars { grid-template-columns:1fr; }
+  .ch-grid, .front-grid, .connect-grid, .support-grid { grid-template-columns:1fr; }
+  .part-head { grid-template-columns:1fr; gap:8px; }
+  .foot-top { flex-direction:column; }
+  .foot-bottom { flex-direction:column; align-items:flex-start; }
+  .foot-decl { text-align:left; }
+}
+
+@media (max-width: 520px) {
+  .hero-title { font-size:clamp(48px, 14vw, 80px); }
+  .stats-row { grid-template-columns:1fr; }
+  .stat-cell + .stat-cell { border-left:none; border-top:1px solid var(--hair); }
+}
 </style>
 </head>
 <body>
 
-<!-- ==================== NAVIGATION ==================== -->
-<nav id="nav">
-  <a href="#" class="nav-logo">
-    <img src="images/APEX_VECTOR_Icon__Transparent.png" alt="" class="nav-logo-icon">
-    <div class="nav-logo-text-block">
-      <span class="nav-logo-the">The</span>
-      <span class="nav-logo-name">Apex Vector</span>
-      <span class="nav-logo-studio">Studio</span>
-    </div>
-  </a>
+<div class="atmo">
+  <div class="atmo-grid"></div>
+  <div class="atmo-stars"></div>
+  <div class="atmo-scan"></div>
+</div>
 
-  <div class="nav-links">
-    <a href="#pillars">The 4 Pillars</a>
-    <a href="#distinction">The Intelligence Metabolism&trade;</a>
-    <a href="#model">The Virtual Studio</a>
-    <a href="#credentials">The Expertise</a>
-    <a href="https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/" target="_blank" class="nav-cta">Schedule a Conversation</a>
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <span class="nav-mark">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.4">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          <path d="M4.93 5.93a16 16 0 0 1 14.14 0M4.93 18.07a16 16 0 0 0 14.14 0"/>
+        </svg>
+      </span>
+      <span class="nav-title">
+        SSE<em>v2</em>
+        <small>Crew Interface · v0.1</small>
+      </span>
+    </a>
+
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span>Crew Activation · Online</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#recognition">Mission</a></li>
+      <li><a href="#guide">Guide</a></li>
+      <li><a href="#support">Support</a></li>
+      <li><a href="#connect">Connect</a></li>
+      <li><a href="/site-index.html">Index</a></li>
+      <li class="nav-cta-li"><a href="https://archive.org/details/spaceship-earth-v-2.0-an-implementation-guide" class="nav-cta">Free PDF ↓</a></li>
+    </ul>
   </div>
 </nav>
 
-<!-- ==================== HERO ==================== -->
+<!-- ════ HERO ════ -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-label label">
-      <div class="gold-rule"></div>
-      <span>Private Executive Technology Coaching</span>
-      <div class="gold-rule"></div>
+  <div class="hero-orb">
+    <div class="hero-orb-ring r2"></div>
+    <div class="hero-orb-ring"></div>
+    <div class="hero-orb-core"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      Transmission Active · Crew Channel Open
     </div>
-    <h1>Lead your technology transformation<br>with <em>genuine confidence</em></h1>
-    <p class="hero-sub">
-      A private coaching practice for executives navigating AI, blockchain, cybersecurity, and data science — built on four decades of cross-domain technology leadership. Confidential. Personalized. On your side.
-    </p>
+
+    <h1 class="hero-title">
+      SPACESHIP
+      <span class="line2">EARTH <span class="v-tag">v2.0</span></span>
+    </h1>
+
+    <div class="hero-sub">
+      An Implementation Guide <span>·</span> Noah O. Bodhi <span>·</span> ssev2-crew.org
+    </div>
+
+    <div class="fuller-quote">
+      <p>"We are not going to be able to operate our Spaceship Earth successfully, nor for much longer, unless we see it as a whole spaceship and our fate as common."</p>
+      <cite>R. Buckminster Fuller · 1969 — He had the vision. We have the tools.</cite>
+    </div>
+
+    <div class="console-panel">
+      <span class="c-br-bl"></span><span class="c-br-br"></span>
+
+      <div class="console-header">
+        <span class="ch-tag">SYS/01 · Crew Manifest</span>
+        <span class="ch-live">Live</span>
+      </div>
+
+      <div class="decl-row">
+        <span class="decl-line">You are conscious.</span>
+        <span class="decl-sep"></span>
+        <span class="decl-line">You are capable.</span>
+        <span class="decl-sep"></span>
+        <span class="decl-line accent">You are crew.</span>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-cell pirates">
+          <span class="stat-bar"></span>
+          <span class="stat-pct">1%</span>
+          <span class="stat-lbl">Pirates</span>
+        </div>
+        <div class="stat-cell passenger">
+          <span class="stat-bar"></span>
+          <span class="stat-pct">98%</span>
+          <span class="stat-lbl">Passengers</span>
+        </div>
+        <div class="stat-cell crew">
+          <span class="stat-bar"></span>
+          <span class="stat-pct">1%</span>
+          <span class="stat-lbl">Crew · Activating</span>
+        </div>
+      </div>
+    </div>
+
     <div class="hero-actions">
-      <a href="assessment.html" class="btn-primary">Measure Your Readiness</a>
-      <a href="#distinction" class="btn-ghost">How It Works</a>
+      <a href="#guide" class="btn btn-primary">
+        Access the Guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#recognition" class="btn btn-ghost">
+        You Already Know This
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ==================== FOUR PILLARS ==================== -->
-<section class="pillars" id="pillars">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="label">
-        <div class="gold-rule"></div>
-        <span>The 4 Pillars</span>
-        <div class="gold-rule"></div>
-      </div>
-      <h2>Every engagement draws from four interconnected domains</h2>
+<!-- ════ RECOGNITION ════ -->
+<section class="recognition" id="recognition">
+  <div class="recog-inner">
+    <div class="stage-bar">
+      <span class="sb-num">PHASE 01</span>
+      <span class="sb-dash"></span>
+      <span class="sb-time">Recognition</span>
     </div>
-    <div class="pillars-grid reveal">
-      <div class="pillar">
-        <div class="pillar-num">A</div>
-        <h3>Artificial Intelligence</h3>
-        <div class="pillar-sub">Strategy & Governance</div>
-        <p>Adoption strategy, workforce impact, vendor evaluation, responsible AI governance, and competitive positioning.</p>
+    <div class="section-eye">Before We Go Further</div>
+    <h2 class="recog-h">You Already Recognize This Pattern</h2>
+    <div class="recog-body">
+      <p>Every time you felt manipulated by a platform. Every time artificial barriers blocked information that should be freely available. Every time you sensed, in your gut, that the system was not designed for your benefit — you were not being paranoid.</p>
+      <p><em>Your frustration is intelligence recognizing dysfunction.</em></p>
+      <p>R. Buckminster Fuller identified this pattern in 1969. He called them the Great Pirates — the small groups that maintain disproportionate power by controlling what others are allowed to know about how the world actually works. <strong>They did not invent scarcity. They manufactured it.</strong> And they have maintained the manufacturing process ever since.</p>
+      <p>This guide gives you the vocabulary for what you've already been sensing — and the implementation architecture for building something they cannot compete with.</p>
+    </div>
+
+    <div class="pull">
+      <p>"You are simultaneously the resource being extracted and the potential recognizer of how that extraction operates. You're not just a mine being depleted — you're a geologist who can understand the entire mining operation."</p>
+      <cite>Chapter 1 · The Great Pirates' Modern Descendants</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CONTRAST ════ -->
+<section class="contrast">
+  <div class="contrast-grid">
+    <div class="contrast-col passenger">
+      <div class="contrast-label">The Default</div>
+      <div class="contrast-h">PASSENGER</div>
+      <ul class="ci-list">
+        <li class="ci"><span class="ci-mark">—</span><span>Consumes the spaceship. <strong>Waits for someone else to operate it.</strong></span></li>
+        <li class="ci"><span class="ci-mark">—</span><span>Generates data that feeds the extraction system. <strong>Receives nothing from that transaction.</strong></span></li>
+        <li class="ci"><span class="ci-mark">—</span><span>Experiences scarcity as natural. <strong>Does not recognize it as manufactured.</strong></span></li>
+        <li class="ci"><span class="ci-mark">—</span><span>Reacts to manufactured urgencies. <strong>Misses the actual emergency.</strong></span></li>
+        <li class="ci"><span class="ci-mark">—</span><span>Knows something is broken. <strong>Believes the problem is too large to address.</strong></span></li>
+      </ul>
+    </div>
+    <div class="contrast-col crew">
+      <div class="contrast-label">The Shift</div>
+      <div class="contrast-h">CREW</div>
+      <ul class="ci-list">
+        <li class="ci"><span class="ci-mark">▶</span><span>Operates the spaceship. <strong>Takes responsibility for the whole system.</strong></span></li>
+        <li class="ci"><span class="ci-mark">▶</span><span>Generates data for coordination. <strong>Owns the infrastructure that runs on it.</strong></span></li>
+        <li class="ci"><span class="ci-mark">▶</span><span>Recognizes abundance as the natural state. <strong>Identifies and removes artificial restrictions.</strong></span></li>
+        <li class="ci"><span class="ci-mark">▶</span><span>Applies small, precise interventions. <strong>Understands the trimtab — small force, large change.</strong></span></li>
+        <li class="ci"><span class="ci-mark">▶</span><span>Builds the alternative until the old system is obsolete. <strong>Doesn't fight the existing reality.</strong></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CONVERGENCE ════ -->
+<section class="section convergence">
+  <div class="section-wrap">
+    <div class="stage-bar">
+      <span class="sb-num">PHASE 02</span>
+      <span class="sb-dash"></span>
+      <span class="sb-time">Convergence</span>
+    </div>
+    <div class="section-eye">The Window Is Open</div>
+    <h2 class="section-h">Fuller Had the Vision.<br>We Have the Tools.</h2>
+    <p class="section-lead">For the first time in history, the implementation of planetary abundance is not theoretical. The technology exists — right now — to coordinate at the scale Fuller imagined.</p>
+
+    <div class="timeline">
+      <div class="tl-node past">
+        <div class="tl-year">1969</div>
+        <div class="tl-label">Vision · No Implementation Path</div>
+        <p class="tl-desc">Fuller publishes the vision. The diagnosis is precise. The tools don't exist yet. No AI. No blockchain. No planetary sensing network. No distributed coordination infrastructure. The window is not yet open.</p>
       </div>
-      <div class="pillar">
-        <div class="pillar-num">B</div>
-        <h3>Blockchain</h3>
-        <div class="pillar-sub">Digital Trust</div>
-        <p>Smart contracts, digital identity, supply chain transparency, tokenization, and decentralized architectures.</p>
+      <div class="tl-bridge">
+        <div class="tl-bridge-line"></div>
+        <div class="tl-bridge-lbl">55 Years</div>
       </div>
-      <div class="pillar">
-        <div class="pillar-num">C</div>
-        <h3>Cybersecurity</h3>
-        <div class="pillar-sub">Strategic Risk</div>
-        <p>Strategic risk posture, board-ready governance, crisis leadership, regulatory navigation, and cyber as competitive advantage.</p>
+      <div class="tl-node now">
+        <div class="tl-year">NOW</div>
+        <div class="tl-label">Vision + Tools · Implementation Possible</div>
+        <p class="tl-desc">All four coordination technologies exist and are maturing simultaneously. The implementation is possible. The choice is binary: evolve the operating system, or continue until system collapse makes evolution impossible.</p>
       </div>
+    </div>
+
+    <div class="pillars">
       <div class="pillar">
-        <div class="pillar-num">D</div>
-        <h3>Data Science</h3>
-        <div class="pillar-sub">Analytics & Culture</div>
-        <p>Data-driven decisions, analytics maturity, privacy and ethics, building data culture, and ROI measurement.</p>
+        <div class="pillar-top">
+          <span class="pillar-num">PILLAR 01</span>
+          <span class="pillar-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+              <circle cx="12" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="3" cy="19" r="1.5" fill="currentColor"/>
+              <circle cx="21" cy="19" r="1.5" fill="currentColor"/>
+              <circle cx="12" cy="13" r="1.5" fill="currentColor"/>
+              <line x1="12" y1="4.5" x2="12" y2="11.5"/>
+              <line x1="4.3" y1="18" x2="10.8" y2="14"/>
+              <line x1="19.7" y1="18" x2="13.2" y2="14"/>
+              <line x1="12" y1="4.5" x2="4.3" y2="18"/>
+              <line x1="12" y1="4.5" x2="19.7" y2="18"/>
+            </svg>
+          </span>
+        </div>
+        <div class="pillar-name">Artificial Intelligence</div>
+        <p class="pillar-desc">Comprehensive intelligence amplification. Modeling whole-Earth dynamics. Augmenting human decision-making with planetary perspective.</p>
+        <div class="pillar-shift">
+          <span class="ps-from">Control</span>
+          <span class="ps-arr">→</span>
+          <span class="ps-to">Amplification</span>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-top">
+          <span class="pillar-num">PILLAR 02</span>
+          <span class="pillar-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+              <rect x="1" y="9" width="6" height="6" rx="1"/>
+              <rect x="9" y="9" width="6" height="6" rx="1"/>
+              <rect x="17" y="9" width="6" height="6" rx="1"/>
+              <line x1="7" y1="12" x2="9" y2="12"/>
+              <line x1="15" y1="12" x2="17" y2="12"/>
+              <line x1="4" y1="9" x2="4" y2="6"/>
+              <line x1="12" y1="9" x2="12" y2="6"/>
+              <line x1="20" y1="9" x2="20" y2="6"/>
+              <line x1="4" y1="15" x2="4" y2="18"/>
+              <line x1="12" y1="15" x2="12" y2="18"/>
+              <line x1="20" y1="15" x2="20" y2="18"/>
+            </svg>
+          </span>
+        </div>
+        <div class="pillar-name">Blockchain</div>
+        <p class="pillar-desc">Trustless coordination at global scale. Resource democracy without centralized gatekeepers. Fuller's vision, now technically achievable.</p>
+        <div class="pillar-shift">
+          <span class="ps-from">Extraction</span>
+          <span class="ps-arr">→</span>
+          <span class="ps-to">Coordination</span>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-top">
+          <span class="pillar-num">PILLAR 03</span>
+          <span class="pillar-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+              <path d="M12 2L4 6v6c0 5.25 3.5 9.74 8 11 4.5-1.26 8-5.75 8-11V6L12 2z"/>
+              <polyline points="8.5,12 10.5,14 15.5,9"/>
+            </svg>
+          </span>
+        </div>
+        <div class="pillar-name">Cybersecurity</div>
+        <p class="pillar-desc">Crew sovereignty in digital space. Privacy as freedom foundation. The right to coordinate without surveillance or interception.</p>
+        <div class="pillar-shift">
+          <span class="ps-from">Surveillance</span>
+          <span class="ps-arr">→</span>
+          <span class="ps-to">Sovereignty</span>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-top">
+          <span class="pillar-num">PILLAR 04</span>
+          <span class="pillar-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+              <polyline points="2,17 6,11 10,14 14,7 18,10 22,4"/>
+              <line x1="2" y1="20" x2="22" y2="20" stroke-width="0.75" opacity="0.5"/>
+            </svg>
+          </span>
+        </div>
+        <div class="pillar-name">Data Science</div>
+        <p class="pillar-desc">Real-time planetary sensing. Vital signs of the spaceship — visible and actionable for the first time in history.</p>
+        <div class="pillar-shift">
+          <span class="ps-from">Opacity</span>
+          <span class="ps-arr">→</span>
+          <span class="ps-to">Awareness</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
-  
-<!-- ==================== WHAT THE PRACTICE DOES ==================== -->
-<section class="distinction" id="distinction">
-  <div class="section-inner">
-    <div class="distinction-grid">
-      <div class="distinction-text reveal">
-        <div class="section-header">
-          <div class="label">
-            <div class="gold-rule"></div>
-            <span>What the Practice Does</span>
-            <div class="gold-rule"></div>
+
+<!-- ════ GLIMPSE ════ -->
+<section class="glimpse">
+  <div class="glimpse-inner">
+    <div class="stage-bar" style="justify-content:center; display:inline-flex;">
+      <span class="sb-num">PROLOGUE</span>
+      <span class="sb-dash" style="min-width:60px; flex:none;"></span>
+      <span class="sb-time">2050</span>
+    </div>
+    <div class="section-eye" style="display:block; margin:0 auto 22px;">A Day In 2050 · From the Prologue</div>
+    <h2 class="glimpse-h">What Crew Operation<br>Actually Looks Like</h2>
+    <p class="glimpse-text">
+      Maya opens her eyes to sunlight through photosynthetic walls. Her dashboard shows atmospheric CO₂ in steady decline. She collaborates in real time with engineers in São Paulo and community organizers on the ground — coordinated by distributed AI, governed by blockchain resource protocols that eliminate extractive intermediaries. Abundance credits flow proportional to contribution.
+      <br><br>
+      <strong>This is not utopian fantasy.</strong> The technological components exist or are in advanced development today. This is engineering at planetary scale. The question is not whether it is possible. The question is how many people choose to be crew before the window closes.
+    </p>
+    <span class="glimpse-badge">The implementation guide is free · Open source · Available here</span>
+  </div>
+</section>
+
+<!-- ════ GUIDE ════ -->
+<section class="guide" id="guide">
+  <div class="section-wrap">
+    <div class="stage-bar">
+      <span class="sb-num">PHASE 03</span>
+      <span class="sb-dash"></span>
+      <span class="sb-time">Implementation Guide</span>
+    </div>
+    <div class="section-eye">Mission Documents</div>
+    <h2 class="section-h">18 Chapters. 5 Appendices.<br>Completely Free.</h2>
+    <p class="section-lead" style="font-size:18px; margin-bottom:48px;">From diagnosing the extraction system to building the alternatives. Open source. CC BY-SA 4.0. Fork it, adapt it, deploy it in your community or organization.</p>
+
+    <!-- Front Matter -->
+    <div class="part-block">
+      <div class="part-head">
+        <span class="part-tag">Front Matter</span>
+        <span class="part-name">Opening Documents</span>
+        <span class="part-thesis">Orientation before boarding.</span>
+      </div>
+      <div class="front-grid">
+        <a href="/chapters/cover.html" class="fc">
+          <div class="fc-type">Cover</div>
+          <div class="fc-title">Cover</div>
+          <div class="fc-desc">CC BY-SA 4.0</div>
+        </a>
+        <a href="/chapters/contents.html" class="fc">
+          <div class="fc-type">Contents</div>
+          <div class="fc-title">Table of Contents</div>
+          <div class="fc-desc">Full guide navigation</div>
+        </a>
+        <a href="/chapters/authors-note.html" class="fc">
+          <div class="fc-type">Author's Note</div>
+          <div class="fc-title">Author's Note</div>
+          <div class="fc-desc">Working with AI is the new synergy</div>
+        </a>
+        <a href="/chapters/prologue.html" class="fc">
+          <div class="fc-type">Prologue</div>
+          <div class="fc-title">A Day in 2050</div>
+          <div class="fc-desc">The convergence point</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Part I -->
+    <div class="part-block">
+      <div class="part-head">
+        <span class="part-tag">Part I</span>
+        <span class="part-name">Current System</span>
+        <span class="part-thesis">The diagnosis. What is actually happening and why incremental reform cannot fix it.</span>
+      </div>
+      <div class="ch-grid">
+        <a href="/chapters/chapter-01.html" class="ch-card">
+          <span class="ch-num">01</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Great Pirates' Modern Descendants</div>
+            <div class="ch-desc">They moved from navigation secrets to data monopoly. The pattern is identical.</div>
           </div>
-          <h2>We develop the executive — then support them as they lead</h2>
-        </div>
-        <p>
-          This is not consulting, training, or a vendor advisory service. This is a private coaching relationship that builds your personal capability, confidence, and judgment across the technology domains transforming every industry.
-        </p>
-        <p>
-          Learning and advice are continuous and fluid — the weight shifts based on what you need. Individual development never stops, even as applied strategy deepens.
-        </p>
+        </a>
+        <a href="/chapters/chapter-02.html" class="ch-card">
+          <span class="ch-num">02</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Scarcity Infrastructure</div>
+            <div class="ch-desc">How artificial scarcity is manufactured, maintained, and what it requires you not to see.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-03.html" class="ch-card">
+          <span class="ch-num">03</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Crisis of Fragmented Intelligence</div>
+            <div class="ch-desc">Why isolated expertise cannot solve planetary-scale challenges. Fragmentation is a feature, not a bug.</div>
+          </div>
+        </a>
       </div>
+    </div>
 
-      <!-- Hybrid Human/AI Model Card -->
-      <div class="hybrid-card reveal">
-        <div class="hybrid-card-label">Our Differentiator</div>
-        <h3>The Intelligence Metabolism&trade;</h3>
-        <p>
-          Every interaction you experience — from the initial assessment to the regular briefings to the coaching itself — is a product of The Intelligence Metabolism™: a proprietary Hybrid Human/AI system that synthesizes insights across all four technology pillars into a coaching relationship that compounds in value over time.
-        </p>
-        <h3>A Hybrid Human/AI Model</h3>
-        <p>
-          Your coach provides what AI cannot — strategic judgment, coaching presence, relationship depth, and the intuition that only comes from decades of cross-domain experience.
-        </p>
-        <p>
-          AI handles volume — research, intelligence scanning, first-draft briefings, analytical frameworks, and session preparation. The combination delivers depth, breadth, and responsiveness that would normally require a full team.
-        </p>
-        <p class="hybrid-emphasis">
-          We don't just use AI to serve you — we teach you to use it effectively. Every engagement builds your own capacity to leverage AI as a leadership tool, reinforcing the value of our relationship.
-        </p>
+    <!-- Part II -->
+    <div class="part-block">
+      <div class="part-head">
+        <span class="part-tag">Part II</span>
+        <span class="part-name">Technological Toolkit</span>
+        <span class="part-thesis">The same technologies used for extraction — reconfigured for coordination.</span>
+      </div>
+      <div class="ch-grid">
+        <a href="/chapters/chapter-04.html" class="ch-card">
+          <span class="ch-num">04</span>
+          <div class="ch-card-body">
+            <div class="ch-title">AI as Comprehensive Intelligence Amplifier</div>
+            <div class="ch-desc">Not automation. Not surveillance. AI as the cognitive tool that gives crew members planetary perspective.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-05.html" class="ch-card">
+          <span class="ch-num">05</span>
+          <div class="ch-card-body">
+            <div class="ch-title">Blockchain as Truth and Abundance Infrastructure</div>
+            <div class="ch-desc">Trustless coordination at scale. Resource democracy without gatekeepers.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-06.html" class="ch-card">
+          <span class="ch-num">06</span>
+          <div class="ch-card-body">
+            <div class="ch-title">Cybersecurity and Privacy as Freedom Foundation</div>
+            <div class="ch-desc">Digital sovereignty for crew members. Privacy as the prerequisite for genuine freedom.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-07.html" class="ch-card">
+          <span class="ch-num">07</span>
+          <div class="ch-card-body">
+            <div class="ch-title">Data Science as Planetary Sensing System</div>
+            <div class="ch-desc">Real-time awareness of the spaceship's vital signs. The feedback loops that make course correction possible.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Part III -->
+    <div class="part-block">
+      <div class="part-head">
+        <span class="part-tag">Part III</span>
+        <span class="part-name">Operating System</span>
+        <span class="part-thesis">How the technologies integrate into a coherent planetary architecture.</span>
+      </div>
+      <div class="ch-grid">
+        <a href="/chapters/chapter-08.html" class="ch-card">
+          <span class="ch-num">08</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Synergistic Technology Stack</div>
+            <div class="ch-desc">Integration creates capabilities no single technology provides. Fuller's synergy principle applied.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-09.html" class="ch-card">
+          <span class="ch-num">09</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Crew Interface Systems</div>
+            <div class="ch-desc">How crew members interact with planetary coordination capabilities.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-10.html" class="ch-card">
+          <span class="ch-num">10</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Resource Democracy Platform</div>
+            <div class="ch-desc">Direct crew participation in resource allocation — not representative, but operational.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Part IV -->
+    <div class="part-block">
+      <div class="part-head">
+        <span class="part-tag">Part IV</span>
+        <span class="part-name">Implementation</span>
+        <span class="part-thesis">How to start. How to scale. How to protect what you're building.</span>
+      </div>
+      <div class="ch-grid">
+        <a href="/chapters/chapter-11.html" class="ch-card">
+          <span class="ch-num">11</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Bootstrap Sequence</div>
+            <div class="ch-desc">Activation from individual to community to planetary scale. No permission required.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-12.html" class="ch-card">
+          <span class="ch-num">12</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Tipping Point Strategy</div>
+            <div class="ch-desc">How to reach the critical mass where the new system becomes self-sustaining.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-13.html" class="ch-card">
+          <span class="ch-num">13</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Immunity Protocols</div>
+            <div class="ch-desc">The extraction system will attempt to co-opt what you build. These are the defenses.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Part V -->
+    <div class="part-block">
+      <div class="part-head">
+        <span class="part-tag">Part V</span>
+        <span class="part-name">Operational Spaceship</span>
+        <span class="part-thesis">What crew operation looks like at scale.</span>
+      </div>
+      <div class="ch-grid">
+        <a href="/chapters/chapter-14.html" class="ch-card">
+          <span class="ch-num">14</span>
+          <div class="ch-card-body">
+            <div class="ch-title">Planetary Resource Orchestration</div>
+            <div class="ch-desc">Coordinating Earth's resources with crew consciousness at operational scale.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-15.html" class="ch-card">
+          <span class="ch-num">15</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Learning System</div>
+            <div class="ch-desc">Continuous evolution through collective intelligence. The ship gets smarter as crew activates.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-16.html" class="ch-card">
+          <span class="ch-num">16</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Empowered Crew</div>
+            <div class="ch-desc">Life as a conscious, capable crew member with full feedback loops and genuine agency.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Part VI -->
+    <div class="part-block">
+      <div class="part-head">
+        <span class="part-tag">Part VI</span>
+        <span class="part-name">Evolutionary Leap</span>
+        <span class="part-thesis">Where abundance thinking leads — civilization as creative act.</span>
+      </div>
+      <div class="ch-grid">
+        <a href="/chapters/chapter-17.html" class="ch-card">
+          <span class="ch-num">17</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Creative Civilization</div>
+            <div class="ch-desc">What becomes possible when energy spent on manufactured scarcity is liberated.</div>
+          </div>
+        </a>
+        <a href="/chapters/chapter-18.html" class="ch-card">
+          <span class="ch-num">18</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Cosmic Perspective</div>
+            <div class="ch-desc">Our place in the universe as a conscious spaceship crew. The mission in full context.</div>
+          </div>
+        </a>
+        <a href="/chapters/epilogue.html" class="ch-card">
+          <span class="ch-num" style="color:var(--cyan);">END</span>
+          <div class="ch-card-body">
+            <div class="ch-title">Epilogue · Reporting for Duty</div>
+            <div class="ch-desc">Spaceship Earth v2.0 needs crew. The ship does not wait.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Appendices -->
+    <div class="part-block">
+      <div class="part-head">
+        <span class="part-tag">Appendices</span>
+        <span class="part-name">Technical References</span>
+        <span class="part-thesis">The underlying mathematics, specifications, and case studies.</span>
+      </div>
+      <div class="ch-grid">
+        <a href="/chapters/appendix-a.html" class="ch-card appx">
+          <span class="ch-num">A</span>
+          <div class="ch-card-body">
+            <div class="ch-title">Operating Manual Summary</div>
+            <div class="ch-desc">Fuller's original — the foundation this guide implements.</div>
+          </div>
+        </a>
+        <a href="/chapters/appendix-b.html" class="ch-card appx">
+          <span class="ch-num">B</span>
+          <div class="ch-card-body">
+            <div class="ch-title">The Mathematics of Abundance</div>
+            <div class="ch-desc">Quantitative foundations. The numbers behind the argument.</div>
+          </div>
+        </a>
+        <a href="/chapters/appendix-c.html" class="ch-card appx">
+          <span class="ch-num">C</span>
+          <div class="ch-card-body">
+            <div class="ch-title">Technical Reference</div>
+            <div class="ch-desc">Implementation specifications and technical architecture.</div>
+          </div>
+        </a>
+        <a href="/chapters/appendix-d.html" class="ch-card appx">
+          <span class="ch-num">D</span>
+          <div class="ch-card-body">
+            <div class="ch-title">Case Studies</div>
+            <div class="ch-desc">Abundance systems operating at scale, right now.</div>
+          </div>
+        </a>
+        <a href="/chapters/appendix-e.html" class="ch-card appx">
+          <span class="ch-num">E</span>
+          <div class="ch-card-body">
+            <div class="ch-title">CARE$ Economic Foundations</div>
+            <div class="ch-desc">Economic architecture for the Community Abundance Regeneration Exchange.</div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== INTELLIGENCE BOOST ==================== -->
-<section class="assessment" id="intelligence-boost" style="background: var(--charcoal); border-top: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15);">
-  <div class="section-inner reveal">
-    <div class="label label--centered" style="margin-bottom: 1.5rem;">
-      <div class="gold-rule"></div>
-      <span>The Intelligence Boost</span>
-      <div class="gold-rule"></div>
-    </div>
-    <h2>executive technology micro-lessons — at no cost</h2>
-    <p style="max-width: 640px; margin: 0 auto 3rem;">
-      One lesson per day across AI, Blockchain &amp; Digital Trust, Cybersecurity, Data &amp; Analytics,
-      Governance &amp; Risk, and Technology Leadership. Every lesson is source-linked, research-backed,
-      and immediately applicable. This is a sample of the content our clients work through with their Coach — available here, free, with no account required.
-    </p>
-    <div class="assessment-features" style="margin-bottom: 3rem;">
-      <div class="assessment-feature">
-        <span>12</span>
-        <span>Lessons</span>
-      </div>
-      <div class="assessment-feature">
-        <span>6</span>
-        <span>Pillars/Topics</span>
-      </div>
-      <div class="assessment-feature">
-        <span>Free</span>
-        <span>No Account Required</span>
-      </div>
-    </div>
-    <a href="/avs-boost/" class="btn-primary">Open the Intelligence Boost &rarr;</a>
-  </div>
-</section>
-
-<!-- ==================== ASSESSMENT CTA ==================== -->
-<section class="assessment" id="assessment">
-  <div class="section-inner reveal">
-    <div class="label label--centered" style="margin-bottom: 1.5rem;">
-      <div class="gold-rule"></div>
-      <span>Measure Your Readiness</span>
-      <div class="gold-rule"></div>
-    </div>
-    <h2>Technology Leadership Readiness Assessment</h2>
-    <p>
-      A confidential evaluation of your individual proficiency and organizational context across all four pillars. Fifteen minutes. Genuine insights. No sales pitch.
-    </p>
-    <div class="assessment-features">
-      <div class="assessment-feature">
-        <span>4</span>
-        <span>Technology Pillars</span>
-      </div>
-      <div class="assessment-feature">
-        <span>15</span>
-        <span>Minutes</span>
-      </div>
-      <div class="assessment-feature">
-        <span>100%</span>
-        <span>Confidential</span>
-      </div>
-    </div>
-    <a href="assessment.html" class="btn-primary">Start Your Assessment</a>
-  </div>
-</section>
-
-<!-- ==================== THE VIRTUAL STUDIO MODEL ==================== -->
-<section class="model" id="model">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="label">
-        <div class="gold-rule"></div>
-        <span>The Virtual Studio Model</span>
-        <div class="gold-rule"></div>
-      </div>
-      <h2>The Rooms. The Resources. The Relationships.</h2>
-    </div>
-    <p class="model-intro reveal">
-      Three interlocking elements define how the practice is structured, how you experience it, and how value compounds over time — all delivered through a secure, private virtual environment.
-    </p>
-    <div class="model-cards reveal">
-      <div class="model-card">
-        <div class="model-card-icon">
-          <!-- Door / entrance icon -->
-          <svg viewBox="0 0 24 24"><path d="M3 21V3h12v18"/><path d="M15 21H3"/><path d="M15 3h3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-3"/><circle cx="12" cy="12" r="1"/></svg>
-        </div>
-        <h3>Rooms</h3>
-        <p>Purpose-built virtual spaces within a secure environment. Each room serves a specific function — from your initial assessment through ongoing coaching, strategic advisory, team workshops, and peer exchange.</p>
-      </div>
-      <div class="model-card">
-        <div class="model-card-icon">
-          <!-- Books / library icon -->
-          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="14" y2="10"/></svg>
-        </div>
-        <h3>Resources</h3>
-        <p>Everything you access: personalized briefings, curated intelligence, coaching sessions, frameworks, decision tools, and the readiness assessment — all tailored to your situation, role, and stage of development.</p>
-      </div>
-      <div class="model-card">
-        <div class="model-card-icon">
-          <!-- People / relationships icon -->
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3>Relationships</h3>
-        <p>The human connections that make coaching transformative. The private 1:1 relationship with your coach. Facilitated team dynamics. Cross-organizational peer exchange with executives who share your challenges.</p>
-      </div>
-    </div>
-
-    <!-- 24/7 Async callout -->
-    <div class="async-bar reveal">
-      <div class="async-bar-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      </div>
-      <div class="async-bar-content">
-        <h4>Available When You Are — 24/7 Asynchronous Access</h4>
-        <p>Post questions, share vendor pitches, flag emerging situations, or request perspective between sessions — any time, from anywhere. Your virtual studio is always open. Coaching support and curated resources are available on your schedule, not just during scheduled sessions.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ==================== CREDENTIALS ==================== -->
-<section class="credentials" id="credentials">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="label">
-        <div class="gold-rule"></div>
-        <span>The Expertise Behind the Practice</span>
-        <div class="gold-rule"></div>
-      </div>
-      <h2>Four decades across every dimension of technology leadership</h2>
-    </div>
-    <div class="cred-grid reveal">
-      <div class="cred-item">
-        <span class="cred-domain">Cybersecurity</span>
-        <span class="cred-title">State of Nevada CISO</span>
-        <span class="cred-detail">Enterprise security across all state agencies. Private sector expertise as CISO at IGT and Symantec Director of Security Strategy.</span>
-      </div>
-      <div class="cred-item">
-        <span class="cred-domain">AI & Decision Science</span>
-        <span class="cred-title">CEO & Founder, Cognitive Extension, Inc.</span>
-        <span class="cred-detail">Built the Decision Optimization Engine combining AI with collective intelligence for organizational decision-making.</span>
-      </div>
-      <div class="cred-item">
-        <span class="cred-domain">Enterprise Consulting</span>
-        <span class="cred-title">Ernst & Young · IBM Global Services</span>
-        <span class="cred-detail">Large-scale transformation across Fortune 500 environments. Deutsche Telekom, Standard Chartered Bank, and more.</span>
-      </div>
-      <div class="cred-item">
-        <span class="cred-domain">Blockchain & Digital Trust</span>
-        <span class="cred-title">Privacy Committee Chair,<br>NSTIC Steering Group</span>
-        <span class="cred-detail">National policy on digital identity and trust frameworks. Board of Directors, Paycasso Verify (UK). Decentralized trust architectures.</span>
-      </div>
-      <div class="cred-item">
-        <span class="cred-domain">Education & Research</span>
-        <span class="cred-title">Cybersecurity Center Co-Director,<br>University of Nevada, Reno</span>
-        <span class="cred-detail">Published researcher at the Hawaii International Conference on System Sciences (HICSS) and the International Conference on Information Systems Security and Privacy (ICISSP).</span>
-      </div>
-      <div class="cred-item">
-        <span class="cred-domain">Government & Policy</span>
-        <span class="cred-title">Author and Advocate for<br>Cybersecurity Legislation</span>
-        <span class="cred-detail">Co-author and subject-matter expert testimony on 10+ cybersecurity bills including NV SB227 "Nevada's Encryption Law."</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== CONTACT ==================== -->
-<div class="contact" id="contact">
-  <div class="contact-inner">
-    <div class="contact-left">
-      <span class="contact-name">James R. Elste</span>
-      <span class="contact-title">
-        Private Executive Technology Coach & Strategic Advisor<br>
-        Former State CISO · AI Company Founder · Published Researcher
-      </span>
-    </div>
-    <div class="contact-right">
-      <a href="https://outlook.office.com/book/TheApexVectorStudio@apex-vector.com/" target="_blank">Schedule a Conversation</a>
-      <a href="https://linkedin.com/in/james-elste-159a0b1" target="_blank">LinkedIn</a>
-    </div>
-  </div>
+<!-- ════ FULLER BAND ════ -->
+<div class="fuller-band">
+  <blockquote>
+    <p>"You never change things by fighting the existing reality. To change something, build a new model that makes the existing model obsolete."</p>
+    <cite>R. Buckminster Fuller · This is that model.</cite>
+  </blockquote>
 </div>
 
-<!-- ==================== FOOTER ==================== -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-left">
-      <div class="footer-brand">
-        <img src="images/APEX_VECTOR_Icon__Transparent.png" alt="" class="footer-icon">
-        <span class="footer-brand-text">The <strong>Apex Vector</strong> Studio</span>
+<!-- ════ SUPPORT ════ -->
+<section class="section support" id="support">
+  <div class="section-wrap">
+    <div class="stage-bar">
+      <span class="sb-num">PHASE 04</span>
+      <span class="sb-dash"></span>
+      <span class="sb-time">Mission Support</span>
+    </div>
+    <div class="section-eye">Support the Mission</div>
+    <h2 class="section-h">Help Activate<br>Crew Consciousness</h2>
+    <p class="section-lead" style="font-size:18px;">The guide is free. The mission is not cheap. Help build the infrastructure — starting with making this knowledge freely accessible to every crew member worldwide.</p>
+
+    <div class="support-grid">
+      <div class="s-card primary">
+        <span class="s-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+            <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+          </svg>
+        </span>
+        <div class="s-title">Academic Activation Campaign</div>
+        <p class="s-body">The SSEv2 Academic Activation Campaign funds the development, documentation, and distribution of this implementation guide — and the campus activation missions that seed crew consciousness in the next generation of operators.</p>
+        <a href="https://www.gofundme.com/f/SSEv2-AAN-Campaign" class="btn btn-primary">
+          Donate to the Crew Fund
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <p class="s-note">All funds support open-source development and community building. Every crew member who gains access to these frameworks brings us closer to the tipping point.</p>
+      </div>
+
+      <div class="s-card secondary" id="open-source">
+        <div class="s-title">Open Source Collaboration</div>
+        <p class="s-body" style="margin-bottom:16px; font-size:15px;">Fork it. Adapt it. Deploy it. This is crew knowledge, built by and for the crew.</p>
+
+        <a href="https://github.com/NoahOBodhi/Spaceship_Earth_v2.0_An_Implementation_Guide" class="repo">
+          <span class="repo-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </span>
+          <div>
+            <div class="repo-title">Implementation Guide</div>
+            <div class="repo-desc">Canonical repository — 18 chapters, appendices, all resources. Fork to create your contextual adaptation.</div>
+            <span class="repo-link">Access the Guide →</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/NoahOBodhi/SSEv2_NEXUS_G" class="repo">
+          <span class="repo-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </span>
+          <div>
+            <div class="repo-title">NEXUS G · Landing Page Repo</div>
+            <div class="repo-desc">This site. Will grow to include crew interface systems and coordination tools.</div>
+            <span class="repo-link">View Repo →</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/NoahOBodhi/Spaceship_Earth_v2.0_An_Implementation_Guide/blob/main/CONTRIBUTING.md" class="repo">
+          <span class="repo-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </span>
+          <div>
+            <div class="repo-title">Contribute</div>
+            <div class="repo-desc">Write, code, design, or simply show up. There is a place on this mission for everyone willing to be crew.</div>
+            <span class="repo-link">Get Involved →</span>
+          </div>
+        </a>
       </div>
     </div>
-    <div class="footer-right">
-      <span class="footer-tagline">Direction. Magnitude. Mastery.</span>
-      <span class="footer-copy">&copy; 2026 The Apex Vector Studio. All rights reserved.</span>
-      <div class="footer-links">
-        <a href="terms.html">Terms &amp; Conditions</a>
+  </div>
+</section>
+
+<!-- ════ CONNECT ════ -->
+<section class="connect" id="connect">
+  <div class="section-wrap">
+    <div class="stage-bar">
+      <span class="sb-num">PHASE 05</span>
+      <span class="sb-dash"></span>
+      <span class="sb-time">Communication</span>
+    </div>
+    <div class="section-eye">Connect</div>
+    <h2 class="section-h">Join the Crew</h2>
+    <p class="section-lead" style="font-size:18px;">Connect. Coordinate. Activate in your sector. The ship needs operators, not passengers.</p>
+
+    <div class="connect-grid">
+      <a href="mailto:noah.o.bodhi@ssev2-crew.org" class="c-card">
+        <span class="c-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </span>
+        <div class="c-label">Mission Control</div>
+        <div class="c-title">Contact</div>
+        <div class="c-detail">noah.o.bodhi@ssev2-crew.org</div>
+        <div class="c-sub">Direct line to the crew</div>
+      </a>
+
+      <a href="https://discord.gg/eppQP5KvW4" class="c-card">
+        <span class="c-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+            <path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+          </svg>
+        </span>
+        <div class="c-label">Communication Hub</div>
+        <div class="c-title">Discord</div>
+        <div class="c-detail">discord.gg/eppQP5KvW4</div>
+        <div class="c-sub">Crew coordination and discussion</div>
+      </a>
+
+      <a href="https://github.com/NoahOBodhi/SSEv2_NEXUS_G" class="c-card">
+        <span class="c-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </span>
+        <div class="c-label">Development Bridge</div>
+        <div class="c-title">GitHub</div>
+        <div class="c-detail">NoahOBodhi / SSEv2</div>
+        <div class="c-sub">Open-source collaboration hub</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ INVITATION ════ -->
+<section class="invitation">
+  <div class="inv-inner">
+    <div class="stage-bar" style="justify-content:center; display:inline-flex;">
+      <span class="sb-num">FINAL TRANSMISSION</span>
+      <span class="sb-dash" style="min-width:60px; flex:none;"></span>
+      <span class="sb-time">The Ask</span>
+    </div>
+    <h2 class="inv-h">The Ship Needs<br>Crew. Not Passengers.</h2>
+    <p class="inv-body">
+      Not passengers who want better service from the existing system. Not reformers who want the extraction infrastructure to be kinder. <strong>Crew — who understand that the only path forward is building the alternative until the old system becomes obsolete.</strong>
+      <br><br>
+      Fuller said it in 1969. The tools exist now. The guide is free. The only remaining variable is how many people choose to be crew.
+    </p>
+    <div class="inv-actions">
+      <a href="https://archive.org/details/spaceship-earth-v-2.0-an-implementation-guide" class="btn btn-primary">
+        Read the Free Guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://discord.gg/eppQP5KvW4" class="btn btn-ghost">Join the Crew</a>
+      <a href="https://www.gofundme.com/f/SSEv2-AAN-Campaign" class="btn btn-ghost">Support the Mission</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <div class="foot-title">SPACESHIP EARTH <em>v2.0</em></div>
+        <div class="foot-tag">An Implementation Guide · Noah O. Bodhi</div>
+      </div>
+      <div>
+        <div class="activated">Crew: Activated</div>
+        <div class="foot-status">
+          <span class="p">1% Pirates</span> &nbsp;|&nbsp;
+          <span class="pa">98% Passengers</span> &nbsp;|&nbsp;
+          <span class="c">1% Crew</span><br>
+          Activation is underway. Report for duty.
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-copy">
+        © 2025 Noah O. Bodhi · <a href="#">CC BY-SA 4.0</a> · Free. Open. Forkable.<br>
+        Built in collaboration between humans and AI · The crew builds the ship.<br>
+        <a href="/site-index.html">Site Index</a> ·
+        <a href="https://archive.org/details/spaceship-earth-v-2.0-an-implementation-guide">PDF</a> ·
+        <a href="https://github.com/NoahOBodhi/SSEv2_NEXUS_G">GitHub</a> ·
+        <a href="https://discord.gg/eppQP5KvW4">Discord</a>
+      </div>
+      <div class="foot-decl">
+        <span class="fd-line">You are conscious.</span>
+        <span class="fd-line">You are capable.</span>
+        <span class="fd-line fd-crew">You are crew.</span>
       </div>
     </div>
   </div>
 </footer>
-
-<!-- ==================== SCRIPTS ==================== -->
-<script>
-  // Nav scroll effect
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // Reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
 
 </body>
 </html>
